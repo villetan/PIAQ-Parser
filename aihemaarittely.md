@@ -1,4 +1,5 @@
-## Aihe: Mittausten parseri. Toteutetaan ohjelma, jonka avulla käyttäjä saa valittua mittaustulostiedostosta haluamansa 
+## Aihe:
+Mittausten parseri. Toteutetaan ohjelma, jonka avulla käyttäjä saa valittua mittaustulostiedostosta haluamansa 
 sarakkeet ja haluamansa rivit. Mittauksia kirjataan sekunnin välein, mutta ei ole tarkoituksen mukaista katsoa mittausten vaiht
 vaihtelua sekunnin välein, vaan käyttäjä voi valita eri mittauksia(mahdollisesti kaikki, mahdollisesti vain yhden) ja 
 milta tahansa mahdolliselta aikajänteeltä.
@@ -9,7 +10,8 @@ puolelta tunnilta. Ohjelma laskee seuraavan minuutin keskiarvon ja luo dokumenti
 halutulla aikavälillä ja oikeilla mittausväleillä. Haluttua mittausväliä ei voi valita, jos luettu tiedoston mittausväli 
 on liian lyhyt.
 
-##Käyttäjät: Ohjelman käyttäjä 
+##Käyttäjät:
+Ohjelman käyttäjä 
 
 ##Käyttäjien toiminnot:
 * Tiedoston lukeminen
