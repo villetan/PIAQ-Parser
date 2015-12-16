@@ -1,0 +1,18 @@
+## Aihe: Mittausten parseri. Toteutetaan ohjelma, jonka avulla käyttäjä saa valittua mittaustulostiedostosta haluamansa 
+sarakkeet ja haluamansa rivit. Mittauksia kirjataan sekunnin välein, mutta ei ole tarkoituksen mukaista katsoa mittausten vaiht
+vaihtelua sekunnin välein, vaan käyttäjä voi valita eri mittauksia(mahdollisesti kaikki, mahdollisesti vain yhden) ja 
+milta tahansa mahdolliselta aikajänteeltä.
+
+Esimerkiksi mittaukset ovat 12.02.2014 12:00:00 ja 12.02.2014 13:00:00 välillä
+ja mitattuja asioita on co2, lämpötila yms. Käyttäjä haluaa vain läpötilamittaukset minuutin välein ensimmäiseltä 
+puolelta tunnilta. Ohjelma laskee seuraavan minuutin keskiarvon ja luo dokumentin (xml tai csv) jossa on nämä mittaukset
+halutulla aikavälillä ja oikeilla mittausväleillä. Haluttua mittausväliä ei voi valita, jos luettu tiedoston mittausväli 
+on liian lyhyt.
+
+##Käyttäjät: Ohjelman käyttäjä 
+
+##Käyttäjien toiminnot:
+* Tiedoston lukeminen
+* Aikavälin valitseminen
+* Mittaustulosten valitseminen
+* Uuden tiedoston kirjoittaminen (XML/CSV)
