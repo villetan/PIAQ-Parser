@@ -5,7 +5,6 @@ package fi.ville.piaqparser.util;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import fi.ville.piaqparser.domain.Mittaus;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -32,12 +31,10 @@ public class TiedostonLukijaCSV {
     String splitBy = ",";
 
     public ArrayList<Mittaus> lueMittausListaksi(String tiedostoPolku, BufferedReader br) {
-        AikaKaantaja aikaKaantaja=new AikaKaantaja();
+        AikaKaantaja aikaKaantaja = new AikaKaantaja();
         ArrayList<Mittaus> mittausLista = new ArrayList<>();
         Map<String, Integer> indexesMap = selvitaSarakkeidenArvotJaIndeksit(tiedostoPolku, br);
-        for (String avain : indexesMap.keySet()) {
-            System.out.println("avain " + avain);
-        }
+
         int rivejaLuettu = 0;
         try {
             while ((line = br.readLine()) != null) {
@@ -46,21 +43,19 @@ public class TiedostonLukijaCSV {
                 String[] rivi = line.split(splitBy);
                 //DateFormat format = new SimpleDateFormat("DD/MM/YYYY, hh:mm:ss", Locale.ENGLISH);
 
-                if (rivejaLuettu < 10000) {
-                   // System.out.println("Rivejä luettu: " + rivejaLuettu++);
-                }
-                
                 Mittaus mittaus = new Mittaus();
-                Long aikaMittaus= Long.valueOf(rivi[0]).longValue();
-                long kaannetty=aikaKaantaja.kaannaPegasorinAjastaJavaan(aikaMittaus);
+                Long aikaMittaus = Long.valueOf(rivi[0]).longValue();
+                long kaannetty = aikaKaantaja.kaannaPegasorinAjastaJavaan(aikaMittaus);
                 mittaus.setAikaleima(new Date(kaannetty));
-                
+
                 for (String mittauksenAvain : indexesMap.keySet()) {
                     //TODO sarake tyhjä=> index out of bound, keksi siis tapa korvata tyhjät kentät 0:lla
                     mittaus.lisaaMittaus(mittauksenAvain, Double.parseDouble(rivi[indexesMap.get(mittauksenAvain)]));
 
                 }
-                mittausLista.add(mittaus);
+                if (mittaus.getAikaleima() != null) {
+                    mittausLista.add(mittaus);
+                }
             }
         } catch (FileNotFoundException ex) {
             System.out.println("!!! FILE NOT FOUND EXCEPTION " + ex);

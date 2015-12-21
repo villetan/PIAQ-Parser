@@ -45,7 +45,7 @@ public class TiedostonLukijaXML {
             doc.getDocumentElement().normalize();
            
             NodeList nList = doc.getElementsByTagName(nodeName);
-            int size=0;
+            
             for (int i = 1; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
                 
@@ -60,9 +60,8 @@ public class TiedostonLukijaXML {
                     mittaus.lisaaMittaus(mittauksenAvain, Double.parseDouble(eElement.getElementsByTagName("Data").item(otsikonIndeksit.get(mittauksenAvain)).getTextContent()));
                 }
                 rivitMittauksina.add(mittaus);
-                size++;
+                
             }
-            System.out.println("Mittauksia käyty läpi: "+size);
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(TiedostonLukijaXML.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
