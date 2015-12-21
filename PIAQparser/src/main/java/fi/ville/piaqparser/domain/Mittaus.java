@@ -44,8 +44,7 @@ public class Mittaus {
     }
     
     public double getMittauksenArvo(String avain){
-        System.out.println("Avain:"+avain);
-        System.out.println("Mittaukset: "+mittaukset);
+        
         return mittaukset.get(avain);
     }
 

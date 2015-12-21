@@ -48,10 +48,8 @@ public class TiedostonLukijaXML {
             int size=0;
             for (int i = 1; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
-                //System.out.println("Current element: " + nNode.getNodeName());
+                
                 Element eElement = (Element) nNode;
-                //Esim. hakee sootA arvon.
-                //System.out.println("SootA: " + eElement.getElementsByTagName("Data").item(0).getTextContent());
                 
                 Mittaus mittaus = new Mittaus();
                 long aika= Long.valueOf(eElement.getElementsByTagName("Data").item(0).getTextContent()).longValue();

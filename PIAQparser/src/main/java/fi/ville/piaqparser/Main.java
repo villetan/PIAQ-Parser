@@ -20,17 +20,17 @@ public class Main {
     
     public static void main(String[] args) throws FileNotFoundException {
         String tiedostoPolkuCSV = "/home/ville/CSVtesti.csv";
-        String tiedostoPolkuXML = "/home/ville/XMLtesti.xml";
+        String tiedostoPolkuXML = "/home/ville/Asiakirjat/PegasorHarjoitus/PIAQ3.xml";
         BufferedReader br = new BufferedReader(new FileReader(tiedostoPolkuCSV));
-        TiedostonLukijaCSV analyzer = new TiedostonLukijaCSV();
+        TiedostonLukijaCSV tiedostonLukija = new TiedostonLukijaCSV();
         
      
-        ArrayList<Mittaus> mittaukset=analyzer.lueMittausListaksi(tiedostoPolkuCSV, br);
+        ArrayList<Mittaus> mittaukset=tiedostonLukija.lueMittausListaksi(tiedostoPolkuCSV, br);
         
         System.out.println("size"+ mittaukset.size());
         
         
         System.out.println("Get tokan sootA "+mittaukset.get(1).getMittauksenArvo("sootA"));
-        System.out.println("AJAT:");
+        
     }
 }

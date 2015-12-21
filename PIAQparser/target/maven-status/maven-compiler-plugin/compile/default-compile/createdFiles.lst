@@ -1,0 +1,5 @@
+fi/ville/piaqparser/util/AikaKaantaja.class
+fi/ville/piaqparser/domain/Mittaus.class
+fi/ville/piaqparser/Main.class
+fi/ville/piaqparser/util/TiedostonLukijaXML.class
+fi/ville/piaqparser/util/TiedostonLukijaCSV.class
