@@ -67,4 +67,19 @@ public class MittausTest {
         assertEquals(50.01, mittaus.getMittauksenArvo("co2"),0.0000000000001);        
     }
     
+    @Test
+    public void testEquals(){
+        mittaus.setAikaleima(new Date(10000000000l));
+        mittaus.lisaaMittaus("co2", 50.01);
+        mittaus.lisaaMittaus("asd", 32.012345);
+        mittaus.lisaaMittaus("Temperature", -20.0001);
+        Mittaus mittaus2= new Mittaus();
+        mittaus2.setAikaleima(new Date(10000000000l));
+        mittaus2.lisaaMittaus("co2", 50.01);
+        mittaus2.lisaaMittaus("asd", 32.012345);
+        mittaus2.lisaaMittaus("Temperature", -20.0001);
+        assertEquals(true, mittaus.equals(mittaus2));
+        assertEquals(false, mittaus.equals(new Mittaus(new Date(10000000000l))));
+    }
+    
 }

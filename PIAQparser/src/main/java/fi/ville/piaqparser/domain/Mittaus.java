@@ -71,5 +71,16 @@ public class Mittaus {
     public void setAikaleima(Date aikaleima) {
         this.aikaleima = aikaleima;
     }
+    
+    public boolean equals(Mittaus verrattava){
+        if(!aikaleima.equals(verrattava.getAikaleima())){
+            
+            return false;
+        }
+        if(!this.mittaukset.equals(verrattava.getMittaukset())){
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -2,3 +2,4 @@
 /home/ville/PIAQ-Parser/PIAQparser/src/test/java/fi/ville/piaqparser/domain/MittausTest.java
 /home/ville/PIAQ-Parser/PIAQparser/src/test/java/fi/ville/piaqparser/util/TiedostonLukijaCSVTest.java
 /home/ville/PIAQ-Parser/PIAQparser/src/test/java/fi/ville/piaqparser/util/AikaKaantajaTest.java
+/home/ville/PIAQ-Parser/PIAQparser/src/test/java/fi/ville/piaqparser/util/MittaustenAnalysoijaTest.java

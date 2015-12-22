@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -32,5 +33,6 @@ public class Main {
         
         System.out.println("Get tokan sootA "+mittaukset.get(1).getMittauksenArvo("sootA"));
         
+       
     }
 }
