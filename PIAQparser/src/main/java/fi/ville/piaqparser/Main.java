@@ -6,6 +6,7 @@
 package fi.ville.piaqparser;
 
 import fi.ville.piaqparser.domain.Mittaus;
+import fi.ville.piaqparser.ui.UserInterface;
 import fi.ville.piaqparser.util.TiedostonLukijaCSV;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -32,6 +33,9 @@ public class Main {
         
         
         System.out.println("Get tokan sootA "+mittaukset.get(1).getMittauksenArvo("sootA"));
+        
+        UserInterface ui= new UserInterface();
+        ui.main(args);
         
        
     }
