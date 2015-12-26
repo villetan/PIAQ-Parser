@@ -37,14 +37,14 @@ public class MittaustenAnalysoijaTest {
 
     @Before
     public void setUp() {
-        
-        mittaukset=new ArrayList<>();
+
+        mittaukset = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-          Mittaus mittaus = new Mittaus();
-          mittaus.setAikaleima(new Date(2015, 12, 12, 20, 20, i));
-          mittaus.lisaaMittaus("co2", i);
-          mittaus.lisaaMittaus("no2", 10*i);
-          mittaus.lisaaMittaus("temperature", 100*i);
+            Mittaus mittaus = new Mittaus();
+            mittaus.setAikaleima(new Date(2015, 12, 12, 20, 20, i));
+            mittaus.lisaaMittaus("co2", i);
+            mittaus.lisaaMittaus("no2", 10 * i);
+            mittaus.lisaaMittaus("temperature", 100 * i);
             mittaukset.add(mittaus);
         }
         analysoija = new MittaustenAnalysoija(mittaukset);
@@ -53,66 +53,114 @@ public class MittaustenAnalysoijaTest {
     @After
     public void tearDown() {
     }
-    
+
     @Test
-    public void testEkaJaVikaMittausOikein(){
-        ArrayList<Mittaus> ekaJaVika=analysoija.ensimmainenJaViimeinenMittausListana();
+    public void testEkaJaVikaMittausOikein() {
+        ArrayList<Mittaus> ekaJaVika = analysoija.ensimmainenJaViimeinenMittausListana();
         assertEquals(2, ekaJaVika.size());
         assertEquals(mittaukset.get(0), ekaJaVika.get(0));
-        assertEquals(mittaukset.get(mittaukset.size()-1), ekaJaVika.get(1));
+        assertEquals(mittaukset.get(mittaukset.size() - 1), ekaJaVika.get(1));
     }
-    
+
     @Test
-    public void testEkaJaVikaMittausSamat(){
-        for(int i =0;i<9;i++){
+    public void testEkaJaVikaMittausSamat() {
+        for (int i = 0; i < 9; i++) {
             mittaukset.remove(0);
         }
         assertEquals(1, analysoija.ensimmainenJaViimeinenMittausListana().size());
-        assertEquals(mittaukset.get(mittaukset.size()-1), analysoija.ensimmainenJaViimeinenMittausListana().get(0));
+        assertEquals(mittaukset.get(mittaukset.size() - 1), analysoija.ensimmainenJaViimeinenMittausListana().get(0));
     }
-    
+
     @Test
-    public void testMittauksissaHyppyjaTrue(){
+    public void testMittauksissaHyppyjaTrue() {
         mittaukset.remove(5);
         assertEquals(true, analysoija.mittauksissaHyppyja());
     }
-    
+
     @Test
-    public void testMittauksissaHyppyjaFalse(){
+    public void testMittauksissaHyppyjaFalse() {
         assertEquals(false, analysoija.mittauksissaHyppyja());
     }
-    
+
     @Test
-    public void testMittausValiOikein(){
-        assertEquals(true, analysoija.mittaustenMittausvaliMS()>=0);
+    public void testMittausValiOikein() {
+        assertEquals(true, analysoija.mittaustenMittausvaliMS() >= 0);
         assertEquals(1000, analysoija.mittaustenMittausvaliMS());
     }
-    
+
     @Test
-    public void testMittausvaliOikeinYhdellaMittauksella(){
-        for(int i =0;i<9;i++){
+    public void testMittausvaliOikeinYhdellaMittauksella() {
+        for (int i = 0; i < 9; i++) {
             mittaukset.remove(0);
         }
         assertEquals(0, analysoija.mittaustenMittausvaliMS());
     }
-    
+
     @Test
-    public void testMittausvaliOikeinJokaToinenSekunti(){
-        ArrayList mittauksetSpecial=new ArrayList<Mittaus>();
-        for (int i = 0; i < 10; i=i+2) {
-          Mittaus mittaus = new Mittaus();
-          mittaus.setAikaleima(new Date(2015, 12, 12, 20, 20, i));
-          mittaus.lisaaMittaus("co2", i);
-          mittaus.lisaaMittaus("no2", 10*i);
-          mittaus.lisaaMittaus("temperature", 100*i);
+    public void testMittausvaliOikeinJokaToinenSekunti() {
+        ArrayList mittauksetSpecial = new ArrayList<Mittaus>();
+        for (int i = 0; i < 10; i = i + 2) {
+            Mittaus mittaus = new Mittaus();
+            mittaus.setAikaleima(new Date(2015, 12, 12, 20, 20, i));
+            mittaus.lisaaMittaus("co2", i);
+            mittaus.lisaaMittaus("no2", 10 * i);
+            mittaus.lisaaMittaus("temperature", 100 * i);
             mittauksetSpecial.add(mittaus);
         }
         MittaustenAnalysoija analysoija2 = new MittaustenAnalysoija(mittauksetSpecial);
-        assertEquals(true, analysoija2.mittaustenMittausvaliMS()>=0);
+        assertEquals(true, analysoija2.mittaustenMittausvaliMS() >= 0);
         assertEquals(2000, analysoija2.mittaustenMittausvaliMS());
     }
-    
-    
 
-    
+    @Test
+    public void testKeskiArvonLaskuriSizeOikein() {
+        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(5000l);
+
+        assertEquals(2, keskiarvoLista.size());
+    }
+
+    @Test
+    public void testKeskiArvoLaskuriMittauksetOikein() {
+        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(5000l);
+        Mittaus mittaus1 = keskiarvoLista.get(0);
+        assertEquals(2.0, mittaus1.getMittauksenArvo("co2"), 0.00000000001);
+        assertEquals(20.0, mittaus1.getMittauksenArvo("no2"), 0.00000000001);
+        assertEquals(200.0, mittaus1.getMittauksenArvo("temperature"), 0.00000000001);
+        Mittaus mittaus2 = keskiarvoLista.get(1);
+        assertEquals(7.0, mittaus2.getMittauksenArvo("co2"), 0.00000000001);
+        assertEquals(70.0, mittaus2.getMittauksenArvo("no2"), 0.00000000001);
+        assertEquals(700.0, mittaus2.getMittauksenArvo("temperature"), 0.00000000001);
+    }
+
+    @Test
+    public void testKeskiArvoLaskuriSizeOikeinPart2() {
+        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(2000l);
+        assertEquals(5, keskiarvoLista.size());
+    }
+
+    @Test
+    public void testKeskiArvoLaskuriMittauksetOikeinPart2() {
+        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(2000l);
+        Mittaus mittaus1=keskiarvoLista.get(0);
+        assertEquals(0.5, mittaus1.getMittauksenArvo("co2"), 0.00000000001);
+        assertEquals(5.0, mittaus1.getMittauksenArvo("no2"), 0.00000000001);
+        assertEquals(50.0, mittaus1.getMittauksenArvo("temperature"), 0.00000000001);
+        Mittaus mittaus2 = keskiarvoLista.get(1);
+        assertEquals(2.5, mittaus2.getMittauksenArvo("co2"), 0.00000000001);
+        assertEquals(25.0, mittaus2.getMittauksenArvo("no2"), 0.00000000001);
+        assertEquals(250.0, mittaus2.getMittauksenArvo("temperature"), 0.00000000001);
+        Mittaus mittaus3 = keskiarvoLista.get(2);
+        assertEquals(4.5, mittaus3.getMittauksenArvo("co2"), 0.00000000001);
+        assertEquals(45.0, mittaus3.getMittauksenArvo("no2"), 0.00000000001);
+        assertEquals(450.0, mittaus3.getMittauksenArvo("temperature"), 0.00000000001);
+        Mittaus mittaus4 = keskiarvoLista.get(3);
+        assertEquals(6.5, mittaus4.getMittauksenArvo("co2"), 0.00000000001);
+        assertEquals(65.0, mittaus4.getMittauksenArvo("no2"), 0.00000000001);
+        assertEquals(650.0, mittaus4.getMittauksenArvo("temperature"), 0.00000000001);
+        Mittaus mittaus5 = keskiarvoLista.get(4);
+        assertEquals(8.5, mittaus5.getMittauksenArvo("co2"), 0.00000000001);
+        assertEquals(85.0, mittaus5.getMittauksenArvo("no2"), 0.00000000001);
+        assertEquals(850.0, mittaus5.getMittauksenArvo("temperature"), 0.00000000001);
+    }
+
 }

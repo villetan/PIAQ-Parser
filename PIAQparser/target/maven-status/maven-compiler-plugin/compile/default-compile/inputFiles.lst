@@ -1,6 +1,7 @@
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/AikaKaantaja.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/Main.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonLukijaCSV.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/UserInterface.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/domain/Mittaus.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/MittaustenAnalysoija.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonLukijaXML.java

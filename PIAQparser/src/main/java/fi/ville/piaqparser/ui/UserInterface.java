@@ -5,7 +5,11 @@
  */
 package fi.ville.piaqparser.ui;
 
+import java.io.File;
+import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -91,9 +95,11 @@ public class UserInterface extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(UserInterface.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             if (fc.getSelectedFile().getPath().contains(".xml") || fc.getSelectedFile().getPath().contains(".csv")) {
+                avaaParsimismahdollisuus();
                 ErrorTextField.setText("");
                 FilePathTextField.setText(fc.getSelectedFile().getPath());
-            }else{
+                this.file=fc.getSelectedFile();
+            } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }
         } else {
@@ -134,6 +140,20 @@ public class UserInterface extends javax.swing.JFrame {
                 new UserInterface().setVisible(true);
             }
         });
+    }
+    
+    private File file;
+
+    private void avaaParsimismahdollisuus() {
+        //Hmm. Kantsii tehdä napit ja muu mukava esim. JPaneliin ja tökätä JPanel JFrameen kun ehto täyttyy
+
+        setSize(rootPane.getWidth(), 600);
+        JPanel jPanel= new JPanel();
+        jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
+        JLabel timeOtsikkoJLabel = new JLabel("Time");
+        jPanel.add(timeOtsikkoJLabel);
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

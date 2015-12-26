@@ -49,7 +49,7 @@ public class Mittaus {
     }
 
     public String toString() {
-        String palautettava = "Mittaus: ";
+        String palautettava = "Mittaus: " +aikaleima+"\n";
         for (String key : mittaukset.keySet()) {
             palautettava+= key+" "+mittaukset.get(key)+"\n";
             
