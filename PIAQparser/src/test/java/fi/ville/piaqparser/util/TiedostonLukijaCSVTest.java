@@ -56,14 +56,14 @@ public class TiedostonLukijaCSVTest {
     //Ei lue ensimmäistä saraketta!
     @Test
     public void testOtsikkoSizeOikein() {
-        HashMap<String, Integer> map = tiedostonLukija.selvitaSarakkeidenArvotJaIndeksit(tiedostopolku, br);
+        HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
         assertEquals(4, map.size());
     }
 
     //indeksöinti 1 eteenpäin:
     @Test
     public void testOtsikonIndeksitOikein() {
-        HashMap<String, Integer> map = tiedostonLukija.selvitaSarakkeidenArvotJaIndeksit(tiedostopolku, br);
+        HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
         assertEquals(1, map.get("co2"), 0.00001);
         assertEquals(2, map.get("no2"), 0.00001);
         assertEquals(4, map.get("sootM"), 0.00001);
@@ -71,25 +71,25 @@ public class TiedostonLukijaCSVTest {
 
     @Test
     public void testMittauksetSizeOikein() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittausListaksi(tiedostopolku, br);
+        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
         assertEquals(15053, mittaukset.size());
     }
 
     @Test
     public void testVikanCo2() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittausListaksi(tiedostopolku, br);
+        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
         assertEquals(248, mittaukset.get(mittaukset.size() - 1).getMittauksenArvo("co2"), 0.00000000001);
     }
 
     @Test
     public void testEkanSootA() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittausListaksi(tiedostopolku, br);
+        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
         assertEquals(13, mittaukset.get(0).getMittauksenArvo("sootA"), 0.000000000001);
     }
 
     @Test
     public void test10sSootM() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittausListaksi(tiedostopolku, br);
+        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
         assertEquals(288, mittaukset.get(9).getMittauksenArvo("sootM"),0.00000000000001);  
     }
     

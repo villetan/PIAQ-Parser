@@ -30,10 +30,10 @@ public class TiedostonLukijaCSV {
     String line = "";
     String splitBy = ",";
 
-    public ArrayList<Mittaus> lueMittausListaksi(String tiedostoPolku, BufferedReader br) {
+    public ArrayList<Mittaus> lueMittauksetListaksi(String tiedostoPolku, BufferedReader br) {
         AikaKaantaja aikaKaantaja = new AikaKaantaja();
         ArrayList<Mittaus> mittausLista = new ArrayList<>();
-        Map<String, Integer> indexesMap = selvitaSarakkeidenArvotJaIndeksit(tiedostoPolku, br);
+        Map<String, Integer> indexesMap = lueHeaderMapiksi(tiedostoPolku, br);
 
         int rivejaLuettu = 0;
         try {
@@ -66,7 +66,7 @@ public class TiedostonLukijaCSV {
     }
 
     //toimii hyvin, palauttaa Mapin jossa avaimina on sarakkeiden nimet ja arvoina indeksit 0:sta alkaen
-    public HashMap<String, Integer> selvitaSarakkeidenArvotJaIndeksit(String tiedostoPolku, BufferedReader br) {
+    public HashMap<String, Integer> lueHeaderMapiksi(String tiedostoPolku, BufferedReader br) {
         HashMap<String, Integer> mittaustenIndeksit = new HashMap<>();
         try {
 

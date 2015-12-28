@@ -54,13 +54,13 @@ public class TiedostonLukijaXMLTest {
      //ei ota huomioon date mittausta.
     @Test
     public void testOtsikonSize(){
-                HashMap<String, Integer> xmlOtsikkoIndeksit = tiedostonLukija.lueaHeaderMapiksi(file, nodeName);
+                HashMap<String, Integer> xmlOtsikkoIndeksit = tiedostonLukija.lueHeaderMapiksi(file, nodeName);
         assertEquals(6, xmlOtsikkoIndeksit.size());
     }
 
     @Test
     public void testOtsikonIndeksit() {
-        HashMap<String, Integer> xmlOtsikkoIndeksit = tiedostonLukija.lueaHeaderMapiksi(file, nodeName);
+        HashMap<String, Integer> xmlOtsikkoIndeksit = tiedostonLukija.lueHeaderMapiksi(file, nodeName);
         assertEquals(1, xmlOtsikkoIndeksit.get("SootA"), 0.00001);
         assertEquals(3, xmlOtsikkoIndeksit.get("SootN"), 0.00001);
         assertEquals(6, xmlOtsikkoIndeksit.get("Co2"), 0.00001);
@@ -68,13 +68,13 @@ public class TiedostonLukijaXMLTest {
 
     @Test
     public void testMittauksetSize() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueXMLtiedosto(file, nodeName);
+        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(file, nodeName);
         assertEquals(999, mittaukset.size());
     }
 
     @Test
     public void testJoitakinMittauksia() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueXMLtiedosto(file, nodeName);
+        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(file, nodeName);
         //Expected is the actual value
         assertEquals(494158779, (mittaukset.get(0).getAikaleima().getTime() - 946684800000l) / 1000);
         assertEquals(27.745892000000001, mittaukset.get(0).getMittauksenArvo("SootA"), 0.0000000000000001);

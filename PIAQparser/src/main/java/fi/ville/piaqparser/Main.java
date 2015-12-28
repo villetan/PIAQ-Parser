@@ -28,18 +28,17 @@ public class Main {
         TiedostonLukijaCSV tiedostonLukija = new TiedostonLukijaCSV();
         
      
-        ArrayList<Mittaus> mittaukset=tiedostonLukija.lueMittausListaksi(tiedostoPolkuCSV, br);
+        ArrayList<Mittaus> mittaukset=tiedostonLukija.lueMittauksetListaksi(tiedostoPolkuCSV, br);
         
         System.out.println("size"+ mittaukset.size());
         
         
         System.out.println("Get tokan sootA "+mittaukset.get(1).getMittauksenArvo("sootA"));
         
-        //UserInterface ui= new UserInterface();
-        //ui.main(args);
+        UserInterface ui= new UserInterface();
+        ui.main(args);
         
-        MittaustenAnalysoija analysoija = new MittaustenAnalysoija(mittaukset);
-        analysoija.laskeMittaustenKeskiarvo(3000l);
+        
         
        
     }

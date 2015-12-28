@@ -33,10 +33,10 @@ public class TiedostonLukijaXML {
 
     
     //lue xml Listaksi mittaus-olioita.
-    public ArrayList<Mittaus> lueXMLtiedosto(File file, String nodeName) {
+    public ArrayList<Mittaus> lueMittauksetListaksi(File file, String nodeName) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         ArrayList<Mittaus> rivitMittauksina = new ArrayList<>();
-        HashMap<String, Integer> otsikonIndeksit = lueaHeaderMapiksi(file, nodeName);
+        HashMap<String, Integer> otsikonIndeksit = lueHeaderMapiksi(file, nodeName);
         AikaKaantaja aikaKaantaja=new AikaKaantaja();
         try {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -74,7 +74,7 @@ public class TiedostonLukijaXML {
 
     //Lukee otsikon HashMapiksi jossa avaimet on otsikon nimi ja arvo on sarakkeen numero 0sta lukien.
     // ei ota huomioon aikaleimaa jonka oletetaan olevan ensimmäisenä.
-    public HashMap<String, Integer> lueaHeaderMapiksi(File file, String nodeName) {
+    public HashMap<String, Integer> lueHeaderMapiksi(File file, String nodeName) {
         HashMap<String, Integer> otsikkoRivi = new HashMap<>();
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         try {

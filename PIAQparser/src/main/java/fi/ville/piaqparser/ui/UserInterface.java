@@ -5,7 +5,16 @@
  */
 package fi.ville.piaqparser.ui;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.geom.Line2D;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -33,11 +42,35 @@ public class UserInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         Header = new javax.swing.JLabel();
         FilePathTextField = new javax.swing.JTextField();
         ChooseAFHeader = new javax.swing.JLabel();
         BrowseButton = new javax.swing.JButton();
         ErrorTextField = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +116,7 @@ public class UserInterface extends javax.swing.JFrame {
                     .addComponent(BrowseButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ErrorTextField)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,10 +128,12 @@ public class UserInterface extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(UserInterface.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             if (fc.getSelectedFile().getPath().contains(".xml") || fc.getSelectedFile().getPath().contains(".csv")) {
-                avaaParsimismahdollisuus();
+                add(timeWindow());
+                add(parametersWindow());
+                add(commandsWindow());
                 ErrorTextField.setText("");
                 FilePathTextField.setText(fc.getSelectedFile().getPath());
-                this.file=fc.getSelectedFile();
+                this.file = fc.getSelectedFile();
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }
@@ -141,19 +176,72 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private File file;
 
-    private void avaaParsimismahdollisuus() {
+    private JPanel timeWindow() {
         //Hmm. Kantsii tehdä napit ja muu mukava esim. JPaneliin ja tökätä JPanel JFrameen kun ehto täyttyy
-
-        setSize(rootPane.getWidth(), 600);
-        JPanel jPanel= new JPanel();
+        int ekaIkkunaLoppu = rootPane.getHeight();
+        setSize(rootPane.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+        JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
-        JLabel timeOtsikkoJLabel = new JLabel("Time");
+
+        jPanel.setBackground(Color.red);
+        jPanel.setBounds(rootPane.getX(), ekaIkkunaLoppu, rootPane.getWidth() / 2, 2 * (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5);
+        JLabel timeOtsikkoJLabel = new JLabel("Time", JLabel.CENTER);
+        timeOtsikkoJLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        timeOtsikkoJLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        timeOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
         jPanel.add(timeOtsikkoJLabel);
         
+        for(Component component : timeWindowComponents()){
+            jPanel.add(component);
+        }
+        return jPanel;
+
+    }
+    private JLabel hasDataFrom;
+    private ArrayList<Component> timeWindowComponents(){
+        ArrayList<Component> komponentit = new ArrayList<>();
+        hasDataFrom= new JLabel("This sheet has data from", JLabel.CENTER);
+        hasDataFrom.setLocation(300, 300);
+        komponentit.add(hasDataFrom);
         
+        return komponentit;
+    }
+    
+    
+
+    private JPanel parametersWindow() {
+        Rectangle bounds = timeWindow().getBounds();
+        int siirtyma = timeWindow().getWidth();
+        bounds.setLocation(siirtyma, (int) bounds.getY());
+        JPanel jPanel = new JPanel();
+
+        jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
+        jPanel.setBackground(Color.CYAN);
+        jPanel.setBounds(bounds);
+        JLabel paramOtsikkoJLabel = new JLabel("Parameters", JLabel.CENTER);
+        paramOtsikkoJLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        paramOtsikkoJLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        paramOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
+        jPanel.add(paramOtsikkoJLabel);
+        return jPanel;
+    }
+
+    private JPanel commandsWindow() {
+        JPanel jPanel = new JPanel();
+        jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
+        jPanel.setBackground(Color.YELLOW);
+        jPanel.setBounds(rootPane.getX(), timeWindow().getY() + timeWindow().getHeight(), rootPane.getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-(timeWindow().getY()+timeWindow().getHeight()));
+
+        JLabel commandsOtsikkoJLabel = new JLabel("Commands", JLabel.CENTER);
+        commandsOtsikkoJLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        commandsOtsikkoJLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        commandsOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
+        jPanel.add(commandsOtsikkoJLabel);
+
+        return jPanel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -162,5 +250,7 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel ErrorTextField;
     private javax.swing.JTextField FilePathTextField;
     private javax.swing.JLabel Header;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
