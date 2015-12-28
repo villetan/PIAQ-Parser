@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class TiedostonLukijaPalvelu implements TiedostonLukijaPalveluRajapinta {
 
     @Override
-    public List<Mittaus> lueMittauksetListaksi(String tiedostoPolku) {
+    public ArrayList<Mittaus> lueMittauksetListaksi(String tiedostoPolku) {
         if (tiedostoPolku.endsWith(".xml")) {
             return lueXmlListaksi(tiedostoPolku);
         } else if (tiedostoPolku.endsWith(".csv")) {
@@ -68,17 +68,17 @@ public class TiedostonLukijaPalvelu implements TiedostonLukijaPalveluRajapinta {
         return headers;
     }
 
-    private List<Mittaus> lueCsvListaksi(String tiedostoPolku) throws FileNotFoundException {
+    private ArrayList<Mittaus> lueCsvListaksi(String tiedostoPolku) throws FileNotFoundException {
         TiedostonLukijaCSV lukija = new TiedostonLukijaCSV();
 
-        List<Mittaus> csvMittaukset = lukija.lueMittauksetListaksi(tiedostoPolku, new BufferedReader(new FileReader(tiedostoPolku)));
+        ArrayList<Mittaus> csvMittaukset = lukija.lueMittauksetListaksi(tiedostoPolku, new BufferedReader(new FileReader(tiedostoPolku)));
         return csvMittaukset;
 
     }
 
-    private List<Mittaus> lueXmlListaksi(String tiedostoPolku) {
+    private ArrayList<Mittaus> lueXmlListaksi(String tiedostoPolku) {
         TiedostonLukijaXML lukija = new TiedostonLukijaXML();
-        List<Mittaus> xmlMittaukset = lukija.lueMittauksetListaksi(new File(tiedostoPolku), "Row");
+        ArrayList<Mittaus> xmlMittaukset = lukija.lueMittauksetListaksi(new File(tiedostoPolku), "Row");
         return xmlMittaukset;
     }
 

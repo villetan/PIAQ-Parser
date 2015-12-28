@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="11" failures="0" name="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" time="0.046" errors="0" skipped="0">
+<testsuite tests="11" failures="0" name="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" time="0.041" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/home/ville/jdk1.8.0_60/jre/lib/amd64"/>
@@ -60,15 +60,15 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testEkaJaVikaMittausOikein" time="0.013"/>
+  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testEkaJaVikaMittausOikein" time="0.002"/>
   <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testEkaJaVikaMittausSamat" time="0.001"/>
-  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittauksissaHyppyjaTrue" time="0.001"/>
-  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittauksissaHyppyjaFalse" time="0.002"/>
+  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittauksissaHyppyjaTrue" time="0"/>
+  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittauksissaHyppyjaFalse" time="0.001"/>
   <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittausValiOikein" time="0.001"/>
   <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittausvaliOikeinYhdellaMittauksella" time="0.001"/>
-  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittausvaliOikeinJokaToinenSekunti" time="0.001"/>
+  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testMittausvaliOikeinJokaToinenSekunti" time="0.002"/>
   <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testKeskiArvonLaskuriSizeOikein" time="0.001"/>
-  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testKeskiArvoLaskuriMittauksetOikein" time="0.001"/>
-  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testKeskiArvoLaskuriSizeOikeinPart2" time="0.001"/>
+  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testKeskiArvoLaskuriMittauksetOikein" time="0"/>
+  <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testKeskiArvoLaskuriSizeOikeinPart2" time="0.002"/>
   <testcase classname="fi.ville.piaqparser.util.MittaustenAnalysoijaTest" name="testKeskiArvoLaskuriMittauksetOikeinPart2" time="0.001"/>
 </testsuite>

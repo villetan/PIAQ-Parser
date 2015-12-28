@@ -185,6 +185,7 @@ public class UserInterface extends javax.swing.JFrame {
         setSize(rootPane.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
+        
 
         jPanel.setBackground(Color.red);
         jPanel.setBounds(rootPane.getX(), ekaIkkunaLoppu, rootPane.getWidth() / 2, 2 * (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5);
