@@ -141,7 +141,7 @@ public class MittaustenAnalysoijaTest {
     @Test
     public void testKeskiArvoLaskuriMittauksetOikeinPart2() {
         ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(2000l);
-        Mittaus mittaus1=keskiarvoLista.get(0);
+        Mittaus mittaus1 = keskiarvoLista.get(0);
         assertEquals(0.5, mittaus1.getMittauksenArvo("co2"), 0.00000000001);
         assertEquals(5.0, mittaus1.getMittauksenArvo("no2"), 0.00000000001);
         assertEquals(50.0, mittaus1.getMittauksenArvo("temperature"), 0.00000000001);
@@ -161,6 +161,18 @@ public class MittaustenAnalysoijaTest {
         assertEquals(8.5, mittaus5.getMittauksenArvo("co2"), 0.00000000001);
         assertEquals(85.0, mittaus5.getMittauksenArvo("no2"), 0.00000000001);
         assertEquals(850.0, mittaus5.getMittauksenArvo("temperature"), 0.00000000001);
+    }
+
+    @Test
+    public void testMittauksissaHyppyja() {
+        ArrayList<Mittaus> mittauksia = new ArrayList<>();
+        mittauksia.add(new Mittaus(new Date(1)));
+        mittauksia.add(new Mittaus(new Date(2)));
+        mittauksia.add(new Mittaus(new Date(9)));
+        mittauksia.add(new Mittaus(new Date(10)));
+        MittaustenAnalysoija ma = new MittaustenAnalysoija(mittauksia);
+
+        assertEquals(true, ma.mittauksissaHyppyja());
     }
 
 }

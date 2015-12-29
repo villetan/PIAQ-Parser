@@ -5,8 +5,14 @@
  */
 package fi.ville.piaqparser.ui;
 
+import fi.ville.piaqparser.domain.Mittaus;
+import fi.ville.piaqparser.services.TiedostonLukijaPalvelu;
+import fi.ville.piaqparser.util.MittaustenAnalysoija;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +20,11 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -128,12 +138,15 @@ public class UserInterface extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(UserInterface.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             if (fc.getSelectedFile().getPath().contains(".xml") || fc.getSelectedFile().getPath().contains(".csv")) {
-                add(timeWindow());
-                add(parametersWindow());
-                add(commandsWindow());
                 ErrorTextField.setText("");
                 FilePathTextField.setText(fc.getSelectedFile().getPath());
                 this.file = fc.getSelectedFile();
+                setSize(rootPane.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+                add(timeWindow());
+                add(parametersWindow());
+                add(commandsWindow());
+                
+                
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }
@@ -182,36 +195,42 @@ public class UserInterface extends javax.swing.JFrame {
     private JPanel timeWindow() {
         //Hmm. Kantsii tehdä napit ja muu mukava esim. JPaneliin ja tökätä JPanel JFrameen kun ehto täyttyy
         int ekaIkkunaLoppu = rootPane.getHeight();
-        setSize(rootPane.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         JPanel jPanel = new JPanel();
-        jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
-        
+        jPanel.setLayout(new BorderLayout());
 
         jPanel.setBackground(Color.red);
         jPanel.setBounds(rootPane.getX(), ekaIkkunaLoppu, rootPane.getWidth() / 2, 2 * (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5);
-        JLabel timeOtsikkoJLabel = new JLabel("Time", JLabel.CENTER);
-        timeOtsikkoJLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        timeOtsikkoJLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
-        timeOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
-        jPanel.add(timeOtsikkoJLabel);
-        
-        for(Component component : timeWindowComponents()){
-            jPanel.add(component);
-        }
+
+        jPanel.add(timeWindowNorthComponents(), BorderLayout.NORTH);
         return jPanel;
 
     }
     private JLabel hasDataFrom;
-    private ArrayList<Component> timeWindowComponents(){
-        ArrayList<Component> komponentit = new ArrayList<>();
-        hasDataFrom= new JLabel("This sheet has data from", JLabel.CENTER);
-        hasDataFrom.setLocation(300, 300);
-        komponentit.add(hasDataFrom);
+
+    private JPanel timeWindowNorthComponents() {
+        JPanel timeWindowNorth = new JPanel();
+        timeWindowNorth.setBackground(Color.red);
+        timeWindowNorth.setLayout(new BoxLayout(timeWindowNorth, BoxLayout.Y_AXIS));
+        JLabel timeOtsikkoJLabel = new JLabel("Time", JLabel.CENTER);
+        timeOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
+
+        hasDataFrom = new JLabel("This sheet has data from", JLabel.CENTER);
+        JLabel useDataFromLabel = new JLabel("Use data from", JLabel.CENTER);
+        useDataFromLabel.setFont(new Font("Ubuntu", 0, 24));
+
+        timeWindowNorth.add(timeOtsikkoJLabel, 0);
+        timeWindowNorth.add(Box.createRigidArea(new Dimension(0, 10)), 1);
+        timeWindowNorth.add(hasDataFrom, 2);
+        timeWindowNorth.add(Box.createRigidArea(new Dimension(0, 10)), 3);
         
-        return komponentit;
+        timeWindowNorth.add(useDataFromLabel, 4);
+
+        return timeWindowNorth;
     }
     
-    
+    public String getFilePath(){
+        return FilePathTextField.getText();
+    }
 
     private JPanel parametersWindow() {
         Rectangle bounds = timeWindow().getBounds();
@@ -234,7 +253,7 @@ public class UserInterface extends javax.swing.JFrame {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
         jPanel.setBackground(Color.YELLOW);
-        jPanel.setBounds(rootPane.getX(), timeWindow().getY() + timeWindow().getHeight(), rootPane.getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-(timeWindow().getY()+timeWindow().getHeight()));
+        jPanel.setBounds(rootPane.getX(), timeWindow().getY() + timeWindow().getHeight(), rootPane.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - (timeWindow().getY() + timeWindow().getHeight()));
 
         JLabel commandsOtsikkoJLabel = new JLabel("Commands", JLabel.CENTER);
         commandsOtsikkoJLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
