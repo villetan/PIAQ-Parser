@@ -6,6 +6,8 @@
 package fi.ville.piaqparser.ui;
 
 import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
 /**
@@ -33,7 +35,6 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     private void initComponents() {
 
         dataForEveryButtonGroup = new javax.swing.ButtonGroup();
-        valuesButtonGroup = new javax.swing.ButtonGroup();
         CommandsWindow = new javax.swing.JPanel();
         Commands = new javax.swing.JLabel();
         makeNewXML = new javax.swing.JButton();
@@ -280,16 +281,15 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     private javax.swing.JRadioButton radioButton5minutes;
     private javax.swing.JLabel thisSheetHasDataFrom;
     private javax.swing.JLabel values;
-    private javax.swing.ButtonGroup valuesButtonGroup;
     private javax.swing.JPanel valuesButtonsPanel;
     // End of variables declaration//GEN-END:variables
 
     
     @Override
-    public void addButtonToValuesButtonGroup(JRadioButton button){
-        valuesButtonGroup.add(button);
-        valuesButtonsPanel.add(button);
+    public void addCheckBoxToValuesButtonGroup(JCheckBox box){
+        valuesButtonsPanel.setLayout(new BoxLayout(valuesButtonsPanel, BoxLayout.Y_AXIS));
         
+        valuesButtonsPanel.add(box);
     }
     
     

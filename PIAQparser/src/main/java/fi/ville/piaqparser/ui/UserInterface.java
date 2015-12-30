@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -210,8 +211,9 @@ public class UserInterface extends javax.swing.JFrame {
                 uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString()+" "+ mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
                 
                 for(String sarakkeenOtsikko : mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi()){
-                    JRadioButton button=new JRadioButton(sarakkeenOtsikko);
-                    uusiUI.addButtonToValuesButtonGroup(button);
+                    JCheckBox button=new JCheckBox(sarakkeenOtsikko);
+                    button.setName(sarakkeenOtsikko);
+                    uusiUI.addCheckBoxToValuesButtonGroup(button);
                 }
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");

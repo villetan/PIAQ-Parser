@@ -5,6 +5,7 @@
  */
 package fi.ville.piaqparser.ui;
 
+import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
 /**
@@ -19,7 +20,7 @@ public interface AsetaTekstiRajapinta {
     public String getDateTo();
     public void setDateTo(String teksti);
     
-    public void addButtonToValuesButtonGroup(JRadioButton button);
+    public void addCheckBoxToValuesButtonGroup(JCheckBox box);
     
     
 }
