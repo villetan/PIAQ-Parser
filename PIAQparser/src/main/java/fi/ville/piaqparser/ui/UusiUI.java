@@ -182,7 +182,7 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         );
         valuesButtonsPanelLayout.setVerticalGroup(
             valuesButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 204, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout ParametersWindowLayout = new javax.swing.GroupLayout(ParametersWindow);
@@ -212,13 +212,16 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
             .addGroup(ParametersWindowLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(Parameters, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(values)
-                    .addComponent(dataForEvery))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ParametersWindowLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(valuesButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ParametersWindowLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dataForEvery)
+                            .addComponent(values))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(radioButton1second)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioButton15seconds)
@@ -231,8 +234,7 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioButton15minutes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioButton1hour))
-                    .addComponent(valuesButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(radioButton1hour)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

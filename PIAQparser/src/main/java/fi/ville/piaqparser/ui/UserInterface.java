@@ -197,24 +197,20 @@ public class UserInterface extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(UserInterface.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             if (fc.getSelectedFile().getPath().contains(".xml") || fc.getSelectedFile().getPath().contains(".csv")) {
-                setSize(this.getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+                setSize(this.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
                 ErrorTextField.setText("");
                 FilePathTextField.setText(fc.getSelectedFile().getPath());
-                
+
                 this.file = fc.getSelectedFile();
                 UusiUI uusiUI = new UusiUI();
-                
+
                 this.jSplitPane1.setBottomComponent(uusiUI);
                 this.jSplitPane1.getBottomComponent().setVisible(true);
-                mittausAnalysoijaPalvelu=new MittausAnalysoijaPalvelu(file.getPath());
-                uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString()+" "+mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
-                uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString()+" "+ mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
-                
-                for(String sarakkeenOtsikko : mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi()){
-                    JCheckBox button=new JCheckBox(sarakkeenOtsikko);
-                    button.setName(sarakkeenOtsikko);
-                    uusiUI.addCheckBoxToValuesButtonGroup(button);
-                }
+                mittausAnalysoijaPalvelu = new MittausAnalysoijaPalvelu(file.getPath());
+                uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
+                uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
+
+                luoOtsikkoCheckBoxit(uusiUI);
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }
@@ -223,12 +219,23 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
 
+    private void luoOtsikkoCheckBoxit(UusiUI uusiUI) {
+        if (mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi().size() > 10) {
+            ErrorTextField.setText("Too many rows in the data");
+        } else {
+            for (String sarakkeenOtsikko : mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi()) {
+                JCheckBox button = new JCheckBox(sarakkeenOtsikko);
+                button.setName(sarakkeenOtsikko);
+                uusiUI.addCheckBoxToValuesButtonGroup(button);
+            }
+        }
+    }
+
     private void FilePathTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilePathTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FilePathTextFieldActionPerformed
 
     private File file;
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
