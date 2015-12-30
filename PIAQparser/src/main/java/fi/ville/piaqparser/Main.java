@@ -21,27 +21,25 @@ import java.util.Date;
  * @author ville
  */
 public class Main {
-    
+
     public static void main(String[] args) throws FileNotFoundException {
         String tiedostoPolkuCSV = "/home/ville/CSVtesti.csv";
         String tiedostoPolkuXML = "/home/ville/Asiakirjat/PegasorHarjoitus/PIAQ3.xml";
         BufferedReader br = new BufferedReader(new FileReader(tiedostoPolkuCSV));
         TiedostonLukijaCSV tiedostonLukija = new TiedostonLukijaCSV();
+
+        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostoPolkuCSV, br);
+
+//        System.out.println("size" + mittaukset.size());
+//        for (int i = 0; i < 12000; i++) {
+//            mittaukset.remove(mittaukset.size() - 1);
+//        }
+//        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
+//        kirjoittaja.kirjoitaTiedosto(mittaukset, null);
+        System.out.println("Get tokan sootA " + mittaukset.get(1).getMittauksenArvo("sootA"));
+
+        UserInterface ui = new UserInterface();
         
-     
-        ArrayList<Mittaus> mittaukset=tiedostonLukija.lueMittauksetListaksi(tiedostoPolkuCSV, br);
-        
-        System.out.println("size"+ mittaukset.size());
-        
-        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
-        kirjoittaja.kirjoitaTiedosto();
-        System.out.println("Get tokan sootA "+mittaukset.get(1).getMittauksenArvo("sootA"));
-        
-        UserInterface ui= new UserInterface();
-        ui.main(args);
-        
-        
-        
-       
+
     }
 }

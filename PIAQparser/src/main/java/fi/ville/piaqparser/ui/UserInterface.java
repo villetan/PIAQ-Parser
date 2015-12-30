@@ -6,6 +6,7 @@
 package fi.ville.piaqparser.ui;
 
 import fi.ville.piaqparser.domain.Mittaus;
+import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
 import fi.ville.piaqparser.services.TiedostonLukijaPalvelu;
 import fi.ville.piaqparser.util.MittaustenAnalysoija;
 import java.awt.BorderLayout;
@@ -16,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
@@ -29,6 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -40,7 +43,10 @@ public class UserInterface extends javax.swing.JFrame {
      * Creates new form UserInterface
      */
     public UserInterface() {
+
         initComponents();
+        this.setVisible(true);
+        this.jSplitPane1.getBottomComponent().setVisible(false);
     }
 
     /**
@@ -54,6 +60,9 @@ public class UserInterface extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        timeAndOther = new javax.swing.JPanel();
+        piaqFileParser = new javax.swing.JPanel();
         Header = new javax.swing.JLabel();
         FilePathTextField = new javax.swing.JTextField();
         ChooseAFHeader = new javax.swing.JLabel();
@@ -84,8 +93,33 @@ public class UserInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        timeAndOther.setMaximumSize(new java.awt.Dimension(1, 1));
+        timeAndOther.setMinimumSize(new java.awt.Dimension(1, 1));
+        timeAndOther.setPreferredSize(new java.awt.Dimension(1, 1));
+
+        javax.swing.GroupLayout timeAndOtherLayout = new javax.swing.GroupLayout(timeAndOther);
+        timeAndOther.setLayout(timeAndOtherLayout);
+        timeAndOtherLayout.setHorizontalGroup(
+            timeAndOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 680, Short.MAX_VALUE)
+        );
+        timeAndOtherLayout.setVerticalGroup(
+            timeAndOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 458, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setBottomComponent(timeAndOther);
+
         Header.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         Header.setText("PIAQ File parser");
+
+        FilePathTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FilePathTextFieldActionPerformed(evt);
+            }
+        });
 
         ChooseAFHeader.setText("Choose a file for parsing");
 
@@ -96,57 +130,80 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout piaqFileParserLayout = new javax.swing.GroupLayout(piaqFileParser);
+        piaqFileParser.setLayout(piaqFileParserLayout);
+        piaqFileParserLayout.setHorizontalGroup(
+            piaqFileParserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(piaqFileParserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ErrorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(481, Short.MAX_VALUE))
+            .addGroup(piaqFileParserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(piaqFileParserLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(piaqFileParserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, piaqFileParserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(piaqFileParserLayout.createSequentialGroup()
+                                .addComponent(FilePathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BrowseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ChooseAFHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        piaqFileParserLayout.setVerticalGroup(
+            piaqFileParserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(piaqFileParserLayout.createSequentialGroup()
+                .addGap(149, 149, 149)
+                .addComponent(ErrorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(piaqFileParserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(piaqFileParserLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(31, 31, 31)
+                    .addComponent(ChooseAFHeader)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(piaqFileParserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(FilePathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BrowseButton))
+                    .addContainerGap(61, Short.MAX_VALUE)))
+        );
+
+        jSplitPane1.setLeftComponent(piaqFileParser);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(340, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ErrorTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ChooseAFHeader)
-                            .addComponent(FilePathTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BrowseButton)))
-                .addGap(63, 63, 63))
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(ChooseAFHeader)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FilePathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BrowseButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ErrorTextField)
-                .addContainerGap(64, Short.MAX_VALUE))
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu;
     private void BrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseButtonActionPerformed
         // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();
         int returnVal = fc.showOpenDialog(UserInterface.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             if (fc.getSelectedFile().getPath().contains(".xml") || fc.getSelectedFile().getPath().contains(".csv")) {
+                setSize(this.getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());
                 ErrorTextField.setText("");
                 FilePathTextField.setText(fc.getSelectedFile().getPath());
+                
                 this.file = fc.getSelectedFile();
-                setSize(rootPane.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-                add(timeWindow());
-                add(parametersWindow());
-                add(commandsWindow());
-                
-                
+                UusiUI uusiUI = new UusiUI();
+                this.jSplitPane1.setBottomComponent(uusiUI);
+                this.jSplitPane1.getBottomComponent().setVisible(true);
+                mittausAnalysoijaPalvelu=new MittausAnalysoijaPalvelu(file.getPath());
+                uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString()+" "+mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
+
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }
@@ -155,114 +212,13 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UserInterface().setVisible(true);
-            }
-        });
-    }
+    private void FilePathTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilePathTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FilePathTextFieldActionPerformed
 
     private File file;
 
-    private JPanel timeWindow() {
-        //Hmm. Kantsii tehdä napit ja muu mukava esim. JPaneliin ja tökätä JPanel JFrameen kun ehto täyttyy
-        int ekaIkkunaLoppu = rootPane.getHeight();
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new BorderLayout());
 
-        jPanel.setBackground(Color.red);
-        jPanel.setBounds(rootPane.getX(), ekaIkkunaLoppu, rootPane.getWidth() / 2, 2 * (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5);
-
-        jPanel.add(timeWindowNorthComponents(), BorderLayout.NORTH);
-        return jPanel;
-
-    }
-    private JLabel hasDataFrom;
-
-    private JPanel timeWindowNorthComponents() {
-        JPanel timeWindowNorth = new JPanel();
-        timeWindowNorth.setBackground(Color.red);
-        timeWindowNorth.setLayout(new BoxLayout(timeWindowNorth, BoxLayout.Y_AXIS));
-        JLabel timeOtsikkoJLabel = new JLabel("Time", JLabel.CENTER);
-        timeOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
-
-        hasDataFrom = new JLabel("This sheet has data from", JLabel.CENTER);
-        JLabel useDataFromLabel = new JLabel("Use data from", JLabel.CENTER);
-        useDataFromLabel.setFont(new Font("Ubuntu", 0, 24));
-
-        timeWindowNorth.add(timeOtsikkoJLabel, 0);
-        timeWindowNorth.add(Box.createRigidArea(new Dimension(0, 10)), 1);
-        timeWindowNorth.add(hasDataFrom, 2);
-        timeWindowNorth.add(Box.createRigidArea(new Dimension(0, 10)), 3);
-        
-        timeWindowNorth.add(useDataFromLabel, 4);
-
-        return timeWindowNorth;
-    }
-    
-    public String getFilePath(){
-        return FilePathTextField.getText();
-    }
-
-    private JPanel parametersWindow() {
-        Rectangle bounds = timeWindow().getBounds();
-        int siirtyma = timeWindow().getWidth();
-        bounds.setLocation(siirtyma, (int) bounds.getY());
-        JPanel jPanel = new JPanel();
-
-        jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
-        jPanel.setBackground(Color.CYAN);
-        jPanel.setBounds(bounds);
-        JLabel paramOtsikkoJLabel = new JLabel("Parameters", JLabel.CENTER);
-        paramOtsikkoJLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        paramOtsikkoJLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
-        paramOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
-        jPanel.add(paramOtsikkoJLabel);
-        return jPanel;
-    }
-
-    private JPanel commandsWindow() {
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new BoxLayout(jPanel, WIDTH));
-        jPanel.setBackground(Color.YELLOW);
-        jPanel.setBounds(rootPane.getX(), timeWindow().getY() + timeWindow().getHeight(), rootPane.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - (timeWindow().getY() + timeWindow().getHeight()));
-
-        JLabel commandsOtsikkoJLabel = new JLabel("Commands", JLabel.CENTER);
-        commandsOtsikkoJLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        commandsOtsikkoJLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
-        commandsOtsikkoJLabel.setFont(new Font("Ubuntu", 0, 24));
-        jPanel.add(commandsOtsikkoJLabel);
-
-        return jPanel;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BrowseButton;
@@ -272,5 +228,8 @@ public class UserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel Header;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel piaqFileParser;
+    private javax.swing.JPanel timeAndOther;
     // End of variables declaration//GEN-END:variables
 }

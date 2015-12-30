@@ -29,6 +29,8 @@ import org.w3c.dom.Element;
  */
 public class TiedostonKirjoittajaXML {
 
+    
+    //JAXB -Ooppa github
     public void kirjoitaTiedosto(ArrayList<Mittaus> mittaukset, ArrayList<String> otsikko) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -39,20 +41,31 @@ public class TiedostonKirjoittajaXML {
 
             Element worksheet = dokumentti.createElement("Worksheet");
             root.appendChild(worksheet);
-
-            Element row = dokumentti.createElement("Row");
-            worksheet.appendChild(row);
-            
+            int i = 0;
             for (Mittaus mittaus : mittaukset) {
-                for (String mittauksenArvo : mittaus.getMittaukset().keySet()) {
-                    Element cell = dokumentti.createElement("Cell");
-                    row.appendChild(cell);
 
-                    Element data = dokumentti.createElement("Data");
-                    cell.appendChild(data);
+                Element row = dokumentti.createElement("Row");
+                worksheet.appendChild(row);
 
-                    data.setAttribute("Co2", "123");
+                for (String mittauksenAvain : mittaus.getMittaukset().keySet()) {
+                    if (i == 0) {
+                        Element cell = dokumentti.createElement("Cell");
+                        row.appendChild(cell);
+
+                        Element data = dokumentti.createElement("Data");
+                        cell.appendChild(data);
+                        data.setAttribute("otsikko", mittauksenAvain);
+                    } else {
+                        Element cell = dokumentti.createElement("Cell");
+                        row.appendChild(cell);
+
+                        Element data = dokumentti.createElement("Data");
+                        cell.appendChild(data);
+
+                        data.setAttribute(mittauksenAvain, "" + mittaus.getMittauksenArvo(mittauksenAvain));
+                    }
                 }
+                i++;
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -68,6 +81,5 @@ public class TiedostonKirjoittajaXML {
             tfe.printStackTrace();
         }
     }
-    
-    
+
 }
