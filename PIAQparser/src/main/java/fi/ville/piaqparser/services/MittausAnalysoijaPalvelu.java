@@ -9,6 +9,7 @@ import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.util.MittaustenAnalysoija;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,12 +20,13 @@ public class MittausAnalysoijaPalvelu {
     private MittaustenAnalysoija analysoija;
     private ArrayList<Mittaus> mittaukset;
     private TiedostonLukijaPalvelu lukija;
+    private List<String> otsikkoRivi;
 
     public MittausAnalysoijaPalvelu(String filePath) {
         lukija= new TiedostonLukijaPalvelu();
         this.mittaukset= lukija.lueMittauksetListaksi(filePath);
         analysoija = new MittaustenAnalysoija(mittaukset);
-        this.mittaukset=mittaukset;
+        otsikkoRivi= lukija.lueOtsikonArvot(filePath);
     }
 
     public String mittaustenEnsimmainenDateString() {
@@ -48,6 +50,10 @@ public class MittausAnalysoijaPalvelu {
         }else{
             return mittaustenEnsimmainenKelloString();
         }
+    }
+    
+    public List<String> MittaustenOtsikkoRivi(){
+        return otsikkoRivi;
     }
     
     

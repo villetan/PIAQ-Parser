@@ -5,6 +5,9 @@
  */
 package fi.ville.piaqparser.ui;
 
+import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
+import javax.swing.JRadioButton;
+
 /**
  *
  * @author ville
@@ -17,6 +20,7 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     public UusiUI() {
         initComponents();
         setVisible(true);
+        
     }
 
     /**
@@ -28,6 +32,8 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dataForEveryButtonGroup = new javax.swing.ButtonGroup();
+        valuesButtonGroup = new javax.swing.ButtonGroup();
         CommandsWindow = new javax.swing.JPanel();
         Commands = new javax.swing.JLabel();
         makeNewXML = new javax.swing.JButton();
@@ -42,6 +48,14 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         Parameters = new javax.swing.JLabel();
         values = new javax.swing.JLabel();
         dataForEvery = new javax.swing.JLabel();
+        radioButton1second = new javax.swing.JRadioButton();
+        radioButton15seconds = new javax.swing.JRadioButton();
+        radioButton30seconds = new javax.swing.JRadioButton();
+        radioButton1minute = new javax.swing.JRadioButton();
+        radioButton5minutes = new javax.swing.JRadioButton();
+        radioButton15minutes = new javax.swing.JRadioButton();
+        radioButton1hour = new javax.swing.JRadioButton();
+        valuesButtonsPanel = new javax.swing.JPanel();
 
         CommandsWindow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -138,17 +152,59 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
 
         dataForEvery.setText("Data for every");
 
+        dataForEveryButtonGroup.add(radioButton1second);
+        radioButton1second.setText("1 second");
+
+        dataForEveryButtonGroup.add(radioButton15seconds);
+        radioButton15seconds.setText("15 seconds");
+
+        dataForEveryButtonGroup.add(radioButton30seconds);
+        radioButton30seconds.setText("30 seconds");
+
+        dataForEveryButtonGroup.add(radioButton1minute);
+        radioButton1minute.setText("1 minute");
+
+        dataForEveryButtonGroup.add(radioButton5minutes);
+        radioButton5minutes.setText("5 minutes");
+
+        dataForEveryButtonGroup.add(radioButton15minutes);
+        radioButton15minutes.setText("15 minutes");
+
+        dataForEveryButtonGroup.add(radioButton1hour);
+        radioButton1hour.setText("1 hour");
+
+        javax.swing.GroupLayout valuesButtonsPanelLayout = new javax.swing.GroupLayout(valuesButtonsPanel);
+        valuesButtonsPanel.setLayout(valuesButtonsPanelLayout);
+        valuesButtonsPanelLayout.setHorizontalGroup(
+            valuesButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        valuesButtonsPanelLayout.setVerticalGroup(
+            valuesButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout ParametersWindowLayout = new javax.swing.GroupLayout(ParametersWindow);
         ParametersWindow.setLayout(ParametersWindowLayout);
         ParametersWindowLayout.setHorizontalGroup(
             ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ParametersWindowLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(values, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dataForEvery, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addComponent(Parameters, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ParametersWindowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(values, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(valuesButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dataForEvery, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(radioButton1hour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioButton15minutes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioButton5minutes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioButton1minute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioButton30seconds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioButton15seconds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioButton1second, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         ParametersWindowLayout.setVerticalGroup(
             ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,6 +215,23 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
                 .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(values)
                     .addComponent(dataForEvery))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(ParametersWindowLayout.createSequentialGroup()
+                        .addComponent(radioButton1second)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioButton15seconds)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioButton30seconds)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioButton1minute)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioButton5minutes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioButton15minutes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioButton1hour))
+                    .addComponent(valuesButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -195,12 +268,32 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     private javax.swing.JPanel TimeWindow;
     private javax.swing.JLabel UseDataFrom;
     private javax.swing.JLabel dataForEvery;
+    private javax.swing.ButtonGroup dataForEveryButtonGroup;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton makeNewXML;
+    private javax.swing.JRadioButton radioButton15minutes;
+    private javax.swing.JRadioButton radioButton15seconds;
+    private javax.swing.JRadioButton radioButton1hour;
+    private javax.swing.JRadioButton radioButton1minute;
+    private javax.swing.JRadioButton radioButton1second;
+    private javax.swing.JRadioButton radioButton30seconds;
+    private javax.swing.JRadioButton radioButton5minutes;
     private javax.swing.JLabel thisSheetHasDataFrom;
     private javax.swing.JLabel values;
+    private javax.swing.ButtonGroup valuesButtonGroup;
+    private javax.swing.JPanel valuesButtonsPanel;
     // End of variables declaration//GEN-END:variables
 
+    
+    @Override
+    public void addButtonToValuesButtonGroup(JRadioButton button){
+        valuesButtonGroup.add(button);
+        valuesButtonsPanel.add(button);
+        
+    }
+    
+    
+    
     @Override
     public String getDateFrom() {
         return DataFrom.getText();
@@ -209,5 +302,15 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     @Override
     public void setDateFrom(String teksti) {
         DataFrom.setText(teksti);
+    }
+    
+    @Override
+    public String getDateTo(){
+        return DataTo.getText();
+    }
+    
+    @Override
+    public void setDateTo(String teksti){
+        DataTo.setText(teksti);
     }
 }

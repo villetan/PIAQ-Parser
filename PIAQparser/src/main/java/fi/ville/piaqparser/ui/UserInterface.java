@@ -31,6 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
@@ -130,6 +131,8 @@ public class UserInterface extends javax.swing.JFrame {
             }
         });
 
+        ErrorTextField.setForeground(java.awt.Color.red);
+
         javax.swing.GroupLayout piaqFileParserLayout = new javax.swing.GroupLayout(piaqFileParser);
         piaqFileParser.setLayout(piaqFileParserLayout);
         piaqFileParserLayout.setHorizontalGroup(
@@ -199,11 +202,17 @@ public class UserInterface extends javax.swing.JFrame {
                 
                 this.file = fc.getSelectedFile();
                 UusiUI uusiUI = new UusiUI();
+                
                 this.jSplitPane1.setBottomComponent(uusiUI);
                 this.jSplitPane1.getBottomComponent().setVisible(true);
                 mittausAnalysoijaPalvelu=new MittausAnalysoijaPalvelu(file.getPath());
                 uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString()+" "+mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
-
+                uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString()+" "+ mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
+                
+                for(String sarakkeenOtsikko : mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi()){
+                    JRadioButton button=new JRadioButton(sarakkeenOtsikko);
+                    uusiUI.addButtonToValuesButtonGroup(button);
+                }
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }

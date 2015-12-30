@@ -5,6 +5,8 @@
  */
 package fi.ville.piaqparser.ui;
 
+import javax.swing.JRadioButton;
+
 /**
  *
  * @author ville
@@ -13,6 +15,11 @@ public interface AsetaTekstiRajapinta {
     
     public String getDateFrom();
     public void setDateFrom(String teksti);
+    
+    public String getDateTo();
+    public void setDateTo(String teksti);
+    
+    public void addButtonToValuesButtonGroup(JRadioButton button);
     
     
 }

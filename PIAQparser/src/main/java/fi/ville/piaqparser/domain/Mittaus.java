@@ -54,7 +54,7 @@ public class Mittaus {
     }
     
     public String palautaAikaleimaPVM(){
-        String pvm = aikaleima.getMonth()+"/"+aikaleima.getMonth()+"/"+aikaleima.getYear();
+        String pvm = aikaleima.getMonth()+"/"+aikaleima.getMonth()+"/"+(aikaleima.getYear()+1900);
         return pvm;
     }
     
