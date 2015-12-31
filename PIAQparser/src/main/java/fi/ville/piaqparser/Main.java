@@ -6,7 +6,9 @@
 package fi.ville.piaqparser;
 
 import fi.ville.piaqparser.domain.Mittaus;
+import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
 import fi.ville.piaqparser.ui.UserInterface;
+import fi.ville.piaqparser.util.AikaKaantaja;
 import fi.ville.piaqparser.util.MittaustenAnalysoija;
 import fi.ville.piaqparser.util.TiedostonKirjoittajaXML;
 import fi.ville.piaqparser.util.TiedostonLukijaCSV;
@@ -37,6 +39,8 @@ public class Main {
 //        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
 //        kirjoittaja.kirjoitaTiedosto(mittaukset, null);
         System.out.println("Get tokan sootA " + mittaukset.get(1).getMittauksenArvo("sootA"));
+        
+        
 
         UserInterface ui = new UserInterface();
         

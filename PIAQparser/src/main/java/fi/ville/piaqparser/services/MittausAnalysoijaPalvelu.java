@@ -23,10 +23,10 @@ public class MittausAnalysoijaPalvelu {
     private List<String> otsikkoRivi;
 
     public MittausAnalysoijaPalvelu(String filePath) {
-        lukija= new TiedostonLukijaPalvelu();
-        this.mittaukset= lukija.lueMittauksetListaksi(filePath);
+        lukija = new TiedostonLukijaPalvelu();
+        this.mittaukset = lukija.lueMittauksetListaksi(filePath);
         analysoija = new MittaustenAnalysoija(mittaukset);
-        otsikkoRivi= lukija.lueOtsikonArvot(filePath);
+        otsikkoRivi = lukija.lueOtsikonArvot(filePath);
     }
 
     public String mittaustenEnsimmainenDateString() {
@@ -40,24 +40,45 @@ public class MittausAnalysoijaPalvelu {
     public String mittaustenViimeinenDateString() {
         if (analysoija.ensimmainenJaViimeinenMittausListana().size() > 1) {
             return analysoija.ensimmainenJaViimeinenMittausListana().get(1).palautaAikaleimaPVM();
-        }else{
+        } else {
             return mittaustenEnsimmainenDateString();
         }
     }
-    public String mittaustenViimeinenKelloString(){
+
+    public String mittaustenViimeinenKelloString() {
         if (analysoija.ensimmainenJaViimeinenMittausListana().size() > 1) {
             return analysoija.ensimmainenJaViimeinenMittausListana().get(1).palautaAikaleimaKellonaika();
-        }else{
+        } else {
             return mittaustenEnsimmainenKelloString();
         }
     }
-    
-    public List<String> MittaustenOtsikkoRivi(){
+
+    public List<String> MittaustenOtsikkoRivi() {
         return otsikkoRivi;
     }
+
     
     
-    
-    
+    public ArrayList<Mittaus> valitseMittauksetAikavalilta(Date date1, Date date2) {
+        ArrayList<Mittaus> palautettava = new ArrayList<>();
+        if (date1.before(date2)) {
+            for (Mittaus mittaus : mittaukset) {
+                if(!mittaus.getAikaleima().before(date1) && !mittaus.getAikaleima().after(date2)){
+                    palautettava.add(mittaus);
+                }
+            }
+            return palautettava;
+        }
+        if(date1.after(date2)){
+            return null;
+        }
+        
+        for(Mittaus m : mittaukset){
+            if(m.getAikaleima().equals(date1) && m.getAikaleima().equals(date2)){
+                palautettava.add(m);
+            }
+        }
+        return palautettava;
+    }
 
 }
