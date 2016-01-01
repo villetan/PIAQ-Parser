@@ -209,8 +209,11 @@ public class UserInterface extends javax.swing.JFrame {
                 mittausAnalysoijaPalvelu = new MittausAnalysoijaPalvelu(file.getPath());
                 uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
                 uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
-
+                
                 luoOtsikkoCheckBoxit(uusiUI);
+                uusiUI.setMittausAnalysoijaPalvelu(mittausAnalysoijaPalvelu);
+                
+                
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }

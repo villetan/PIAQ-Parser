@@ -37,7 +37,7 @@ public class Main {
 //            mittaukset.remove(mittaukset.size() - 1);
 //        }
 //        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
-//        kirjoittaja.kirjoitaTiedosto(mittaukset, null);
+//        kirjoittaja.kirjoitaTiedosto(mittaukset);
         System.out.println("Get tokan sootA " + mittaukset.get(1).getMittauksenArvo("sootA"));
         
         

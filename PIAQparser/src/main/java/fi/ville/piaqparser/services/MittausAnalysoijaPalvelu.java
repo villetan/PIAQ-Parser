@@ -25,7 +25,7 @@ public class MittausAnalysoijaPalvelu {
     public MittausAnalysoijaPalvelu(String filePath) {
         lukija = new TiedostonLukijaPalvelu();
         this.mittaukset = lukija.lueMittauksetListaksi(filePath);
-        analysoija = new MittaustenAnalysoija(mittaukset);
+        analysoija = new MittaustenAnalysoija(getMittaukset());
         otsikkoRivi = lukija.lueOtsikonArvot(filePath);
     }
 
@@ -60,25 +60,37 @@ public class MittausAnalysoijaPalvelu {
     
     
     public ArrayList<Mittaus> valitseMittauksetAikavalilta(Date date1, Date date2) {
+        
         ArrayList<Mittaus> palautettava = new ArrayList<>();
         if (date1.before(date2)) {
-            for (Mittaus mittaus : mittaukset) {
+            
+            for (Mittaus mittaus : getMittaukset()) {
                 if(!mittaus.getAikaleima().before(date1) && !mittaus.getAikaleima().after(date2)){
                     palautettava.add(mittaus);
                 }
             }
+            
             return palautettava;
         }
         if(date1.after(date2)){
+            
             return null;
         }
         
-        for(Mittaus m : mittaukset){
+        for(Mittaus m : getMittaukset()){
             if(m.getAikaleima().equals(date1) && m.getAikaleima().equals(date2)){
                 palautettava.add(m);
             }
         }
+        
         return palautettava;
+    }
+
+    /**
+     * @return the mittaukset
+     */
+    public ArrayList<Mittaus> getMittaukset() {
+        return mittaukset;
     }
 
 }

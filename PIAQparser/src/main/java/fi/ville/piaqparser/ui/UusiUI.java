@@ -5,7 +5,11 @@
  */
 package fi.ville.piaqparser.ui;
 
+import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
+import fi.ville.piaqparser.util.TiedostonKirjoittajaXML;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
@@ -25,6 +29,7 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +50,13 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         jLabel2 = new javax.swing.JLabel();
         DataTo = new javax.swing.JLabel();
         UseDataFrom = new javax.swing.JLabel();
+        useDataFromFromDate = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
+        useDataFromToDate = new javax.swing.JSpinner();
+        useDataFromFromSeconds = new javax.swing.JSpinner();
+        useDataFromToSeconds = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         ParametersWindow = new javax.swing.JPanel();
         Parameters = new javax.swing.JLabel();
         values = new javax.swing.JLabel();
@@ -65,6 +77,11 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         Commands.setText("Commands");
 
         makeNewXML.setText("Make a new Excel(XML)");
+        makeNewXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                makeNewXMLActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout CommandsWindowLayout = new javax.swing.GroupLayout(CommandsWindow);
         CommandsWindow.setLayout(CommandsWindowLayout);
@@ -73,7 +90,7 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
             .addGroup(CommandsWindowLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(makeNewXML)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addContainerGap(411, Short.MAX_VALUE))
             .addComponent(Commands, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         CommandsWindowLayout.setVerticalGroup(
@@ -104,6 +121,25 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         UseDataFrom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UseDataFrom.setText("Use data from");
 
+        useDataFromFromDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.MINUTE));
+        useDataFromFromDate.setName("useDataFromSpinner"); // NOI18N
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("To");
+
+        useDataFromToDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.MINUTE));
+        useDataFromToDate.setName("useDataFromToSpinner"); // NOI18N
+
+        useDataFromFromSeconds.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+        useDataFromFromSeconds.setName("useDataFromFromSeconds"); // NOI18N
+
+        useDataFromToSeconds.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+        useDataFromToSeconds.setName("useDataFromToSeconds"); // NOI18N
+
+        jLabel3.setText("seconds");
+
+        jLabel4.setText("seconds");
+
         javax.swing.GroupLayout TimeWindowLayout = new javax.swing.GroupLayout(TimeWindow);
         TimeWindow.setLayout(TimeWindowLayout);
         TimeWindowLayout.setHorizontalGroup(
@@ -113,17 +149,36 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
             .addGroup(TimeWindowLayout.createSequentialGroup()
                 .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(thisSheetHasDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(64, 64, 64)
+                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(useDataFromFromSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(useDataFromToSeconds, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DataTo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(TimeWindowLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(thisSheetHasDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(TimeWindowLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(DataTo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(TimeWindowLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(DataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(TimeWindowLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(useDataFromFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(useDataFromToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         TimeWindowLayout.setVerticalGroup(
             TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,8 +195,23 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
                 .addComponent(DataTo)
                 .addGap(18, 18, 18)
                 .addComponent(UseDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(useDataFromFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(useDataFromToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(3, 3, 3)
+                .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(useDataFromFromSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(useDataFromToSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        useDataFromFromDate.getAccessibleContext().setAccessibleName("");
 
         ParametersWindow.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -235,7 +305,7 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
                         .addComponent(radioButton15minutes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioButton1hour)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -259,6 +329,19 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu;
+    private String filePath;
+    private ArrayList<Mittaus> luetutMittaukset;
+    private void makeNewXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeNewXMLActionPerformed
+        // TODO add your handling code here:
+        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
+        ArrayList<Mittaus> valitutMittaukset=mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
+        System.out.println("Valitut: "+valitutMittaukset.size());
+        
+        kirjoittaja.kirjoitaTiedosto(valitutMittaukset);
+    }//GEN-LAST:event_makeNewXMLActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Commands;
@@ -272,7 +355,10 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     private javax.swing.JLabel UseDataFrom;
     private javax.swing.JLabel dataForEvery;
     private javax.swing.ButtonGroup dataForEveryButtonGroup;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton makeNewXML;
     private javax.swing.JRadioButton radioButton15minutes;
     private javax.swing.JRadioButton radioButton15seconds;
@@ -282,6 +368,10 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     private javax.swing.JRadioButton radioButton30seconds;
     private javax.swing.JRadioButton radioButton5minutes;
     private javax.swing.JLabel thisSheetHasDataFrom;
+    private javax.swing.JSpinner useDataFromFromDate;
+    private javax.swing.JSpinner useDataFromFromSeconds;
+    private javax.swing.JSpinner useDataFromToDate;
+    private javax.swing.JSpinner useDataFromToSeconds;
     private javax.swing.JLabel values;
     private javax.swing.JPanel valuesButtonsPanel;
     // End of variables declaration//GEN-END:variables
@@ -293,6 +383,8 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         
         valuesButtonsPanel.add(box);
     }
+    
+    
     
     
     
@@ -315,4 +407,41 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
     public void setDateTo(String teksti){
         DataTo.setText(teksti);
     }
+
+    @Override
+    public Date getUseDataFromFromDate() {
+        Date useDataFrom= (Date)useDataFromFromDate.getValue();
+        useDataFrom.setSeconds((int)useDataFromFromSeconds.getValue());
+        return useDataFrom;
+    }
+
+    @Override
+    public Date getUseDataFromToDate() {
+        Date useDataTo=(Date)useDataFromToDate.getValue();
+        useDataTo.setSeconds((int)useDataFromToSeconds.getValue());
+        return useDataTo;
+    }
+
+    /**
+     * @param mittausAnalysoijaPalvelu the mittausAnalysoijaPalvelu to set
+     */
+    public void setMittausAnalysoijaPalvelu(MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu) {
+        this.mittausAnalysoijaPalvelu = mittausAnalysoijaPalvelu;
+    }
+
+    /**
+     * @param filePath the filePath to set
+     */
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    /**
+     * @param lueatutMittaukset the lueatutMittaukset to set
+     */
+    public void setLuetutMittaukset(ArrayList<Mittaus> lueatutMittaukset) {
+        this.luetutMittaukset = lueatutMittaukset;
+    }
+    
+    
 }
