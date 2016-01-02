@@ -52,14 +52,23 @@ public class Mittaus {
         palautettava += "\n";
         return palautettava;
     }
-    
-    public String palautaAikaleimaPVM(){
-        String pvm = aikaleima.getDate()+"/"+(aikaleima.getMonth()+1)+"/"+(aikaleima.getYear()+1900);
+
+    public String palautaAikaleimaPVM() {
+        String pvm = aikaleima.getDate() + "/" + (aikaleima.getMonth() + 1) + "/" + (aikaleima.getYear() + 1900);
         return pvm;
     }
-    
-    public String palautaAikaleimaKellonaika(){
-        String kellonaika= aikaleima.getHours()+":"+aikaleima.getMinutes()+":"+aikaleima.getSeconds();
+
+    public String palautaAikaleimaKellonaika() {
+        String kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+        if (aikaleima.getSeconds() == 0) {
+            kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds() + "0";
+        }
+        if (aikaleima.getMinutes() == 0) {
+            kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + "0" + ":" + aikaleima.getSeconds();
+        }
+        if (aikaleima.getHours() == 0) {
+            kellonaika = aikaleima.getHours()+ "0" + ":" + aikaleima.getMinutes()  + ":" + aikaleima.getSeconds();
+        }
         return kellonaika;
     }
 
@@ -78,7 +87,7 @@ public class Mittaus {
     }
 
     public boolean equals(Mittaus verrattava) {
-        if (this.aikaleima!=null && verrattava.getAikaleima()!=null) {
+        if (this.aikaleima != null && verrattava.getAikaleima() != null) {
             if (!aikaleima.equals(verrattava.getAikaleima())) {
 
                 return false;

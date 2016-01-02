@@ -340,6 +340,9 @@ public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
         System.out.println("Valitut: "+valitutMittaukset.size());
         
         kirjoittaja.kirjoitaTiedosto(valitutMittaukset);
+        UusiXmlLuotu xmlCreatedWindow=new UusiXmlLuotu();
+        xmlCreatedWindow.showFilePathName(filePath);
+        xmlCreatedWindow.setVisible(true);
     }//GEN-LAST:event_makeNewXMLActionPerformed
 
 
