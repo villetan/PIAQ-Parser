@@ -41,7 +41,12 @@ public class TiedostonKirjoittajaXML {
         aikaKaantaja = new AikaKaantaja();
     }
 
-    //JAXB -Ooppa github
+    /**
+     * Tiedoston kirjoittava metodi. Kirjoittaa uuden XML tiedoston.
+     * 
+     * 
+     * @param mittaukset Luetut ja javassa muokatut mittaukset, valmiina kirjoitukseen.
+     */
     public void kirjoitaTiedosto(ArrayList<Mittaus> mittaukset) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
