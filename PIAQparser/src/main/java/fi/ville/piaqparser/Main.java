@@ -32,7 +32,7 @@ public class Main {
 
         ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostoPolkuCSV, br);
 
-//        System.out.println("size" + mittaukset.size());
+        System.out.println("size" + mittaukset.size());
 //        for (int i = 0; i < 12000; i++) {
 //            mittaukset.remove(mittaukset.size() - 1);
 //        }

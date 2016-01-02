@@ -84,7 +84,7 @@ public class TiedostonKirjoittajaXML {
 
             Element excelWorkbook = dokumentti.createElement("ExcelWorkbook");
             workbook.appendChild(excelWorkbook);
-            workbook.setAttribute("xmlns", "urn:schemas-microsoft-com:office:excel");
+            excelWorkbook.setAttribute("xmlns", "urn:schemas-microsoft-com:office:excel");
 
             Element windowHeight = dokumentti.createElement("WindowHeight");
             excelWorkbook.appendChild(windowHeight);
