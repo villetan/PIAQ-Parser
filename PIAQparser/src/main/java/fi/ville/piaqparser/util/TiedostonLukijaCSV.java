@@ -30,7 +30,14 @@ public class TiedostonLukijaCSV {
 
     String line = "";
     String splitBy = ",";
-
+/**
+ * Lukee Mittauksen listaksi, ei ota huomioon ensimmäistä saraketta (oletettavasti aika)
+ * 
+ * 
+ * @param tiedostoPolku luettavan tiedoston polku
+ * @param br Buffered reader, lukee tiedoston polusta.
+ * @return ArrayList Mittauksista.
+ */
     public ArrayList<Mittaus> lueMittauksetListaksi(String tiedostoPolku, BufferedReader br) {
         AikaKaantaja aikaKaantaja = new AikaKaantaja();
         ArrayList<Mittaus> mittausLista = new ArrayList<>();
@@ -39,7 +46,6 @@ public class TiedostonLukijaCSV {
         int rivejaLuettu = 0;
         try {
             while ((line = br.readLine()) != null) {
-                //selvitä mittausarvojen sarakkeet
 
                 String[] rivi = line.split(splitBy);
                 //DateFormat format = new SimpleDateFormat("DD/MM/YYYY, hh:mm:ss", Locale.ENGLISH);
@@ -66,7 +72,13 @@ public class TiedostonLukijaCSV {
         return mittausLista;
     }
 
-    //toimii hyvin, palauttaa Mapin jossa avaimina on sarakkeiden nimet ja arvoina indeksit 0:sta alkaen
+    /**
+     * Lukee tiedoston otsikkorivin. Oletetaan että kaikkia otsikkorivin arvoja vastaa joku arvo.
+     * 
+     * @param tiedostoPolku - luettavan tiedoston tiedostopolku;
+     * @param br lukija joka lukee tiedostopolun tiedoston
+     * @return HashMap, avaimena mittauksen sarakkeen nimi ja arvona kyseisen mittauksen indeksi
+     */
     public HashMap<String, Integer> lueHeaderMapiksi(String tiedostoPolku, BufferedReader br) {
         HashMap<String, Integer> mittaustenIndeksit = new HashMap<>();
         try {

@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
  */
 public class TiedostonKirjoittajaXML {
 
+    //ehkä FilePath/name konstruktoriin
     private AikaKaantaja aikaKaantaja;
 
     public TiedostonKirjoittajaXML() {

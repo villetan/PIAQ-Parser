@@ -28,12 +28,18 @@ import org.xml.sax.SAXException;
  *
  * @author ville
  * Luokka, joka sisältää logiikan XML-tiedostojen lukemiseen.
+ * Ohjeita otettu http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+
  */
-//Ohjeita otettu http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
 public class TiedostonLukijaXML {
 
     
-    //lue xml Listaksi mittaus-olioita.
+    /**
+     * 
+     * @param file luettava tiedosto
+     * @param nodeName luettavan noden nimi, Näissä mittauksissa ROW
+     * @return ArrayList mittaus-olioista jotka kuvaavat taulukon yhtä riviä.
+     */
     public ArrayList<Mittaus> lueMittauksetListaksi(File file, String nodeName) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         ArrayList<Mittaus> rivitMittauksina = new ArrayList<>();
@@ -73,8 +79,15 @@ public class TiedostonLukijaXML {
        return rivitMittauksina; 
     }
 
-    //Lukee otsikon HashMapiksi jossa avaimet on otsikon nimi ja arvo on sarakkeen numero 0sta lukien.
-    // ei ota huomioon aikaleimaa jonka oletetaan olevan ensimmäisenä.
+    /**
+     * Lukee taulukkotiedoston otsikkorivin hasmapiksi, jossa avain on sarakkeen
+     * arvo ja arvo on indeksi.
+     * Ei ota huomioon aikaleimaa, jonka oletetaan olevan ensimmäinen sarake.
+     * 
+     * @param file luettava tiedosto
+     * @param nodeName luettavan solmun nimi, tässä tapauksessa yleisesti Row
+     * @return HashMap, jossa avaimena sarakkeen nimi ja arvona indeksi
+     */
     public HashMap<String, Integer> lueHeaderMapiksi(File file, String nodeName) {
         HashMap<String, Integer> otsikkoRivi = new HashMap<>();
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
