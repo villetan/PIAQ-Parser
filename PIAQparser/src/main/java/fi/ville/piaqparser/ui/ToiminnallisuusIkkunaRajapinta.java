@@ -12,8 +12,11 @@ import javax.swing.JRadioButton;
 /**
  *
  * @author ville
+ * 
+ * Rajapinta, esittää vaatimukset ohjelman toiminnallisuusikkunalle.
+ * 
  */
-public interface AsetaTekstiRajapinta {
+public interface ToiminnallisuusIkkunaRajapinta {
     
     public String getDateFrom();
     public void setDateFrom(String teksti);

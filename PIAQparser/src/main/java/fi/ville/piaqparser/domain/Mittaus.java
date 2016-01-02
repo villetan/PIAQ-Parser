@@ -11,6 +11,9 @@ import java.util.HashMap;
 /**
  *
  * @author ville
+ *
+ * Luokka pitää huolta datasta tulevan "rivin" eli yhden mittauksen
+ * tallentamisesta olio-muotoon.
  */
 public class Mittaus {
 
@@ -60,15 +63,31 @@ public class Mittaus {
 
     public String palautaAikaleimaKellonaika() {
         String kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
-        if (aikaleima.getSeconds() == 0) {
-            kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds() + "0";
+        if (aikaleima.getSeconds() < 10) {
+            kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + "0" + aikaleima.getSeconds();
+            if (aikaleima.getMinutes() < 10) {
+                kellonaika = aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + "0" + aikaleima.getSeconds();
+                if (aikaleima.getHours() < 10) {
+                    kellonaika = "0" + aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + "0" + aikaleima.getSeconds();
+                    return kellonaika;
+                }
+                return kellonaika;
+            }
+            return kellonaika;
         }
-        if (aikaleima.getMinutes() == 0) {
-            kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + "0" + ":" + aikaleima.getSeconds();
+        if (aikaleima.getMinutes() < 10) {
+            kellonaika = aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+            if (aikaleima.getHours() < 10) {
+                kellonaika = "0" + aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+                return kellonaika;
+            }
+            return kellonaika;
         }
-        if (aikaleima.getHours() == 0) {
-            kellonaika = aikaleima.getHours()+ "0" + ":" + aikaleima.getMinutes()  + ":" + aikaleima.getSeconds();
+        if (aikaleima.getHours() < 10) {
+            kellonaika = "0" + aikaleima.getHours() + ":"  + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+            return kellonaika;
         }
+
         return kellonaika;
     }
 

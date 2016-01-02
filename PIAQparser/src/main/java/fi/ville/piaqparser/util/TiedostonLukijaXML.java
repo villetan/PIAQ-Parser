@@ -27,6 +27,7 @@ import org.xml.sax.SAXException;
 /**
  *
  * @author ville
+ * Luokka, joka sisältää logiikan XML-tiedostojen lukemiseen.
  */
 //Ohjeita otettu http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
 public class TiedostonLukijaXML {

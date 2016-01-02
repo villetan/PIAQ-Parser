@@ -14,6 +14,8 @@ import java.util.List;
 /**
  *
  * @author ville
+ * Palvelu-luokka, joka tarjoaa palveluita luettujen mittausten
+ * käsittelyyn.
  */
 public class MittausAnalysoijaPalvelu {
 

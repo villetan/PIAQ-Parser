@@ -38,13 +38,16 @@ import javax.swing.JTextField;
 /**
  *
  * @author ville
+ * Pääikkuna, joka avautuu ensimmäisenä, kun ohjelma käynnistetään.
+ * Täällä valitaan käsiteltävä tiedosto, ja validoidaan se .xml tai .csv 
+ * tiedostoksi.
  */
-public class UserInterface extends javax.swing.JFrame {
+public class TiedostonValitsijaFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form UserInterface
      */
-    public UserInterface() {
+    public TiedostonValitsijaFrame() {
 
         initComponents();
         this.setVisible(true);
@@ -194,7 +197,7 @@ public class UserInterface extends javax.swing.JFrame {
     private void BrowseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseButtonActionPerformed
         // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();
-        int returnVal = fc.showOpenDialog(UserInterface.this);
+        int returnVal = fc.showOpenDialog(TiedostonValitsijaFrame.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             if (fc.getSelectedFile().getPath().contains(".xml") || fc.getSelectedFile().getPath().contains(".csv")) {
                 setSize(this.getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
@@ -202,7 +205,7 @@ public class UserInterface extends javax.swing.JFrame {
                 FilePathTextField.setText(fc.getSelectedFile().getPath());
 
                 this.file = fc.getSelectedFile();
-                UusiUI uusiUI = new UusiUI();
+                ToiminnallisuusPanel uusiUI = new ToiminnallisuusPanel();
 
                 this.jSplitPane1.setBottomComponent(uusiUI);
                 this.jSplitPane1.getBottomComponent().setVisible(true);
@@ -222,7 +225,7 @@ public class UserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
 
-    private void luoOtsikkoCheckBoxit(UusiUI uusiUI) {
+    private void luoOtsikkoCheckBoxit(ToiminnallisuusPanel uusiUI) {
         if (mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi().size() > 10) {
             ErrorTextField.setText("Too many rows in the data");
         } else {

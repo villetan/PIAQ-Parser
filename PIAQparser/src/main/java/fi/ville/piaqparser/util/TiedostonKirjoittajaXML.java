@@ -29,6 +29,9 @@ import org.w3c.dom.Element;
 /**
  *
  * @author ville
+ * Tiedoston kirjoittamiseen tarkoitettu luokka. Kirjoittaa XML muotoista
+ * dataa, joka on tarkoitettu avattavaksi erityisesti Libre officella ja
+ * Excelillä.
  */
 public class TiedostonKirjoittajaXML {
 
@@ -46,186 +49,17 @@ public class TiedostonKirjoittajaXML {
 
             Document dokumentti = tiedostonRakentaja.newDocument();
             dokumentti.setXmlVersion("1.1");
-            Element workbook = dokumentti.createElement("Workbook");
-            dokumentti.appendChild(workbook);
-            workbook.setAttribute("xmlns", "urn:schemas-microsoft-com:office:spreadsheet");
-            workbook.setAttribute("xmlns:o", "urn:schemas-microsoft-com:office:office");
-            workbook.setAttribute("xmlns:x", "urn:schemas-microsoft-com:office:excel");
-            workbook.setAttribute("xmlns:ss", "urn:schemas-microsoft-com:office:spreadsheet");
-            workbook.setAttribute("xmlns:html", "http://www.w3.org/TR/REC-html40");
+            Element workbook = createWorkbookNode(dokumentti);
 
-            Element documentProperties = dokumentti.createElement("DocumentProperties");
-            workbook.appendChild(documentProperties);
+            createDocumentPropertiesNode(dokumentti, workbook);
 
-            documentProperties.setAttribute("xmlns", "urn:schemas-microsoft-com:office:office");
+            createOfficeDocumentSettingsNode(dokumentti, workbook);
 
-            Element author = dokumentti.createElement("Author");
-            documentProperties.appendChild(author);
-            author.setTextContent("Omistaja");
+            createExcelWorkbookNode(dokumentti, workbook);
 
-            Element lastAuthor = dokumentti.createElement("LastAuthor");
-            documentProperties.appendChild(lastAuthor);
-            lastAuthor.setTextContent("Omistaja");
+            createStylesNode(dokumentti, workbook);
 
-            Element created = dokumentti.createElement("Created");
-            documentProperties.appendChild(created);
-            created.setTextContent("" + new Date(System.currentTimeMillis()));
-
-            Element version = dokumentti.createElement("Version");
-            documentProperties.appendChild(version);
-            version.setTextContent("15.00");
-
-            Element officeDocumentSettings = dokumentti.createElement("OfficeDocumentSettings");
-            workbook.appendChild(officeDocumentSettings);
-            officeDocumentSettings.setAttribute("xmlns", "urn:schemas-microsoft-com:office:office");
-
-            Element allowPNG = dokumentti.createElement("AllowPNG");
-            officeDocumentSettings.appendChild(allowPNG);
-
-            Element excelWorkbook = dokumentti.createElement("ExcelWorkbook");
-            workbook.appendChild(excelWorkbook);
-            excelWorkbook.setAttribute("xmlns", "urn:schemas-microsoft-com:office:excel");
-
-            Element windowHeight = dokumentti.createElement("WindowHeight");
-            excelWorkbook.appendChild(windowHeight);
-            windowHeight.setTextContent("12345");
-
-            Element windowWidth = dokumentti.createElement("WindowWidth");
-            excelWorkbook.appendChild(windowWidth);
-            windowWidth.setTextContent("28800");
-
-            Element windowTopX = dokumentti.createElement("WindowTopX");
-            excelWorkbook.appendChild(windowTopX);
-            windowTopX.setTextContent("0");
-
-            Element windowTopY = dokumentti.createElement("WindowTopY");
-            excelWorkbook.appendChild(windowTopY);
-            windowTopY.setTextContent("0");
-
-            Element protectStructure = dokumentti.createElement("ProtectStructure");
-            excelWorkbook.appendChild(protectStructure);
-            protectStructure.setTextContent("False");
-
-            Element protectWindows = dokumentti.createElement("ProtectWindows");
-            excelWorkbook.appendChild(protectWindows);
-            protectWindows.setTextContent("False");
-
-            Element styles = dokumentti.createElement("Styles");
-            workbook.appendChild(styles);
-
-            Element style = dokumentti.createElement("Style");
-            styles.appendChild(style);
-            style.setAttribute("ss:ID", "Default");
-            style.setAttribute("ss:Name", "Normal");
-
-            Element alignment = dokumentti.createElement("Alignment");
-            style.appendChild(alignment);
-            alignment.setAttribute("ss:Vertical", "Bottom");
-
-            Element borders = dokumentti.createElement("Borders");
-            style.appendChild(borders);
-
-            Element font = dokumentti.createElement("Font");
-            style.appendChild(font);
-            font.setAttribute("ss:FontName", "Calibri");
-            font.setAttribute("x:Family", "Swiss");
-            font.setAttribute("ss:Size", "11");
-            font.setAttribute("ss:Color", "#000000");
-
-            Element interior = dokumentti.createElement("Interior");
-            style.appendChild(interior);
-
-            Element numberFormat = dokumentti.createElement("NumberFormat");
-            style.appendChild(numberFormat);
-
-            Element protection = dokumentti.createElement("Protection");
-            style.appendChild(protection);
-
-            Element worksheet = dokumentti.createElement("Worksheet");
-            workbook.appendChild(worksheet);
-            worksheet.setAttribute("ss:Name", "Sheet1");
-
-            Element table = dokumentti.createElement("Table");
-            worksheet.appendChild(table);
-            table.setAttribute("ss:ExpandedColumnCount", "12");
-            table.setAttribute("ss:ExpandedRowCount", "1000");
-            table.setAttribute("x:FullColumns", "1");
-            table.setAttribute("x:FullRows", "1");
-            table.setAttribute("ss:DefaultRowHeight", "15");
-
-            Element column1 = dokumentti.createElement("Column");
-            table.appendChild(column1);
-            column1.setAttribute("ss:Width", "52.5");
-            column1.setAttribute("ss:Span", "1");
-            Element column2 = dokumentti.createElement("Column");
-            table.appendChild(column2);
-            column2.setAttribute("ss:Index", "3");
-            column2.setAttribute("ss:Width", "48.75");
-            column2.setAttribute("ss:Span", "9");
-
-            kirjoitaOtsikkoRivi(dokumentti, table, mittaukset);
-
-            for (Mittaus mittaus : mittaukset) {
-
-                Element row = dokumentti.createElement("Row");
-                table.appendChild(row);
-
-                Element cell = dokumentti.createElement("Cell");
-                row.appendChild(cell);
-
-                Element data = dokumentti.createElement("Data");
-                cell.appendChild(data);
-                data.setAttribute("ss:Type", "Number");
-                data.setTextContent("" + aikaKaantaja.kaannaJavanAjastaPegasorin(mittaus.getAikaleima().getTime()));
-
-                for (String mittauksenAvain : mittaus.getMittaukset().keySet()) {
-                    
-
-                    Element cellMittaus = dokumentti.createElement("Cell");
-                    row.appendChild(cellMittaus);
-
-                    Element dataMittaus = dokumentti.createElement("Data");
-                    cellMittaus.appendChild(dataMittaus);
-
-                    dataMittaus.setAttribute("ss:Type", "Number");
-                    dataMittaus.setTextContent("" + mittaus.getMittauksenArvo(mittauksenAvain));
-
-                }
-
-            }
-
-            Element worksheetOptions = dokumentti.createElement("WorksheetOptions");
-            worksheet.appendChild(worksheetOptions);
-            worksheetOptions.setAttribute("xmlns", "urn:schemas-microsoft-com:office:excel");
-
-            Element selected = dokumentti.createElement("Selected");
-            worksheetOptions.appendChild(selected);
-
-            Element panes = dokumentti.createElement("Panes");
-            worksheetOptions.appendChild(panes);
-
-            Element pane = dokumentti.createElement("Pane");
-            panes.appendChild(pane);
-
-            Element number = dokumentti.createElement("Number");
-            pane.appendChild(number);
-            number.setTextContent("3");
-
-            Element activeRow = dokumentti.createElement("ActiveRow");
-            pane.appendChild(activeRow);
-            activeRow.setTextContent("8");
-
-            Element activeCol = dokumentti.createElement("ActiveCol");
-            pane.appendChild(activeCol);
-            activeCol.setTextContent("12");
-
-            Element protectObjects = dokumentti.createElement("ProtectObjects");
-            worksheetOptions.appendChild(protectObjects);
-            protectObjects.setTextContent("False");
-
-            Element protectScenarios = dokumentti.createElement("ProtectScenarios");
-            worksheetOptions.appendChild(protectScenarios);
-            protectScenarios.setTextContent("False");
+            createWorksheetNode(dokumentti, workbook, mittaukset);
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -239,6 +73,216 @@ public class TiedostonKirjoittajaXML {
         } catch (TransformerException tfe) {
             tfe.printStackTrace();
         }
+    }
+
+    private void createWorksheetNode(Document dokumentti, Element workbook, ArrayList<Mittaus> mittaukset) throws DOMException {
+        Element worksheet = dokumentti.createElement("Worksheet");
+        workbook.appendChild(worksheet);
+        worksheet.setAttribute("ss:Name", "Sheet1");
+        
+        Element table = dokumentti.createElement("Table");
+        worksheet.appendChild(table);
+        table.setAttribute("ss:ExpandedColumnCount", "12");
+        table.setAttribute("ss:ExpandedRowCount", "1000");
+        table.setAttribute("x:FullColumns", "1");
+        table.setAttribute("x:FullRows", "1");
+        table.setAttribute("ss:DefaultRowHeight", "15");
+        
+        Element column1 = dokumentti.createElement("Column");
+        table.appendChild(column1);
+        column1.setAttribute("ss:Width", "52.5");
+        column1.setAttribute("ss:Span", "1");
+        Element column2 = dokumentti.createElement("Column");
+        table.appendChild(column2);
+        column2.setAttribute("ss:Index", "3");
+        column2.setAttribute("ss:Width", "48.75");
+        column2.setAttribute("ss:Span", "9");
+        
+        kirjoitaOtsikkoRivi(dokumentti, table, mittaukset);
+        
+        kirjoitaMittaukset(mittaukset, dokumentti, table);
+        
+        createWorksheetOptionsNode(dokumentti, worksheet);
+    }
+
+    private void createWorksheetOptionsNode(Document dokumentti, Element worksheet) throws DOMException {
+        Element worksheetOptions = dokumentti.createElement("WorksheetOptions");
+        worksheet.appendChild(worksheetOptions);
+        worksheetOptions.setAttribute("xmlns", "urn:schemas-microsoft-com:office:excel");
+        
+        Element selected = dokumentti.createElement("Selected");
+        worksheetOptions.appendChild(selected);
+        
+        Element panes = dokumentti.createElement("Panes");
+        worksheetOptions.appendChild(panes);
+        
+        Element pane = dokumentti.createElement("Pane");
+        panes.appendChild(pane);
+        
+        Element number = dokumentti.createElement("Number");
+        pane.appendChild(number);
+        number.setTextContent("3");
+        
+        Element activeRow = dokumentti.createElement("ActiveRow");
+        pane.appendChild(activeRow);
+        activeRow.setTextContent("8");
+        
+        Element activeCol = dokumentti.createElement("ActiveCol");
+        pane.appendChild(activeCol);
+        activeCol.setTextContent("12");
+        
+        Element protectObjects = dokumentti.createElement("ProtectObjects");
+        worksheetOptions.appendChild(protectObjects);
+        protectObjects.setTextContent("False");
+        
+        Element protectScenarios = dokumentti.createElement("ProtectScenarios");
+        worksheetOptions.appendChild(protectScenarios);
+        protectScenarios.setTextContent("False");
+    }
+
+    private void kirjoitaMittaukset(ArrayList<Mittaus> mittaukset, Document dokumentti, Element table) throws DOMException {
+        for (Mittaus mittaus : mittaukset) {
+            
+            kirjoitaYksiRivi(dokumentti, table, mittaus);
+            
+        }
+    }
+
+    private void kirjoitaYksiRivi(Document dokumentti, Element table, Mittaus mittaus) throws DOMException {
+        Element row = dokumentti.createElement("Row");
+        table.appendChild(row);
+        
+        Element cell = dokumentti.createElement("Cell");
+        row.appendChild(cell);
+        
+        Element data = dokumentti.createElement("Data");
+        cell.appendChild(data);
+        data.setAttribute("ss:Type", "Number");
+        data.setTextContent("" + aikaKaantaja.kaannaJavanAjastaPegasorin(mittaus.getAikaleima().getTime()));
+        
+        kirjoitaYksiSolu(mittaus, dokumentti, row);
+    }
+
+    private void kirjoitaYksiSolu(Mittaus mittaus, Document dokumentti, Element row) throws DOMException {
+        for (String mittauksenAvain : mittaus.getMittaukset().keySet()) {
+            
+            
+            Element cellMittaus = dokumentti.createElement("Cell");
+            row.appendChild(cellMittaus);
+            
+            Element dataMittaus = dokumentti.createElement("Data");
+            cellMittaus.appendChild(dataMittaus);
+            
+            dataMittaus.setAttribute("ss:Type", "Number");
+            dataMittaus.setTextContent("" + mittaus.getMittauksenArvo(mittauksenAvain));
+            
+        }
+    }
+
+    private void createStylesNode(Document dokumentti, Element workbook) throws DOMException {
+        Element styles = dokumentti.createElement("Styles");
+        workbook.appendChild(styles);
+        
+        Element style = dokumentti.createElement("Style");
+        styles.appendChild(style);
+        style.setAttribute("ss:ID", "Default");
+        style.setAttribute("ss:Name", "Normal");
+        
+        Element alignment = dokumentti.createElement("Alignment");
+        style.appendChild(alignment);
+        alignment.setAttribute("ss:Vertical", "Bottom");
+        
+        Element borders = dokumentti.createElement("Borders");
+        style.appendChild(borders);
+        
+        Element font = dokumentti.createElement("Font");
+        style.appendChild(font);
+        font.setAttribute("ss:FontName", "Calibri");
+        font.setAttribute("x:Family", "Swiss");
+        font.setAttribute("ss:Size", "11");
+        font.setAttribute("ss:Color", "#000000");
+        
+        Element interior = dokumentti.createElement("Interior");
+        style.appendChild(interior);
+        
+        Element numberFormat = dokumentti.createElement("NumberFormat");
+        style.appendChild(numberFormat);
+        
+        Element protection = dokumentti.createElement("Protection");
+        style.appendChild(protection);
+    }
+
+    private void createExcelWorkbookNode(Document dokumentti, Element workbook) throws DOMException {
+        Element excelWorkbook = dokumentti.createElement("ExcelWorkbook");
+        workbook.appendChild(excelWorkbook);
+        excelWorkbook.setAttribute("xmlns", "urn:schemas-microsoft-com:office:excel");
+        
+        Element windowHeight = dokumentti.createElement("WindowHeight");
+        excelWorkbook.appendChild(windowHeight);
+        windowHeight.setTextContent("12345");
+        
+        Element windowWidth = dokumentti.createElement("WindowWidth");
+        excelWorkbook.appendChild(windowWidth);
+        windowWidth.setTextContent("28800");
+        
+        Element windowTopX = dokumentti.createElement("WindowTopX");
+        excelWorkbook.appendChild(windowTopX);
+        windowTopX.setTextContent("0");
+        
+        Element windowTopY = dokumentti.createElement("WindowTopY");
+        excelWorkbook.appendChild(windowTopY);
+        windowTopY.setTextContent("0");
+        
+        Element protectStructure = dokumentti.createElement("ProtectStructure");
+        excelWorkbook.appendChild(protectStructure);
+        protectStructure.setTextContent("False");
+        
+        Element protectWindows = dokumentti.createElement("ProtectWindows");
+        excelWorkbook.appendChild(protectWindows);
+        protectWindows.setTextContent("False");
+    }
+
+    private void createOfficeDocumentSettingsNode(Document dokumentti, Element workbook) throws DOMException {
+        Element officeDocumentSettings = dokumentti.createElement("OfficeDocumentSettings");
+        workbook.appendChild(officeDocumentSettings);
+        officeDocumentSettings.setAttribute("xmlns", "urn:schemas-microsoft-com:office:office");
+        
+        Element allowPNG = dokumentti.createElement("AllowPNG");
+        officeDocumentSettings.appendChild(allowPNG);
+    }
+
+    private void createDocumentPropertiesNode(Document dokumentti, Element workbook) throws DOMException {
+        Element documentProperties = dokumentti.createElement("DocumentProperties");
+        workbook.appendChild(documentProperties);
+        
+        documentProperties.setAttribute("xmlns", "urn:schemas-microsoft-com:office:office");
+        
+        Element author = dokumentti.createElement("Author");
+        documentProperties.appendChild(author);
+        author.setTextContent("Omistaja");
+        
+        Element lastAuthor = dokumentti.createElement("LastAuthor");
+        documentProperties.appendChild(lastAuthor);
+        lastAuthor.setTextContent("Omistaja");
+        
+        Element created = dokumentti.createElement("Created");
+        documentProperties.appendChild(created);
+        created.setTextContent("" + new Date(System.currentTimeMillis()));
+        
+        Element version = dokumentti.createElement("Version");
+        documentProperties.appendChild(version);
+        version.setTextContent("15.00");
+    }
+
+    private Element createWorkbookNode(Document dokumentti) throws DOMException {
+        Element workbook = dokumentti.createElement("Workbook");
+        dokumentti.appendChild(workbook);
+        workbook.setAttribute("xmlns", "urn:schemas-microsoft-com:office:spreadsheet");
+        workbook.setAttribute("xmlns:o", "urn:schemas-microsoft-com:office:office");
+        workbook.setAttribute("xmlns:x", "urn:schemas-microsoft-com:office:excel");
+        workbook.setAttribute("xmlns:ss", "urn:schemas-microsoft-com:office:spreadsheet");
+        workbook.setAttribute("xmlns:html", "http://www.w3.org/TR/REC-html40");
+        return workbook;
     }
 
     private void kirjoitaOtsikkoRivi(Document dokumentti, Element table, ArrayList<Mittaus> mittaukset) throws DOMException {

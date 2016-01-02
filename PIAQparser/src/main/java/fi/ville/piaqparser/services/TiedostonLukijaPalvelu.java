@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author ville
+ * Palvelu, joka tarjoaa palveluita tiedoston lukemiseen.
  */
 public class TiedostonLukijaPalvelu implements TiedostonLukijaPalveluRajapinta {
 

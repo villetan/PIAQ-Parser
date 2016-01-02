@@ -7,7 +7,7 @@ package fi.ville.piaqparser;
 
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
-import fi.ville.piaqparser.ui.UserInterface;
+import fi.ville.piaqparser.ui.TiedostonValitsijaFrame;
 import fi.ville.piaqparser.util.AikaKaantaja;
 import fi.ville.piaqparser.util.MittaustenAnalysoija;
 import fi.ville.piaqparser.util.TiedostonKirjoittajaXML;
@@ -42,7 +42,7 @@ public class Main {
         
         
 
-        UserInterface ui = new UserInterface();
+        TiedostonValitsijaFrame ui = new TiedostonValitsijaFrame();
         
 
     }

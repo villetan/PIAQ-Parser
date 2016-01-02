@@ -12,6 +12,7 @@ import java.util.HashMap;
 /**
  *
  * @author ville
+ * Mittausten analysoimiseen luotu luokka. 
  */
 public class MittaustenAnalysoija {
 

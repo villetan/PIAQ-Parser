@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author ville
+ * Luokka, joka sisältää CSV-tiedoston lukemiseen vaadittavan logiikan.
  */
 public class TiedostonLukijaCSV {
 

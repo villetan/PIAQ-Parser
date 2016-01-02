@@ -11,6 +11,8 @@ import java.util.Date;
 /**
  *
  * @author ville
+ * Huolehtii eri ajanmittausten kääntämisestiä toiseen muotoon.
+ * 
  */
 public class AikaKaantaja {
 

@@ -12,6 +12,7 @@ import java.util.List;
 /**
  *
  * @author ville
+ * Rajapinta, joka määrittää Tiedoston lukijalle halutut metodit.
  */
 public interface TiedostonLukijaPalveluRajapinta {
     public List<Mittaus> lueMittauksetListaksi(String tiedostoPolku);

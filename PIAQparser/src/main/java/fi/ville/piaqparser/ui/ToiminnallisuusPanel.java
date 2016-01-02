@@ -17,13 +17,16 @@ import javax.swing.JRadioButton;
 /**
  *
  * @author ville
+ * Panel, jossa sijaitsee toiminnallisuuden napit, kentät ja
+ * muut valitsimet. Valitsimien luominen on osittain myös Tiedoston-
+ * ValitsijaFramen vastuulla.
  */
-public class UusiUI extends javax.swing.JPanel implements AsetaTekstiRajapinta{
+public class ToiminnallisuusPanel extends javax.swing.JPanel implements ToiminnallisuusIkkunaRajapinta{
 
     /**
      * Creates new form UusiUI
      */
-    public UusiUI() {
+    public ToiminnallisuusPanel() {
         initComponents();
         setVisible(true);
         

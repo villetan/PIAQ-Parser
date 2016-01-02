@@ -1,13 +1,14 @@
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/AikaKaantaja.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/ToiminnallisuusIkkunaRajapinta.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/services/TiedostonLukijaPalvelu.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/services/MittausAnalysoijaPalvelu.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/Main.java
-/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/UserInterface.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/TiedostonValitsijaFrame.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/domain/Mittaus.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/MittaustenAnalysoija.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonLukijaXML.java
-/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/AsetaTekstiRajapinta.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/ToiminnallisuusPanel.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonLukijaCSV.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonKirjoittajaXML.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/UusiXmlLuotu.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/services/TiedostonLukijaPalveluRajapinta.java
-/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/UusiUI.java

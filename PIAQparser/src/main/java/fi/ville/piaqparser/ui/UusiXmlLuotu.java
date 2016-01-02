@@ -8,6 +8,9 @@ package fi.ville.piaqparser.ui;
 /**
  *
  * @author ville
+ * Frame, joka näytetään kun uusi tiedosto on kirjoitettu.
+ * Näyttää tiedostonpolun käyttäjälle, jotta käyttäjä tietää missä
+ * tallennettu tiedosto on ja mihin se on tallennettu.
  */
 public class UusiXmlLuotu extends javax.swing.JFrame {
 
