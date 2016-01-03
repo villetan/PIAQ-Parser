@@ -5,8 +5,10 @@
  */
 package fi.ville.piaqparser.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -130,5 +132,28 @@ public class MittausTest {
     public void testPalautaAikaLeima8() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 17, 22, 22));
         assertEquals("17:22:22", mittaus.palautaAikaleimaKellonaika());
+    }
+    
+    @Test
+    public void testPoistaMittauksia(){
+        mittaus.setAikaleima(new Date(10000000000l));
+        mittaus.lisaaMittaus("co2", 50.01);
+        mittaus.lisaaMittaus("asd", 32.012345);
+        mittaus.lisaaMittaus("Temperature", -20.0001);
+        mittaus.karsiMittaus("co2");
+        mittaus.karsiMittaus("asd");
+        assertEquals(1, mittaus.getMittaukset().size());
+    }
+    
+    @Test
+    public void testPoistaMittauksia2(){
+        mittaus.setAikaleima(new Date(10000000000l));
+        mittaus.lisaaMittaus("co2", 50.01);
+        mittaus.lisaaMittaus("asd", 32.012345);
+        mittaus.lisaaMittaus("Temperature", -20.0001);
+        mittaus.karsiMittaus("co2");
+        mittaus.karsiMittaus("asd");
+        mittaus.karsiMittaus("Temperature");
+        assertEquals(0, mittaus.getMittaukset().size());
     }
 }

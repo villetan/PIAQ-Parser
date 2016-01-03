@@ -94,5 +94,15 @@ public class MittausAnalysoijaPalvelu {
     public ArrayList<Mittaus> getMittaukset() {
         return mittaukset;
     }
+    
+    public ArrayList<Mittaus> poistaMittauksistaSarakkeita(List<String> poistettavatSarakkeidenNimet, ArrayList<Mittaus> listaJostaPoistetaan){
+        ArrayList<Mittaus> palautettava=listaJostaPoistetaan;
+        for(String sarakkeenOtsikko : poistettavatSarakkeidenNimet){
+            for(Mittaus mittaus : listaJostaPoistetaan){
+                mittaus.karsiMittaus(sarakkeenOtsikko);
+            }
+        }
+        return palautettava;
+    }
 
 }

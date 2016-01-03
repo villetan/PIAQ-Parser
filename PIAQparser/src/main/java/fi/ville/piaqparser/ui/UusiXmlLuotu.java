@@ -43,6 +43,9 @@ public class UusiXmlLuotu extends javax.swing.JFrame {
         newFileFilePath.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jButton1.setText("Ok!");
+        jButton1.setToolTipText("");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -56,13 +59,13 @@ public class UusiXmlLuotu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(newFileHasBeen, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                    .addComponent(newFileFilePath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(newFileHasBeen, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addComponent(newFileFilePath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(189, 189, 189)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,9 +74,9 @@ public class UusiXmlLuotu extends javax.swing.JFrame {
                 .addComponent(newFileHasBeen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newFileFilePath)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,8 +123,8 @@ public class UusiXmlLuotu extends javax.swing.JFrame {
         });
     }
     
-    public void showFilePathName(String filePathName){
-        newFileFilePath.setText("Tähän tiedostopolku jotenkin");
+    public void setFilePathName(String filePathName){
+        newFileFilePath.setText(filePathName);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

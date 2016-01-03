@@ -6,6 +6,7 @@
 package fi.ville.piaqparser.ui;
 
 import java.util.Date;
+import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
@@ -28,5 +29,6 @@ public interface ToiminnallisuusIkkunaRajapinta {
     public Date getUseDataFromFromDate();
     
     public Date getUseDataFromToDate();
-    
+    public List<JCheckBox> getValuesButtons();
+    public List<String> getNotSelectedValuesButtons();
 }

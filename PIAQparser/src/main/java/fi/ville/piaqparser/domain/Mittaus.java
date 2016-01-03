@@ -41,9 +41,17 @@ public class Mittaus {
         }
     }
 
-    public double getMittauksenArvo(String avain) {
+    public void karsiMittaus(String nimi) {
+        if (mittaukset != null) {
+            mittaukset.remove(nimi);
+        }
+    }
 
-        return mittaukset.get(avain);
+    public Double getMittauksenArvo(String avain) {
+        if (mittaukset.keySet().contains(avain)) {
+            return mittaukset.get(avain);
+        }
+        return null;
     }
 
     public String toString() {
@@ -84,7 +92,7 @@ public class Mittaus {
             return kellonaika;
         }
         if (aikaleima.getHours() < 10) {
-            kellonaika = "0" + aikaleima.getHours() + ":"  + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+            kellonaika = "0" + aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
             return kellonaika;
         }
 

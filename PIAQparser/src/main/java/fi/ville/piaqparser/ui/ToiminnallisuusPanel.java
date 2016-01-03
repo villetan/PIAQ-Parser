@@ -8,8 +8,10 @@ package fi.ville.piaqparser.ui;
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
 import fi.ville.piaqparser.util.TiedostonKirjoittajaXML;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
@@ -334,17 +336,22 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
 
     
     private MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu;
-    private String filePath;
     private ArrayList<Mittaus> luetutMittaukset;
     private void makeNewXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeNewXMLActionPerformed
         // TODO add your handling code here:
         TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
         ArrayList<Mittaus> valitutMittaukset=mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
+        valitutMittaukset=mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(getNotSelectedValuesButtons(),valitutMittaukset);
         System.out.println("Valitut: "+valitutMittaukset.size());
+        String tiedostonNimi=(valitutMittaukset.get(0).palautaAikaleimaPVM()+"_"+valitutMittaukset.get(0).palautaAikaleimaKellonaika()+"-"+valitutMittaukset.get(valitutMittaukset.size()-1).palautaAikaleimaPVM()+"_"+valitutMittaukset.get(valitutMittaukset.size()-1).palautaAikaleimaKellonaika()+".xml").replace("/", ",");
+        String saveToFilePath = "src/main/resources/"+tiedostonNimi;
+        System.out.println("Tiedoston nimi: "+tiedostonNimi);
+        kirjoittaja.setSaveToFilePath(saveToFilePath);
         
         kirjoittaja.kirjoitaTiedosto(valitutMittaukset);
         UusiXmlLuotu xmlCreatedWindow=new UusiXmlLuotu();
-        xmlCreatedWindow.showFilePathName(filePath);
+        xmlCreatedWindow.setFilePathName(kirjoittaja.getSaveToFilePath());
+        
         xmlCreatedWindow.setVisible(true);
     }//GEN-LAST:event_makeNewXMLActionPerformed
 
@@ -390,6 +397,27 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         valuesButtonsPanel.add(box);
     }
     
+    
+    @Override
+    public List<JCheckBox> getValuesButtons() {
+        List<JCheckBox> checkboxes= new ArrayList<>();
+        Component[] components=valuesButtonsPanel.getComponents();
+        for(Component component : components){
+           checkboxes.add((JCheckBox) component);
+        }
+        return checkboxes;
+    }
+    
+    @Override
+    public List<String> getNotSelectedValuesButtons() {
+        List<String> palautettava=new ArrayList<>();
+        for(JCheckBox checkBox : getValuesButtons()){
+            if(!checkBox.isSelected()){
+                palautettava.add(checkBox.getText());
+            }
+        }
+        return palautettava;
+    }
     
     
     
@@ -438,9 +466,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     /**
      * @param filePath the filePath to set
      */
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
+    
 
     /**
      * @param lueatutMittaukset the lueatutMittaukset to set
@@ -448,6 +474,8 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     public void setLuetutMittaukset(ArrayList<Mittaus> lueatutMittaukset) {
         this.luetutMittaukset = lueatutMittaukset;
     }
+
+    
     
     
 }
