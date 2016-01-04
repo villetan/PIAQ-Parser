@@ -188,8 +188,28 @@ public class MittaustenAnalysoijaTest {
         ArrayList<Mittaus> keskiarvotLaskettu = analysoija.laskeMittaustenKeskiarvo(2000l);
         assertEquals(13, mittaukset.size());
         assertEquals(7, keskiarvotLaskettu.size());
-        assertEquals(13, keskiarvotLaskettu.get(6).getMittauksenArvo("co2"), 0.0000000001);
 
+        assertEquals(12, keskiarvotLaskettu.get(6).getMittauksenArvo("co2"), 0.0000000001);
+        assertEquals(120, keskiarvotLaskettu.get(6).getMittauksenArvo("no2"), 0.0000000001);
+        assertEquals(1200, keskiarvotLaskettu.get(6).getMittauksenArvo("temperature"), 0.0000000001);
+        assertEquals(mittaukset.get(12).getAikaleima(), keskiarvotLaskettu.get(6).getAikaleima());
+
+    }
+
+    @Test
+    public void testLaskeKeskiarvoKunMittaustenMaaraHuono2() {
+        for (int i = 10; i < 15; i++) {
+            Mittaus mittaus = new Mittaus();
+            mittaus.setAikaleima(new Date(2015, 12, 12, 20, 20, i));
+            mittaus.lisaaMittaus("co2", i);
+            mittaus.lisaaMittaus("no2", 10 * i);
+            mittaus.lisaaMittaus("temperature", 100 * i);
+            mittaukset.add(mittaus);
+        }
+        ArrayList<Mittaus> keskiarvotLaskettu = analysoija.laskeMittaustenKeskiarvo(4000l);
+        assertEquals(4, keskiarvotLaskettu.size());
+        assertEquals(1.5, keskiarvotLaskettu.get(0).getMittauksenArvo("co2"),0.0000000001);
+        assertEquals(13, keskiarvotLaskettu.get(keskiarvotLaskettu.size()-1).getMittauksenArvo("co2"),0.0000000001);
     }
 
 }

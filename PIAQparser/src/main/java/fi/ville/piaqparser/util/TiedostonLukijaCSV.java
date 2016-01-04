@@ -23,21 +23,23 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ville
- * Luokka, joka sisältää CSV-tiedoston lukemiseen vaadittavan logiikan.
+ * @author ville Luokka, joka sisältää CSV-tiedoston lukemiseen vaadittavan
+ * logiikan.
  */
 public class TiedostonLukijaCSV {
 
     String line = "";
-    String splitBy = ",";
-/**
- * Lukee Mittauksen listaksi, ei ota huomioon ensimmäistä saraketta (oletettavasti aika)
- * 
- * 
- * @param tiedostoPolku luettavan tiedoston polku
- * @param br Buffered reader, lukee tiedoston polusta.
- * @return ArrayList Mittauksista.
- */
+    String splitBy = "\t";
+
+    /**
+     * Lukee Mittauksen listaksi, ei ota huomioon ensimmäistä saraketta
+     * (oletettavasti aika)
+     *
+     *
+     * @param tiedostoPolku luettavan tiedoston polku
+     * @param br Buffered reader, lukee tiedoston polusta.
+     * @return ArrayList Mittauksista.
+     */
     public ArrayList<Mittaus> lueMittauksetListaksi(String tiedostoPolku, BufferedReader br) {
         AikaKaantaja aikaKaantaja = new AikaKaantaja();
         ArrayList<Mittaus> mittausLista = new ArrayList<>();
@@ -46,15 +48,37 @@ public class TiedostonLukijaCSV {
         int rivejaLuettu = 0;
         try {
             while ((line = br.readLine()) != null) {
-
+                if (line.contains("#") || line.contains("ime")) {
+                    continue;
+                }
                 String[] rivi = line.split(splitBy);
                 //DateFormat format = new SimpleDateFormat("DD/MM/YYYY, hh:mm:ss", Locale.ENGLISH);
 
                 Mittaus mittaus = new Mittaus();
-                Long aikaMittaus = Long.valueOf(rivi[0]).longValue();
-                long kaannetty = aikaKaantaja.kaannaPegasorinAjastaJavaan(aikaMittaus);
-                mittaus.setAikaleima(new Date(kaannetty));
+                if (rivi[0].contains("-")) {
+                    String luettuAika = rivi[0];
+                    System.out.println("Luettu aika: " + luettuAika);
+                    String[] splitattu = luettuAika.split("T");
+                    String dateOsio = splitattu[0];
+                    String timeOsio = splitattu[1];
+                    String[] dateSplitattu = dateOsio.split("-");
+                    int vuosi = Integer.parseInt(dateSplitattu[0]);
+                    int kk = Integer.parseInt(dateSplitattu[1]);
+                    int paiva = Integer.parseInt(dateSplitattu[2]);
+                    String[] timeSplitattu = timeOsio.split(":");
+                    int tunti = Integer.parseInt(timeSplitattu[0]);
+                    int minuutti = Integer.parseInt(timeSplitattu[1]);
+                    String sek = timeSplitattu[2].replace(".000", "");
+                    int sekunti = Integer.parseInt(sek);
+                    Date date = new Date(vuosi - 1900, kk - 1, paiva, tunti, minuutti, sekunti);
 
+                    mittaus.setAikaleima(date);
+                } else {
+                    rivi = line.split(",");
+                    Long aikaMittaus = Long.valueOf(rivi[0]).longValue();
+                    long kaannetty = aikaKaantaja.kaannaPegasorinAjastaJavaan(aikaMittaus);
+                    mittaus.setAikaleima(new Date(kaannetty));
+                }
                 for (String mittauksenAvain : indexesMap.keySet()) {
                     //TODO sarake tyhjä=> index out of bound, keksi siis tapa korvata tyhjät kentät 0:lla
                     mittaus.lisaaMittaus(mittauksenAvain, Double.parseDouble(rivi[indexesMap.get(mittauksenAvain)]));
@@ -73,26 +97,44 @@ public class TiedostonLukijaCSV {
     }
 
     /**
-     * Lukee tiedoston otsikkorivin. Oletetaan että kaikkia otsikkorivin arvoja vastaa joku arvo.
-     * 
+     * Lukee tiedoston otsikkorivin. Oletetaan että kaikkia otsikkorivin arvoja
+     * vastaa joku arvo.
+     *
      * @param tiedostoPolku - luettavan tiedoston tiedostopolku;
      * @param br lukija joka lukee tiedostopolun tiedoston
-     * @return HashMap, avaimena mittauksen sarakkeen nimi ja arvona kyseisen mittauksen indeksi
+     * @return HashMap, avaimena mittauksen sarakkeen nimi ja arvona kyseisen
+     * mittauksen indeksi
      */
     public HashMap<String, Integer> lueHeaderMapiksi(String tiedostoPolku, BufferedReader br) {
         HashMap<String, Integer> mittaustenIndeksit = new HashMap<>();
         try {
+            String riwi = "";
 
-            String[] mittaus = br.readLine().split(splitBy);
-            for (int i = 1; i < mittaus.length; i++) {
-                mittaustenIndeksit.put(mittaus[i], i);
+            while ((riwi = br.readLine()) != null) {
+                if (riwi.contains("time")) {
+                    String[] mittaus = riwi.split(splitBy);
+                    for (int i = 1; i < mittaus.length; i++) {
+                        mittaustenIndeksit.put(mittaus[i], i);
 
+                    }
+                    return mittaustenIndeksit;
+                }
+                if (riwi.contains("Date")) {
+                    String[] mittaus = riwi.split(",");
+                    for (int i = 1; i < mittaus.length; i++) {
+                        mittaustenIndeksit.put(mittaus[i], i);
+
+                    }
+                    return mittaustenIndeksit;
+                }
             }
+
         } catch (FileNotFoundException ex) {
             System.out.println("!!! FILE NOT FOUND EXCEPTION " + ex);
         } catch (IOException e) {
             System.out.println("!!! IOEXCEPTION " + e);
         }
+
         return mittaustenIndeksit;
     }
 

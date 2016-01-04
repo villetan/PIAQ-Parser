@@ -11,8 +11,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author ville
- * Mittausten analysoimiseen luotu luokka. 
+ * @author ville Mittausten analysoimiseen luotu luokka.
  */
 public class MittaustenAnalysoija {
 
@@ -72,11 +71,11 @@ public class MittaustenAnalysoija {
             HashMap<String, Double> mittaustenYhteenlasketut = new HashMap();
             Mittaus uusiMittausKeskiarvoListaan = new Mittaus();
             laskeMittausListanKeskiarvot(mittauksiaLuettu, uusiMittausKeskiarvoListaan, mittaustenYhteenlasketut, rivejaMittaukseen, keskiarvoLista);
-            
+
             return keskiarvoLista;
 
         }
-        
+
         return new ArrayList<>();
     }
 
@@ -86,28 +85,55 @@ public class MittaustenAnalysoija {
                 uusiMittausKeskiarvoListaan.setAikaleima(mittaukset.get(i).getAikaleima());
             }
             Mittaus mittaus = mittaukset.get(i);
-            
+
             laskeMittaustenArvotYhteen(mittaus, mittauksiaLuettu, mittaustenYhteenlasketut);
-            
+
             mittauksiaLuettu++;
             if (mittauksiaLuettu == rivejaMittaukseen) {
-                
+
                 asetaMittaukselleKeskiarvo(mittaus, mittaustenYhteenlasketut, mittauksiaLuettu, uusiMittausKeskiarvoListaan);
-                
+
                 keskiarvoLista.add(uusiMittausKeskiarvoListaan);
                 mittauksiaLuettu = 0;
                 uusiMittausKeskiarvoListaan = new Mittaus();
                 mittaustenYhteenlasketut = new HashMap();
                 uusiMittausKeskiarvoListaan = new Mittaus();
-                
-            }
-            if(mittaukset.size()%rivejaMittaukseen==0){
-                //viimeinen keskiarvo!
+
             }
             
+
         }
-        
-        
+        laskeViimeinenMittausKeskiarvoListaan(rivejaMittaukseen, keskiarvoLista);
+
+    }
+
+    private void laskeViimeinenMittausKeskiarvoListaan(int rivejaMittaukseen, ArrayList<Mittaus> keskiarvoLista) {
+        if (mittaukset.size() % rivejaMittaukseen != 0) {
+            //viimeinen keskiarvo!
+            Mittaus viimeinenMittaus = new Mittaus();
+            HashMap<String, Double> yhteenlasketutArvot = new HashMap<>();
+            int rivejaViimeiseenMittaukseen = mittaukset.size() % rivejaMittaukseen;
+            for (int j = mittaukset.size() - rivejaViimeiseenMittaukseen; j < mittaukset.size(); j++) {
+                if (j == mittaukset.size() - rivejaViimeiseenMittaukseen) {
+                    viimeinenMittaus.setAikaleima(mittaukset.get(j).getAikaleima());
+                    for (String avain : mittaukset.get(j).getMittaukset().keySet()) {
+                        yhteenlasketutArvot.put(avain, mittaukset.get(j).getMittauksenArvo(avain));
+                    }
+                    continue;
+                }
+                for (String avain : mittaukset.get(j).getMittaukset().keySet()) {
+                    yhteenlasketutArvot.put(avain, yhteenlasketutArvot.get(avain) + mittaukset.get(j).getMittauksenArvo(avain));
+                }
+            }
+            for(String k : yhteenlasketutArvot.keySet()){
+                System.out.println("AVAIN: "+k);
+                System.out.println("ARVO: "+yhteenlasketutArvot.get(k));
+            }
+            for(String key : yhteenlasketutArvot.keySet()){
+                viimeinenMittaus.lisaaMittaus(key, yhteenlasketutArvot.get(key)/rivejaViimeiseenMittaukseen);
+            }
+            keskiarvoLista.add(viimeinenMittaus);
+        }
     }
 
     private void asetaMittaukselleKeskiarvo(Mittaus mittaus, HashMap<String, Double> mittaustenYhteenlasketut, int mittauksiaLuettu, Mittaus uusiMittausKeskiarvoListaan) {
