@@ -31,4 +31,9 @@ public interface ToiminnallisuusIkkunaRajapinta {
     public Date getUseDataFromToDate();
     public List<JCheckBox> getValuesButtons();
     public List<String> getNotSelectedValuesButtons();
+    
+    public void setUseDataFromFromDate(Date date);
+    public void setUseDataFromFromSeconds(int seconds);
+    public void setUseDataFromToDate(Date date);
+    public void setUseDateFromToSeconds(int seconds);
 }

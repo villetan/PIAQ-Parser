@@ -18,12 +18,11 @@ import javax.swing.JRadioButton;
 
 /**
  *
- * @author ville
- * Panel, jossa sijaitsee toiminnallisuuden napit, kentät ja
- * muut valitsimet. Valitsimien luominen on osittain myös Tiedoston-
- * ValitsijaFramen vastuulla.
+ * @author ville Panel, jossa sijaitsee toiminnallisuuden napit, kentät ja muut
+ * valitsimet. Valitsimien luominen on osittain myös Tiedoston- ValitsijaFramen
+ * vastuulla.
  */
-public class ToiminnallisuusPanel extends javax.swing.JPanel implements ToiminnallisuusIkkunaRajapinta{
+public class ToiminnallisuusPanel extends javax.swing.JPanel implements ToiminnallisuusIkkunaRajapinta {
 
     /**
      * Creates new form UusiUI
@@ -34,7 +33,6 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,7 +124,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         UseDataFrom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UseDataFrom.setText("Use data from");
 
-        useDataFromFromDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.MINUTE));
+        useDataFromFromDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1451890639274L), null, null, java.util.Calendar.SECOND));
         useDataFromFromDate.setName("useDataFromSpinner"); // NOI18N
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,35 +152,32 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
             .addGroup(TimeWindowLayout.createSequentialGroup()
                 .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(35, 35, 35)
+                        .addComponent(thisSheetHasDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TimeWindowLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(DataTo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TimeWindowLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(DataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TimeWindowLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(useDataFromFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(useDataFromToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TimeWindowLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(useDataFromFromSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(134, 134, 134)
                         .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(useDataFromToSeconds, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TimeWindowLayout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(thisSheetHasDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(TimeWindowLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(DataTo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(TimeWindowLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(DataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(TimeWindowLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(useDataFromFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(useDataFromToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         TimeWindowLayout.setVerticalGroup(
@@ -334,22 +329,21 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu;
     private ArrayList<Mittaus> luetutMittaukset;
     private void makeNewXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeNewXMLActionPerformed
         // TODO add your handling code here:
         TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
-        ArrayList<Mittaus> valitutMittaukset=mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
-        valitutMittaukset=mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(getNotSelectedValuesButtons(),valitutMittaukset);
-        System.out.println("Valitut: "+valitutMittaukset.size());
-        String tiedostonNimi=(valitutMittaukset.get(0).palautaAikaleimaPVM()+"_"+valitutMittaukset.get(0).palautaAikaleimaKellonaika()+"-"+valitutMittaukset.get(valitutMittaukset.size()-1).palautaAikaleimaPVM()+"_"+valitutMittaukset.get(valitutMittaukset.size()-1).palautaAikaleimaKellonaika()+".xml").replace("/", ",");
-        String saveToFilePath = "src/main/resources/"+tiedostonNimi;
-        System.out.println("Tiedoston nimi: "+tiedostonNimi);
+        ArrayList<Mittaus> valitutMittaukset = mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
+        valitutMittaukset = mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(getNotSelectedValuesButtons(), valitutMittaukset);
+        System.out.println("Valitut: " + valitutMittaukset.size());
+        String tiedostonNimi = (valitutMittaukset.get(0).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(0).palautaAikaleimaKellonaika() + "-" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaKellonaika() + ".xml").replace("/", ",");
+        String saveToFilePath = "src/main/resources/" + tiedostonNimi;
+        System.out.println("Tiedoston nimi: " + tiedostonNimi);
         kirjoittaja.setSaveToFilePath(saveToFilePath);
         
         kirjoittaja.kirjoitaTiedosto(valitutMittaukset);
-        UusiXmlLuotu xmlCreatedWindow=new UusiXmlLuotu();
+        UusiXmlLuotu xmlCreatedWindow = new UusiXmlLuotu();
         xmlCreatedWindow.setFilePathName(kirjoittaja.getSaveToFilePath());
         
         xmlCreatedWindow.setVisible(true);
@@ -389,70 +383,84 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     private javax.swing.JPanel valuesButtonsPanel;
     // End of variables declaration//GEN-END:variables
 
-    
     @Override
-    public void addCheckBoxToValuesButtonGroup(JCheckBox box){
+    public void addCheckBoxToValuesButtonGroup(JCheckBox box) {
         valuesButtonsPanel.setLayout(new BoxLayout(valuesButtonsPanel, BoxLayout.Y_AXIS));
-        
         valuesButtonsPanel.add(box);
     }
     
+    @Override
+    public void setUseDataFromFromDate(Date date) {
+        useDataFromFromDate.setValue(date);
+    }
+    
+    @Override
+    public void setUseDataFromFromSeconds(int seconds) {
+        useDataFromFromSeconds.setValue(seconds);
+    }
+    
+    @Override
+    public void setUseDataFromToDate(Date date) {
+        useDataFromToDate.setValue(date);
+    }
+    
+    @Override
+    public void setUseDateFromToSeconds(int seconds) {
+        useDataFromToSeconds.setValue(seconds);
+    }
     
     @Override
     public List<JCheckBox> getValuesButtons() {
-        List<JCheckBox> checkboxes= new ArrayList<>();
-        Component[] components=valuesButtonsPanel.getComponents();
-        for(Component component : components){
-           checkboxes.add((JCheckBox) component);
+        List<JCheckBox> checkboxes = new ArrayList<>();
+        Component[] components = valuesButtonsPanel.getComponents();
+        for (Component component : components) {
+            checkboxes.add((JCheckBox) component);
         }
         return checkboxes;
     }
     
     @Override
     public List<String> getNotSelectedValuesButtons() {
-        List<String> palautettava=new ArrayList<>();
-        for(JCheckBox checkBox : getValuesButtons()){
-            if(!checkBox.isSelected()){
+        List<String> palautettava = new ArrayList<>();
+        for (JCheckBox checkBox : getValuesButtons()) {
+            if (!checkBox.isSelected()) {
                 palautettava.add(checkBox.getText());
             }
         }
         return palautettava;
     }
     
-    
-    
-    
     @Override
     public String getDateFrom() {
         return DataFrom.getText();
     }
-
+    
     @Override
     public void setDateFrom(String teksti) {
         DataFrom.setText(teksti);
     }
     
     @Override
-    public String getDateTo(){
+    public String getDateTo() {
         return DataTo.getText();
     }
     
     @Override
-    public void setDateTo(String teksti){
+    public void setDateTo(String teksti) {
         DataTo.setText(teksti);
     }
-
+    
     @Override
     public Date getUseDataFromFromDate() {
-        Date useDataFrom= (Date)useDataFromFromDate.getValue();
-        useDataFrom.setSeconds((int)useDataFromFromSeconds.getValue());
+        Date useDataFrom = (Date) useDataFromFromDate.getValue();
+        useDataFrom.setSeconds((int) useDataFromFromSeconds.getValue());
         return useDataFrom;
     }
-
+    
     @Override
     public Date getUseDataFromToDate() {
-        Date useDataTo=(Date)useDataFromToDate.getValue();
-        useDataTo.setSeconds((int)useDataFromToSeconds.getValue());
+        Date useDataTo = (Date) useDataFromToDate.getValue();
+        useDataTo.setSeconds((int) useDataFromToSeconds.getValue());
         return useDataTo;
     }
 
@@ -466,16 +474,11 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     /**
      * @param filePath the filePath to set
      */
-    
-
     /**
      * @param lueatutMittaukset the lueatutMittaukset to set
      */
     public void setLuetutMittaukset(ArrayList<Mittaus> lueatutMittaukset) {
         this.luetutMittaukset = lueatutMittaukset;
     }
-
-    
-    
     
 }

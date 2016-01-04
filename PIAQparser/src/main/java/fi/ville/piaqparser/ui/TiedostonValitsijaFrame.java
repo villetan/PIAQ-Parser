@@ -210,8 +210,9 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
                 this.jSplitPane1.setBottomComponent(uusiUI);
                 this.jSplitPane1.getBottomComponent().setVisible(true);
                 mittausAnalysoijaPalvelu = new MittausAnalysoijaPalvelu(file.getPath());
-                uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
-                uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
+                
+                asetaAikaIkkunoidenArvot(uusiUI);
+                
                 
                 luoOtsikkoCheckBoxit(uusiUI);
                 uusiUI.setMittausAnalysoijaPalvelu(mittausAnalysoijaPalvelu);
@@ -224,6 +225,16 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
             ErrorTextField.setText("Canceled");
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
+
+    private void asetaAikaIkkunoidenArvot(ToiminnallisuusPanel uusiUI) {
+        uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
+        uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
+        
+        uusiUI.setUseDataFromFromDate(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima());
+        uusiUI.setUseDataFromFromSeconds(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima().getSeconds());
+        uusiUI.setUseDataFromToDate(mittausAnalysoijaPalvelu.mittaustenViimeinen().getAikaleima());
+        uusiUI.setUseDateFromToSeconds(mittausAnalysoijaPalvelu.mittaustenViimeinen().getAikaleima().getSeconds());
+    }
 
     private void luoOtsikkoCheckBoxit(ToiminnallisuusPanel uusiUI) {
         if (mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi().size() > 10) {

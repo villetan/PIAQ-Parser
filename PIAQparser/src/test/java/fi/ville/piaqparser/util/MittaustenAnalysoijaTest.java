@@ -175,4 +175,21 @@ public class MittaustenAnalysoijaTest {
         assertEquals(true, ma.mittauksissaHyppyja());
     }
 
+    @Test
+    public void testLaskeKeskiarvoKunMittaustenMaaraHuono() {
+        for (int i = 10; i < 13; i++) {
+            Mittaus mittaus = new Mittaus();
+            mittaus.setAikaleima(new Date(2015, 12, 12, 20, 20, i));
+            mittaus.lisaaMittaus("co2", i);
+            mittaus.lisaaMittaus("no2", 10 * i);
+            mittaus.lisaaMittaus("temperature", 100 * i);
+            mittaukset.add(mittaus);
+        }
+        ArrayList<Mittaus> keskiarvotLaskettu = analysoija.laskeMittaustenKeskiarvo(2000l);
+        assertEquals(13, mittaukset.size());
+        assertEquals(7, keskiarvotLaskettu.size());
+        assertEquals(13, keskiarvotLaskettu.get(6).getMittauksenArvo("co2"), 0.0000000001);
+
+    }
+
 }

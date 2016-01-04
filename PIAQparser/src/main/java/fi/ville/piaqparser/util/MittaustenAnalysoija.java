@@ -72,9 +72,11 @@ public class MittaustenAnalysoija {
             HashMap<String, Double> mittaustenYhteenlasketut = new HashMap();
             Mittaus uusiMittausKeskiarvoListaan = new Mittaus();
             laskeMittausListanKeskiarvot(mittauksiaLuettu, uusiMittausKeskiarvoListaan, mittaustenYhteenlasketut, rivejaMittaukseen, keskiarvoLista);
+            
             return keskiarvoLista;
 
         }
+        
         return new ArrayList<>();
     }
 
@@ -99,8 +101,13 @@ public class MittaustenAnalysoija {
                 uusiMittausKeskiarvoListaan = new Mittaus();
                 
             }
+            if(mittaukset.size()%rivejaMittaukseen==0){
+                //viimeinen keskiarvo!
+            }
             
         }
+        
+        
     }
 
     private void asetaMittaukselleKeskiarvo(Mittaus mittaus, HashMap<String, Double> mittaustenYhteenlasketut, int mittauksiaLuettu, Mittaus uusiMittausKeskiarvoListaan) {

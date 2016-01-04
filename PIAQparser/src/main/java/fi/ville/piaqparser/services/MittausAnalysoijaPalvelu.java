@@ -13,8 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author ville
- * Palvelu-luokka, joka tarjoaa palveluita luettujen mittausten
+ * @author ville Palvelu-luokka, joka tarjoaa palveluita luettujen mittausten
  * käsittelyyn.
  */
 public class MittausAnalysoijaPalvelu {
@@ -29,6 +28,20 @@ public class MittausAnalysoijaPalvelu {
         this.mittaukset = lukija.lueMittauksetListaksi(filePath);
         analysoija = new MittaustenAnalysoija(getMittaukset());
         otsikkoRivi = lukija.lueOtsikonArvot(filePath);
+    }
+
+    public Mittaus mittaustenEnsimmainen() {
+        if (mittaukset.size() > 0) {
+            return mittaukset.get(0);
+        }
+        return null;
+    }
+    
+    public Mittaus mittaustenViimeinen(){
+        if(mittaukset.size()>0){
+            return mittaukset.get(mittaukset.size()-1);
+        }
+        return null;
     }
 
     public String mittaustenEnsimmainenDateString() {
@@ -59,32 +72,30 @@ public class MittausAnalysoijaPalvelu {
         return otsikkoRivi;
     }
 
-    
-    
     public ArrayList<Mittaus> valitseMittauksetAikavalilta(Date date1, Date date2) {
-        
+
         ArrayList<Mittaus> palautettava = new ArrayList<>();
         if (date1.before(date2)) {
-            
+
             for (Mittaus mittaus : getMittaukset()) {
-                if(!mittaus.getAikaleima().before(date1) && !mittaus.getAikaleima().after(date2)){
+                if (!mittaus.getAikaleima().before(date1) && !mittaus.getAikaleima().after(date2)) {
                     palautettava.add(mittaus);
                 }
             }
-            
+
             return palautettava;
         }
-        if(date1.after(date2)){
-            
+        if (date1.after(date2)) {
+
             return null;
         }
-        
-        for(Mittaus m : getMittaukset()){
-            if(m.getAikaleima().equals(date1) && m.getAikaleima().equals(date2)){
+
+        for (Mittaus m : getMittaukset()) {
+            if (m.getAikaleima().equals(date1) && m.getAikaleima().equals(date2)) {
                 palautettava.add(m);
             }
         }
-        
+
         return palautettava;
     }
 
@@ -94,11 +105,11 @@ public class MittausAnalysoijaPalvelu {
     public ArrayList<Mittaus> getMittaukset() {
         return mittaukset;
     }
-    
-    public ArrayList<Mittaus> poistaMittauksistaSarakkeita(List<String> poistettavatSarakkeidenNimet, ArrayList<Mittaus> listaJostaPoistetaan){
-        ArrayList<Mittaus> palautettava=listaJostaPoistetaan;
-        for(String sarakkeenOtsikko : poistettavatSarakkeidenNimet){
-            for(Mittaus mittaus : listaJostaPoistetaan){
+
+    public ArrayList<Mittaus> poistaMittauksistaSarakkeita(List<String> poistettavatSarakkeidenNimet, ArrayList<Mittaus> listaJostaPoistetaan) {
+        ArrayList<Mittaus> palautettava = listaJostaPoistetaan;
+        for (String sarakkeenOtsikko : poistettavatSarakkeidenNimet) {
+            for (Mittaus mittaus : listaJostaPoistetaan) {
                 mittaus.karsiMittaus(sarakkeenOtsikko);
             }
         }
