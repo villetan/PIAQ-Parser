@@ -503,7 +503,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
 
     @Override
     public void setRadioButtonVisible(JRadioButton button) {
-        button.setVisible(true);
+        button.setEnabled(true);
     }
 
     @Override
@@ -513,7 +513,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
 
     @Override
     public void setRadioButtonNotVisible(JRadioButton button) {
-        button.setVisible(false);
+        button.setEnabled(false);
     }
     
 }
