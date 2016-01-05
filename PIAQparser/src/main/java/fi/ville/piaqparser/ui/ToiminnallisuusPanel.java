@@ -10,9 +10,13 @@ import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
 import fi.ville.piaqparser.util.TiedostonKirjoittajaXML;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
@@ -336,13 +340,17 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
         ArrayList<Mittaus> valitutMittaukset = mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
         valitutMittaukset = mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(getNotSelectedValuesButtons(), valitutMittaukset);
+        String valittu=getSelectedRadioButton();
+        System.out.println("valittu: "+valittu);
+        ArrayList<Mittaus> lopulliset=mittausAnalysoijaPalvelu.laskeKeskiarvoLista(valittu, valitutMittaukset);
         System.out.println("Valitut: " + valitutMittaukset.size());
+        System.out.println("Lopulliset: "+lopulliset.size());
         String tiedostonNimi = (valitutMittaukset.get(0).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(0).palautaAikaleimaKellonaika() + "-" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaKellonaika() + ".xml").replace("/", ",");
         String saveToFilePath = "src/main/resources/" + tiedostonNimi;
         System.out.println("Tiedoston nimi: " + tiedostonNimi);
         kirjoittaja.setSaveToFilePath(saveToFilePath);
         
-        kirjoittaja.kirjoitaTiedosto(valitutMittaukset);
+        kirjoittaja.kirjoitaTiedosto(lopulliset);
         UusiXmlLuotu xmlCreatedWindow = new UusiXmlLuotu();
         xmlCreatedWindow.setFilePathName(kirjoittaja.getSaveToFilePath());
         
@@ -479,6 +487,33 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
      */
     public void setLuetutMittaukset(ArrayList<Mittaus> lueatutMittaukset) {
         this.luetutMittaukset = lueatutMittaukset;
+    }
+
+    @Override
+    public String getSelectedRadioButton() {
+        String valittu="";
+        for(AbstractButton button : Collections.list(dataForEveryButtonGroup.getElements())){
+            if (button.isSelected()){
+                valittu=button.getText();
+                return valittu;
+            }
+        }
+        return "1 second";
+    }
+
+    @Override
+    public void setRadioButtonVisible(JRadioButton button) {
+        button.setVisible(true);
+    }
+
+    @Override
+    public ButtonGroup getdataForEveryButtonGroup() {
+        return dataForEveryButtonGroup;
+    }
+
+    @Override
+    public void setRadioButtonNotVisible(JRadioButton button) {
+        button.setVisible(false);
     }
     
 }

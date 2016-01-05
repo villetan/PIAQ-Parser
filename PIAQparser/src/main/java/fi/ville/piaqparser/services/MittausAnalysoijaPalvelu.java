@@ -6,6 +6,7 @@
 package fi.ville.piaqparser.services;
 
 import fi.ville.piaqparser.domain.Mittaus;
+import fi.ville.piaqparser.util.AikaKaantaja;
 import fi.ville.piaqparser.util.MittaustenAnalysoija;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,12 +23,14 @@ public class MittausAnalysoijaPalvelu {
     private ArrayList<Mittaus> mittaukset;
     private TiedostonLukijaPalvelu lukija;
     private List<String> otsikkoRivi;
+    private AikaKaantaja aikaKaantaja;
 
     public MittausAnalysoijaPalvelu(String filePath) {
         lukija = new TiedostonLukijaPalvelu();
         this.mittaukset = lukija.lueMittauksetListaksi(filePath);
         analysoija = new MittaustenAnalysoija(getMittaukset());
         otsikkoRivi = lukija.lueOtsikonArvot(filePath);
+        aikaKaantaja=new AikaKaantaja();
     }
 
     public Mittaus mittaustenEnsimmainen() {
@@ -114,6 +117,35 @@ public class MittausAnalysoijaPalvelu {
             }
         }
         return palautettava;
+    }
+    
+    public ArrayList<Mittaus> laskeKeskiarvoLista(String radioButtonCheckedName,ArrayList<Mittaus> mittauksetJoistaKeskiarvoLasketaan){
+        long aikaMS = aikaKaantaja.kaannaStringAjaksiMS(radioButtonCheckedName);
+        
+        return analysoija.laskeMittaustenKeskiarvo(aikaMS, mittauksetJoistaKeskiarvoLasketaan);
+    }
+    
+    public long mittaustenMittausvali(ArrayList<Mittaus> mittausJostaMVlasketaan){
+        return analysoija.mittaustenMittausvaliMS(mittausJostaMVlasketaan);
+    }
+    
+    public boolean naytaAikaValiNappi(ArrayList<Mittaus> mittauksetJoitaTarkastellaan, String nappi){
+        long mittausvali = mittaustenMittausvali(mittauksetJoitaTarkastellaan);
+        long napinAika=aikaKaantaja.kaannaStringAjaksiMS(nappi);
+        if(mittausvali<=napinAika && napinAika<=mittaustenAikavalinPituus(mittauksetJoitaTarkastellaan)){
+            return true;
+        }
+        return false;
+    }
+    
+    public long mittaustenAikavalinPituus(ArrayList<Mittaus> mittaukset){
+        if(mittaukset.size()==0){
+            return 0;
+        }if( mittaukset.size()==1){
+            return 1;
+        }else{
+            return mittaukset.get(mittaukset.size()-1).getAikaleima().getTime()-mittaukset.get(0).getAikaleima().getTime();
+        }
     }
 
 }

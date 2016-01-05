@@ -62,12 +62,11 @@ public class TiedostonLukijaXML {
                 if (eElement.getElementsByTagName("Data").item(0).getAttributes().getNamedItem("ss:Type").getNodeValue().contains("DateTime")) {
 
                     String luettuAika = eElement.getElementsByTagName("Data").item(0).getTextContent();
-                    System.out.println("Luettu aika: " + luettuAika);
+                    
                     String[] splitattu = luettuAika.split("T");
                     String dateOsio = splitattu[0];
                     String timeOsio = splitattu[1];
-                    System.out.println("date " + dateOsio);
-                    System.out.println("time: " + timeOsio);
+                    
                     String[] dateSplitattu = dateOsio.split("-");
                     int vuosi = Integer.parseInt(dateSplitattu[0]);
                     int kk = Integer.parseInt(dateSplitattu[1]);

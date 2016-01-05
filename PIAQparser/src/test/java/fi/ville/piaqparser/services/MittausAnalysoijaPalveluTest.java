@@ -145,5 +145,28 @@ public class MittausAnalysoijaPalveluTest {
         assertEquals(null, poistettujaSarakkeita.get(7).getMittauksenArvo("SootA"));
         assertEquals(52.369999, poistettujaSarakkeita.get(7).getMittauksenArvo("RH%"),0.0000000001);
     }
+    
+    @Test 
+    public void testMittaustenAikavalinPituus(){
+        ArrayList<Mittaus> mittaukset=mittausAnalysoijaPalvelu.getMittaukset();
+        assertEquals(1067000, mittausAnalysoijaPalvelu.mittaustenAikavalinPituus(mittaukset));
+    }
+    
+    @Test
+    public void naytaNappi(){
+        String nappi="1 second";
+        assertEquals(true, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi));
+    }
+    
+    @Test
+    public void naytaNappi2(){
+        String nappi="24 hours";
+        assertEquals(false, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi));
+    }
+    @Test
+    public void naytaNappi3(){
+        String nappi="20 minutes";
+        assertEquals(false, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi));
+    }
 
 }

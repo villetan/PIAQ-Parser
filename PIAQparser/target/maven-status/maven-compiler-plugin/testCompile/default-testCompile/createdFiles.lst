@@ -1,4 +1,7 @@
 fi/ville/piaqparser/util/TiedostonLukijaXMLTest.class
 fi/ville/piaqparser/util/AikaKaantajaTest.class
+fi/ville/piaqparser/services/TiedostonLukijaPalveluTest.class
 fi/ville/piaqparser/domain/MittausTest.class
+fi/ville/piaqparser/services/MittausAnalysoijaPalveluTest.class
 fi/ville/piaqparser/util/TiedostonLukijaCSVTest.class
+fi/ville/piaqparser/util/MittaustenAnalysoijaTest.class

@@ -24,10 +24,13 @@ import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -216,7 +219,7 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
                 
                 luoOtsikkoCheckBoxit(uusiUI);
                 uusiUI.setMittausAnalysoijaPalvelu(mittausAnalysoijaPalvelu);
-                
+                naytaSopivatDataForEveryNapit(uusiUI);
                 
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
@@ -225,6 +228,17 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
             ErrorTextField.setText("Canceled");
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
+
+    private void naytaSopivatDataForEveryNapit(ToiminnallisuusPanel uusiUI) {
+        ButtonGroup dataForEveryButtonGroup =uusiUI.getdataForEveryButtonGroup();
+        for(AbstractButton button : Collections.list(dataForEveryButtonGroup.getElements())){
+            if(mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), button.getText())){
+                uusiUI.setRadioButtonVisible((JRadioButton)button);
+            }else{
+                uusiUI.setRadioButtonNotVisible((JRadioButton)button);
+            }
+        }
+    }
 
     private void asetaAikaIkkunoidenArvot(ToiminnallisuusPanel uusiUI) {
         uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
