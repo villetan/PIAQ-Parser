@@ -6,9 +6,11 @@
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/TiedostonValitsijaFrame.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/domain/Mittaus.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/MittaustenAnalysoija.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/domain/Hyppy.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonLukijaXML.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/ToiminnallisuusPanel.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonLukijaCSV.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonKirjoittajaXML.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/UusiXmlLuotu.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/HypynTayttaja.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/services/TiedostonLukijaPalveluRajapinta.java

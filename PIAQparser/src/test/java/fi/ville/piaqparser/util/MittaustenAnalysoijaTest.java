@@ -5,10 +5,12 @@
  */
 package fi.ville.piaqparser.util;
 
+import fi.ville.piaqparser.domain.Hyppy;
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.services.TiedostonLukijaPalvelu;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -61,6 +63,17 @@ public class MittaustenAnalysoijaTest {
         assertEquals(2, ekaJaVika.size());
         assertEquals(mittaukset.get(0), ekaJaVika.get(0));
         assertEquals(mittaukset.get(mittaukset.size() - 1), ekaJaVika.get(1));
+    }
+    @Test
+    public void mittaustenmittausVali2MittaustaListalla(){
+        Mittaus m1 = new Mittaus(new Date(123000));
+        Mittaus m2 = new Mittaus(new Date(124000));
+        ArrayList<Mittaus> mittaukset=new ArrayList<>();
+        mittaukset.add(m1);
+        mittaukset.add(m2);
+        assertEquals(1000, analysoija.mittaustenMittausvaliMS(mittaukset));
+        assertEquals(2, mittaukset.size());
+        
     }
 
     @Test
@@ -122,7 +135,7 @@ public class MittaustenAnalysoijaTest {
 
     @Test
     public void testKeskiArvoLaskuriMittauksetOikein() {
-        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(5000l,mittaukset);
+        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(5000l, mittaukset);
         Mittaus mittaus1 = keskiarvoLista.get(0);
         assertEquals(2.0, mittaus1.getMittauksenArvo("co2"), 0.00000000001);
         assertEquals(20.0, mittaus1.getMittauksenArvo("no2"), 0.00000000001);
@@ -135,13 +148,13 @@ public class MittaustenAnalysoijaTest {
 
     @Test
     public void testKeskiArvoLaskuriSizeOikeinPart2() {
-        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(2000l,mittaukset);
+        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(2000l, mittaukset);
         assertEquals(5, keskiarvoLista.size());
     }
 
     @Test
     public void testKeskiArvoLaskuriMittauksetOikeinPart2() {
-        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(2000l,mittaukset);
+        ArrayList<Mittaus> keskiarvoLista = analysoija.laskeMittaustenKeskiarvo(2000l, mittaukset);
         Mittaus mittaus1 = keskiarvoLista.get(0);
         assertEquals(0.5, mittaus1.getMittauksenArvo("co2"), 0.00000000001);
         assertEquals(5.0, mittaus1.getMittauksenArvo("no2"), 0.00000000001);
@@ -186,7 +199,7 @@ public class MittaustenAnalysoijaTest {
             mittaus.lisaaMittaus("temperature", 100 * i);
             mittaukset.add(mittaus);
         }
-        ArrayList<Mittaus> keskiarvotLaskettu = analysoija.laskeMittaustenKeskiarvo(2000l,mittaukset);
+        ArrayList<Mittaus> keskiarvotLaskettu = analysoija.laskeMittaustenKeskiarvo(2000l, mittaukset);
         assertEquals(13, mittaukset.size());
         assertEquals(7, keskiarvotLaskettu.size());
 
@@ -207,19 +220,40 @@ public class MittaustenAnalysoijaTest {
             mittaus.lisaaMittaus("temperature", 100 * i);
             mittaukset.add(mittaus);
         }
-        ArrayList<Mittaus> keskiarvotLaskettu = analysoija.laskeMittaustenKeskiarvo(4000l,mittaukset);
+        ArrayList<Mittaus> keskiarvotLaskettu = analysoija.laskeMittaustenKeskiarvo(4000l, mittaukset);
         assertEquals(4, keskiarvotLaskettu.size());
-        assertEquals(1.5, keskiarvotLaskettu.get(0).getMittauksenArvo("co2"),0.0000000001);
-        assertEquals(13, keskiarvotLaskettu.get(keskiarvotLaskettu.size()-1).getMittauksenArvo("co2"),0.0000000001);
+        assertEquals(1.5, keskiarvotLaskettu.get(0).getMittauksenArvo("co2"), 0.0000000001);
+        assertEquals(13, keskiarvotLaskettu.get(keskiarvotLaskettu.size() - 1).getMittauksenArvo("co2"), 0.0000000001);
     }
-    
+
     @Test
-    public void testLaskeKeskiarvoXML(){
-        ArrayList<Mittaus> mittauksetXML=new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/PIAQ3.xml");
+    public void testLaskeKeskiarvoXML() {
+        ArrayList<Mittaus> mittauksetXML = new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/PIAQ3.xml");
+        MittaustenAnalysoija a = new MittaustenAnalysoija(mittauksetXML);
+
+        ArrayList<Mittaus> keskiarvot = a.laskeMittaustenKeskiarvo(30000, mittauksetXML);
+        assertEquals(34, keskiarvot.size());
+    }
+
+    @Test
+    public void testEtsiHypyt() {
+        ArrayList<Mittaus> mittauksetXML = new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/PIAQ3.xml");
         MittaustenAnalysoija a = new MittaustenAnalysoija(mittauksetXML);
         
-        ArrayList<Mittaus> keskiarvot=a.laskeMittaustenKeskiarvo(30000, mittauksetXML);
-        assertEquals(34, keskiarvot.size());
+        ArrayList<Hyppy> hypyt = a.etsiListastaHypyt(mittauksetXML, a.mittaustenMittausvaliMS(mittauksetXML));
+        assertEquals(17, hypyt.size());
+        
+        AikaKaantaja kaantaja = new AikaKaantaja();
+        Hyppy ekaHyppy=hypyt.get(0);
+        assertEquals(2000, ekaHyppy.hypynPituus());
+        assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494158869), ekaHyppy.getHyppyAlkoiMittauksesta().getAikaleima().getTime());
+        assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494158871), ekaHyppy.getHyppyPaattyiMittaukseen().getAikaleima().getTime());
+        
+        Hyppy vikaHyppy = hypyt.get(hypyt.size()-1);
+        assertEquals(4000, vikaHyppy.hypynPituus());
+        assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494159839), vikaHyppy.getHyppyAlkoiMittauksesta().getAikaleima().getTime());
+        assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494159843), vikaHyppy.getHyppyPaattyiMittaukseen().getAikaleima().getTime());
+
     }
 
 }

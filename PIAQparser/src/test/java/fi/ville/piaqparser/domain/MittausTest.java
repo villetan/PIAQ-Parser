@@ -6,6 +6,7 @@
 package fi.ville.piaqparser.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -155,5 +156,17 @@ public class MittausTest {
         mittaus.karsiMittaus("asd");
         mittaus.karsiMittaus("Temperature");
         assertEquals(0, mittaus.getMittaukset().size());
+    }
+    
+    @Test
+    public void testComparTo(){
+        Mittaus mittaus1=new Mittaus(new Date(12));
+        Mittaus mittaus2 = new Mittaus(new Date(13));
+        ArrayList<Mittaus> lista = new ArrayList<>();
+        lista.add(mittaus2);
+        lista.add(mittaus1);
+        Collections.sort(lista);
+        assertEquals(mittaus1, lista.get(0));
+        assertEquals(mittaus2, lista.get(1));
     }
 }

@@ -5,10 +5,13 @@
  */
 package fi.ville.piaqparser.services;
 
+import fi.ville.piaqparser.domain.Hyppy;
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.util.AikaKaantaja;
+import fi.ville.piaqparser.util.HypynTayttaja;
 import fi.ville.piaqparser.util.MittaustenAnalysoija;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class MittausAnalysoijaPalvelu {
     private TiedostonLukijaPalvelu lukija;
     private List<String> otsikkoRivi;
     private AikaKaantaja aikaKaantaja;
+    private HypynTayttaja hypynTayttaja;
 
     public MittausAnalysoijaPalvelu(String filePath) {
         lukija = new TiedostonLukijaPalvelu();
@@ -31,6 +35,7 @@ public class MittausAnalysoijaPalvelu {
         analysoija = new MittaustenAnalysoija(getMittaukset());
         otsikkoRivi = lukija.lueOtsikonArvot(filePath);
         aikaKaantaja=new AikaKaantaja();
+        hypynTayttaja=new HypynTayttaja();
     }
 
     public Mittaus mittaustenEnsimmainen() {
@@ -146,6 +151,33 @@ public class MittausAnalysoijaPalvelu {
         }else{
             return mittaukset.get(mittaukset.size()-1).getAikaleima().getTime()-mittaukset.get(0).getAikaleima().getTime();
         }
+    }
+    
+    private ArrayList<Hyppy> mittauksissaOlevatHypyt(ArrayList<Mittaus> hypyllinenLista){
+        
+        return analysoija.etsiListastaHypyt(hypyllinenLista, mittaustenMittausvali(hypyllinenLista));
+    }
+    
+    private boolean taytetaankoHyppy(Hyppy hyppy){
+        if(hyppy.hypynPituus()<10000){
+            return true;
+        }
+        return false;
+    }
+    
+    
+    
+    public ArrayList<Mittaus> taytaHypytListasta(ArrayList<Mittaus> hypyllinenLista){
+        ArrayList<Mittaus> hypytonLista=hypyllinenLista;
+        ArrayList<Hyppy> hypyt=mittauksissaOlevatHypyt(hypyllinenLista);
+        for(Hyppy hyppy : hypyt){
+            if(taytetaankoHyppy(hyppy)){
+                ArrayList<Mittaus> arvioidutMittauksetHypysta=hypynTayttaja.taytaHyppy(hyppy, mittaustenMittausvali(hypyllinenLista));
+                hypytonLista.addAll(arvioidutMittauksetHypysta);
+            }
+        }
+        Collections.sort(hypytonLista);
+        return hypytonLista;
     }
 
 }

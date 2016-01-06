@@ -5,6 +5,7 @@
  */
 package fi.ville.piaqparser.services;
 
+import fi.ville.piaqparser.domain.Hyppy;
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.util.AikaKaantaja;
 import java.util.ArrayList;
@@ -43,6 +44,26 @@ public class MittausAnalysoijaPalveluTest {
 
     @After
     public void tearDown() {
+    }
+    
+    @Test
+    public void testNoudaMittauksia(){
+        AikaKaantaja kaantaja = new AikaKaantaja();
+        assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494158779), mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima().getTime());
+        assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494159846), mittausAnalysoijaPalvelu.mittaustenViimeinen().getAikaleima().getTime());
+    }
+    
+    @Test
+    public void testOtsikkoRiviOikein(){
+        List<String> otsikkorivi=mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi();
+        assertEquals(true, otsikkorivi.contains("Co2"));
+        assertEquals(true, otsikkorivi.contains("Temperature"));
+        assertEquals(true, otsikkorivi.contains("SootA"));
+        assertEquals(true, otsikkorivi.contains("SootM"));
+        assertEquals(true, otsikkorivi.contains("SootN"));
+        assertEquals(true, otsikkorivi.contains("RH%"));
+        assertEquals(false, otsikkorivi.contains("Skrikidii"));
+        
     }
 
     @Test
@@ -141,32 +162,92 @@ public class MittausAnalysoijaPalveluTest {
         ArrayList<Mittaus> poistettujaSarakkeita = mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(poistettavatSarakkeet, mittausAnalysoijaPalvelu.getMittaukset());
         assertEquals(10.968647, poistettujaSarakkeita.get(0).getMittauksenArvo("SootM"), 0.0000000001);
         assertEquals(null, poistettujaSarakkeita.get(0).getMittauksenArvo("Co2"));
-        assertEquals(null, poistettujaSarakkeita.get(poistettujaSarakkeita.size()-1).getMittauksenArvo("SootA"));
+        assertEquals(null, poistettujaSarakkeita.get(poistettujaSarakkeita.size() - 1).getMittauksenArvo("SootA"));
         assertEquals(null, poistettujaSarakkeita.get(7).getMittauksenArvo("SootA"));
-        assertEquals(52.369999, poistettujaSarakkeita.get(7).getMittauksenArvo("RH%"),0.0000000001);
+        assertEquals(52.369999, poistettujaSarakkeita.get(7).getMittauksenArvo("RH%"), 0.0000000001);
     }
-    
-    @Test 
-    public void testMittaustenAikavalinPituus(){
-        ArrayList<Mittaus> mittaukset=mittausAnalysoijaPalvelu.getMittaukset();
+
+    @Test
+    public void testMittaustenAikavalinPituus() {
+        ArrayList<Mittaus> mittaukset = mittausAnalysoijaPalvelu.getMittaukset();
         assertEquals(1067000, mittausAnalysoijaPalvelu.mittaustenAikavalinPituus(mittaukset));
     }
     
     @Test
-    public void naytaNappi(){
-        String nappi="1 second";
+    public void testLaskeKeskiarvo(){
+        ArrayList<Mittaus> keskiarvoLista=mittausAnalysoijaPalvelu.laskeKeskiarvoLista("5 minutes", mittausAnalysoijaPalvelu.getMittaukset());
+        assertEquals(4,keskiarvoLista.size());
+    }
+
+    @Test
+    public void naytaNappi() {
+        String nappi = "1 second";
+        String nappi2="0 second";
         assertEquals(true, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi));
+        assertEquals(false, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi2));
     }
     
+
     @Test
-    public void naytaNappi2(){
-        String nappi="24 hours";
+    public void naytaNappi2() {
+        String nappi = "24 hours";
         assertEquals(false, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi));
     }
+
     @Test
-    public void naytaNappi3(){
-        String nappi="20 minutes";
+    public void naytaNappi3() {
+        String nappi = "20 minutes";
         assertEquals(false, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi));
+    }
+    
+
+    @Test
+    public void testTaytaHypytListasta() {
+        ArrayList<Mittaus> taytettyLista = mittausAnalysoijaPalvelu.taytaHypytListasta(mittausAnalysoijaPalvelu.getMittaukset());
+        assertEquals(1068, taytettyLista.size());
+        assertEquals(new AikaKaantaja().kaannaPegasorinAjastaJavaan(494159846), taytettyLista.get(taytettyLista.size() - 1).getAikaleima().getTime());
+    }
+
+    @Test
+    public void testTaytaHypytListastaJarjestys() {
+        ArrayList<Mittaus> taytettyLista = mittausAnalysoijaPalvelu.taytaHypytListasta(mittausAnalysoijaPalvelu.getMittaukset());
+        for(int i=1;i<taytettyLista.size();i++){
+            assertEquals(true, taytettyLista.get(i).getAikaleima().after(taytettyLista.get(i-1).getAikaleima()));
+        }
+    }
+
+    @Test
+    public void testaaHypyt() {
+        ArrayList<Mittaus> testiMittaukset = new ArrayList<>();
+        for (int i = 0; i < 10 * 15; i += 15) {
+            Mittaus mittaus = new Mittaus(new Date(111111111000l + i));
+
+            testiMittaukset.add(mittaus);
+        }
+
+        assertEquals(10, testiMittaukset.size());
+        assertEquals(10, mittausAnalysoijaPalvelu.taytaHypytListasta(testiMittaukset).size());
+    }
+
+    @Test
+    public void mittauksenAikavalinPituus() {
+        ArrayList list = new ArrayList();
+        assertEquals(0, mittausAnalysoijaPalvelu.mittaustenAikavalinPituus(list));
+
+    }
+
+    @Test
+    public void mittauksenAikavalinPituus2() {
+        ArrayList<Mittaus> mittaus = new ArrayList<>();
+        mittaus.add(new Mittaus(new Date(123123123)));
+        assertEquals(1, mittausAnalysoijaPalvelu.mittaustenAikavalinPituus(mittaus));
+    }
+
+    public void testTaytetaankoHyppy() {
+        Hyppy hyppy = new Hyppy();
+        hyppy.setHyppyAlkoiMittauksesta(new Mittaus(new Date(1111111000)));
+        hyppy.setHyppyPaattyiMittaukseen(new Mittaus(new Date(1111211000)));
+
     }
 
 }

@@ -5,9 +5,11 @@
  */
 package fi.ville.piaqparser.util;
 
+import fi.ville.piaqparser.domain.Hyppy;
 import fi.ville.piaqparser.domain.Mittaus;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -41,7 +43,6 @@ public class MittaustenAnalysoija {
         for (int i = 1; i < mittaukset.size() - 2; i++) {
             long aikavali = mittaukset.get(i).getAikaleima().getTime() - mittaukset.get(i - 1).getAikaleima().getTime();
             if (aikavali != mittaukset.get(i + 1).getAikaleima().getTime() - mittaukset.get(i).getAikaleima().getTime()) {
-                System.out.println("HYPPY KOHDASSA: " + i);
                 return true;
             }
 
@@ -63,10 +64,23 @@ public class MittaustenAnalysoija {
            Mittaus mittaus1 = listaJostaMittausvaliLasketaan.get(1);
             Mittaus mittaus2 = listaJostaMittausvaliLasketaan.get(2);
             mittausvaliMS = mittaus2.getAikaleima().getTime() - mittaus1.getAikaleima().getTime(); 
-            System.out.println("***!*!*!*!*!*!*!"+mittausvaliMS);
+            
         }
         //}
         return mittausvaliMS;
+    }
+    
+    public ArrayList<Hyppy> etsiListastaHypyt(ArrayList<Mittaus> mittauksetEtsiHypyt, long oletettuMittausvaliMS){
+        ArrayList<Hyppy> palautettava = new ArrayList<>();
+        for(int i=1;i<mittauksetEtsiHypyt.size();i++){
+            if(mittauksetEtsiHypyt.get(i).getAikaleima().getTime()-mittauksetEtsiHypyt.get(i-1).getAikaleima().getTime()!=oletettuMittausvaliMS){
+                Hyppy loytynytHyppy= new Hyppy();
+                loytynytHyppy.setHyppyAlkoiMittauksesta(mittauksetEtsiHypyt.get(i-1));
+                loytynytHyppy.setHyppyPaattyiMittaukseen(mittauksetEtsiHypyt.get(i));
+                palautettava.add(loytynytHyppy);
+            }
+        }
+        return palautettava;
     }
 
     public ArrayList<Mittaus> laskeMittaustenKeskiarvo(long haluttuMittausvaliMS, ArrayList<Mittaus> mittauksetLasketaanTasta) {

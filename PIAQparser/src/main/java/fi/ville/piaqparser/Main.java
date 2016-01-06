@@ -40,16 +40,12 @@ public class Main {
 ////        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
 ////        kirjoittaja.kirjoitaTiedosto(mittaukset);
 //        System.out.println("Get tokan sootA " + mittaukset.get(1).getMittauksenArvo("sootA"));
-        
-      //  ArrayList<Mittaus> mittauksetXML=new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/PIAQ3.xml");
-        ArrayList<Mittaus> mittauksetXML=new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/Piaq_export0.xml");
-        MittaustenAnalysoija a = new MittaustenAnalysoija(mittauksetXML);
-        a.mittaustenMittausvaliMS(mittauksetXML);
-        ArrayList<Mittaus> keskiarvot=a.laskeMittaustenKeskiarvo(30000, mittauksetXML);
+
+        //  ArrayList<Mittaus> mittauksetXML=new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/PIAQ3.xml");
+        ArrayList<Mittaus> testiMittaukset = new ArrayList<>();
         
 
         TiedostonValitsijaFrame ui = new TiedostonValitsijaFrame();
-        
 
     }
 }

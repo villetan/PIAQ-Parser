@@ -15,7 +15,7 @@ import java.util.HashMap;
  * Luokka pitää huolta datasta tulevan "rivin" eli yhden mittauksen
  * tallentamisesta olio-muotoon.
  */
-public class Mittaus {
+public class Mittaus implements Comparable<Mittaus>{
 
     private Date aikaleima;
 
@@ -126,5 +126,19 @@ public class Mittaus {
         }
         return false;
     }
+
+    @Override
+    public int compareTo(Mittaus m) {
+        if(m.getAikaleima().equals(this.aikaleima)){
+            return 0;
+        }
+        if(m.getAikaleima().before(aikaleima)){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+    
+    
 
 }
