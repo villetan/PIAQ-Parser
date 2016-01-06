@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  *
  * @author ville
+ * Luokka, joka kuvaa lyhyitä hyppyjä mittausdatassa. 
  */
 public class Hyppy {
     
@@ -53,7 +54,10 @@ public class Hyppy {
     public void setHyppyPaattyiMittaukseen(Mittaus hyppyPaattyiMittaukseen) {
         this.hyppyPaattyiMittaukseen = hyppyPaattyiMittaukseen;
     }
-    
+    /**
+     * Palauttaa hypyn pituuden.
+     * @return 
+     */
     public long hypynPituus(){
         return hyppyPaattyiMittaukseen.getAikaleima().getTime()-hyppyAlkoiMittauksesta.getAikaleima().getTime();
     }

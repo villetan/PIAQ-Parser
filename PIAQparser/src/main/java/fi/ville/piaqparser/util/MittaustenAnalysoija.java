@@ -23,6 +23,10 @@ public class MittaustenAnalysoija {
         this.mittaukset = mittaukset;
     }
 
+    /**
+     * Palauttaa konstruktorin listan ensimmäisen ja viimeisen Mittaus-olion.
+     * @return palauttaa listan, jonka ensimmäinen jäsen on ensimmäinen mittaus, ja toinen jäsen (mahdollinen) toinen mittaus.
+     */
     public ArrayList<Mittaus> ensimmainenJaViimeinenMittausListana() {
         if (mittaukset.size() == 1) {
             ArrayList<Mittaus> yksiMittaus = new ArrayList<>();
@@ -38,6 +42,11 @@ public class MittaustenAnalysoija {
 
     }
 
+    /**
+     * 
+     * @return palauttaa totuusarvon, joka kertoo onko mittauksissa hyppyjä vai ei.
+     * ts. tarkistaa onko mittausväli vakio.
+     */
     public boolean mittauksissaHyppyja() {
 
         for (int i = 1; i < mittaukset.size() - 2; i++) {
@@ -50,6 +59,7 @@ public class MittaustenAnalysoija {
         return false;
     }
 
+    
     public long mittaustenMittausvaliMS(ArrayList<Mittaus> listaJostaMittausvaliLasketaan) {
         long mittausvaliMS = -50;
         //if (!mittauksissaHyppyja()) {
@@ -66,10 +76,16 @@ public class MittaustenAnalysoija {
             mittausvaliMS = mittaus2.getAikaleima().getTime() - mittaus1.getAikaleima().getTime(); 
             
         }
-        //}
+        
         return mittausvaliMS;
     }
-    
+    /**
+     * Etsii Mittaus-olioiden listasta mahdollisia hyppyjä, jos hyppyjä ei ole, niin listan koko on 0.
+     * 
+     * @param mittauksetEtsiHypyt, lista Mittauksia, joista "hypyt" etsitään.
+     * @param oletettuMittausvaliMS, edellämainitun listan mittausten oikea mittausväli.
+     * @return palauttaa listan Hyppy -olioita, jotka sisältävät tärkeän tiedon hypyistä.
+     */
     public ArrayList<Hyppy> etsiListastaHypyt(ArrayList<Mittaus> mittauksetEtsiHypyt, long oletettuMittausvaliMS){
         ArrayList<Hyppy> palautettava = new ArrayList<>();
         for(int i=1;i<mittauksetEtsiHypyt.size();i++){
@@ -82,7 +98,14 @@ public class MittaustenAnalysoija {
         }
         return palautettava;
     }
-
+/**
+ * Laskee halutulle listalle mittausten keskiarvoja halutulla taajuudella. Viimeiseen mittaukseen otetaan huomioon vain jäljellä
+ * olevat mittaukset.
+ * 
+ * @param haluttuMittausvaliMS haluttu mittausvälin suuruus millisekunteina.
+ * @param mittauksetLasketaanTasta lista, josta keskiarvo lasketaan.
+ * @return Palauttaa listan mittauksia, joille on laskettu keskiarvo halutulle taajudelle.
+ */
     public ArrayList<Mittaus> laskeMittaustenKeskiarvo(long haluttuMittausvaliMS, ArrayList<Mittaus> mittauksetLasketaanTasta) {
         ArrayList<Mittaus> keskiarvoLista = new ArrayList<>();
         long alkuperainenMittausvali = mittaustenMittausvaliMS(mittauksetLasketaanTasta);

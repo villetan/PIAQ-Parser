@@ -34,32 +34,55 @@ public class MittausAnalysoijaPalvelu {
         this.mittaukset = lukija.lueMittauksetListaksi(filePath);
         analysoija = new MittaustenAnalysoija(getMittaukset());
         otsikkoRivi = lukija.lueOtsikonArvot(filePath);
-        aikaKaantaja=new AikaKaantaja();
-        hypynTayttaja=new HypynTayttaja();
+        aikaKaantaja = new AikaKaantaja();
+        hypynTayttaja = new HypynTayttaja();
     }
 
+    /**
+     *
+     * @return Palauttaa kontruktorissa määritellyn mittauslistan ensimmäisen
+     * Mittaus -olion.
+     */
     public Mittaus mittaustenEnsimmainen() {
         if (mittaukset.size() > 0) {
             return mittaukset.get(0);
         }
         return null;
     }
-    
-    public Mittaus mittaustenViimeinen(){
-        if(mittaukset.size()>0){
-            return mittaukset.get(mittaukset.size()-1);
+
+    /**
+     *
+     * @return konstruktorissa määritellyn mittauslistan viimeinen Mittaus
+     * -olio.
+     */
+    public Mittaus mittaustenViimeinen() {
+        if (mittaukset.size() > 0) {
+            return mittaukset.get(mittaukset.size() - 1);
         }
         return null;
     }
 
+    /**
+     *
+     * @return aikaleiman osuus dd/MM/YYYY, mittausten ensimmäiselle
+     * mittaukselle
+     */
     public String mittaustenEnsimmainenDateString() {
         return analysoija.ensimmainenJaViimeinenMittausListana().get(0).palautaAikaleimaPVM();
     }
 
+    /**
+     *
+     * @return aikaleiman osuus hh:mm:ss ensimmäiselle mittaukselle
+     */
     public String mittaustenEnsimmainenKelloString() {
         return analysoija.ensimmainenJaViimeinenMittausListana().get(0).palautaAikaleimaKellonaika();
     }
 
+    /**
+     *
+     * @return aikaleiman osuus dd/MM/YYYY, mittausten viimeiselle mittaukselle
+     */
     public String mittaustenViimeinenDateString() {
         if (analysoija.ensimmainenJaViimeinenMittausListana().size() > 1) {
             return analysoija.ensimmainenJaViimeinenMittausListana().get(1).palautaAikaleimaPVM();
@@ -68,6 +91,10 @@ public class MittausAnalysoijaPalvelu {
         }
     }
 
+    /**
+     *
+     * @return aikaleiman osuus hh:mm:ss viimeiselle mittaukselle
+     */
     public String mittaustenViimeinenKelloString() {
         if (analysoija.ensimmainenJaViimeinenMittausListana().size() > 1) {
             return analysoija.ensimmainenJaViimeinenMittausListana().get(1).palautaAikaleimaKellonaika();
@@ -76,10 +103,22 @@ public class MittausAnalysoijaPalvelu {
         }
     }
 
+    /**
+     * 
+     * @return Mittausten otsikkorivi. Mitattujen arvojen otsikot. 
+     */
     public List<String> MittaustenOtsikkoRivi() {
         return otsikkoRivi;
     }
 
+    
+    /**
+     * Valitsee mittaukset konstruktorissa määritellystä listasta halutulta aikaväliltä date1-date2
+     * 
+     * @param date1 aloitushetki
+     * @param date2 lopetushetki
+     * @return Lista Mittaus-olioita, jotka on valittu halutulta aikaväliltä.
+     */
     public ArrayList<Mittaus> valitseMittauksetAikavalilta(Date date1, Date date2) {
 
         ArrayList<Mittaus> palautettava = new ArrayList<>();
@@ -108,12 +147,19 @@ public class MittausAnalysoijaPalvelu {
     }
 
     /**
-     * @return the mittaukset
+     * @return konstruktorissa määritellyt mittaukset.
      */
     public ArrayList<Mittaus> getMittaukset() {
         return mittaukset;
     }
 
+    /**
+     * Poistaa mittauslistasta ne toteutuneet mittaukset jotka määritellään alla.
+     * 
+     * @param poistettavatSarakkeidenNimet ,sarakkeiden nimet jotka karsitaan.
+     * @param listaJostaPoistetaan lista josta poisto-operaatio halutaan tehdä
+     * @return lista Mittaus-olioita, joista on poistettu halutut mittaukset
+     */
     public ArrayList<Mittaus> poistaMittauksistaSarakkeita(List<String> poistettavatSarakkeidenNimet, ArrayList<Mittaus> listaJostaPoistetaan) {
         ArrayList<Mittaus> palautettava = listaJostaPoistetaan;
         for (String sarakkeenOtsikko : poistettavatSarakkeidenNimet) {
@@ -123,56 +169,86 @@ public class MittausAnalysoijaPalvelu {
         }
         return palautettava;
     }
-    
-    public ArrayList<Mittaus> laskeKeskiarvoLista(String radioButtonCheckedName,ArrayList<Mittaus> mittauksetJoistaKeskiarvoLasketaan){
+
+    /**
+     * check MittaustenAnalysoija Javadoc
+     * 
+     * @param radioButtonCheckedName UI:n napin nimi, joka on nimetty esim. "5 seconds"
+     * @param mittauksetJoistaKeskiarvoLasketaan , lista josta keskiarvot halutaan laskettavan
+     * @return palauttaa toivotunlaisen listan, jossa keskiarvot laskettu. Ja mittausväli on sama kuin mikä on UI:ssa valittu
+     */
+    public ArrayList<Mittaus> laskeKeskiarvoLista(String radioButtonCheckedName, ArrayList<Mittaus> mittauksetJoistaKeskiarvoLasketaan) {
         long aikaMS = aikaKaantaja.kaannaStringAjaksiMS(radioButtonCheckedName);
-        
+
         return analysoija.laskeMittaustenKeskiarvo(aikaMS, mittauksetJoistaKeskiarvoLasketaan);
     }
-    
-    public long mittaustenMittausvali(ArrayList<Mittaus> mittausJostaMVlasketaan){
+
+    /**
+     * Check MittaustenAnalysoija Javadoc
+     * @param mittausJostaMVlasketaan lista mittauksia, joista mittausväli halutaan laskea.
+     * @return palauttaa mittausvälin pituuden millisekunteina.
+     */
+    public long mittaustenMittausvali(ArrayList<Mittaus> mittausJostaMVlasketaan) {
         return analysoija.mittaustenMittausvaliMS(mittausJostaMVlasketaan);
     }
-    
-    public boolean naytaAikaValiNappi(ArrayList<Mittaus> mittauksetJoitaTarkastellaan, String nappi){
+
+    /**
+     * Laskee aikavälin siten, että nappeja, jotka ei ole mittausten puitteissa mahdollista valita, ei näytetä.
+     * @param mittauksetJoitaTarkastellaan
+     * @param nappi napin nimi muotoa "1 second", "24 hours" jne.
+     * @return  palauttaa totuusarvon, joka kertoo siitä pitäisikö napi näyttää vai ei.
+     */
+    public boolean naytaAikaValiNappi(ArrayList<Mittaus> mittauksetJoitaTarkastellaan, String nappi) {
         long mittausvali = mittaustenMittausvali(mittauksetJoitaTarkastellaan);
-        long napinAika=aikaKaantaja.kaannaStringAjaksiMS(nappi);
-        if(mittausvali<=napinAika && napinAika<=mittaustenAikavalinPituus(mittauksetJoitaTarkastellaan)){
+        long napinAika = aikaKaantaja.kaannaStringAjaksiMS(nappi);
+        if (mittausvali <= napinAika && napinAika <= mittaustenAikavalinPituus(mittauksetJoitaTarkastellaan)) {
             return true;
         }
         return false;
     }
-    
-    public long mittaustenAikavalinPituus(ArrayList<Mittaus> mittaukset){
-        if(mittaukset.size()==0){
+
+    /**
+     * Laskee aikavälin, jolta mittaukset ovat. Eli ensimmäisen ja viimeisen mittauksen aikaleiman välisen ajan pituuden.
+     * @param mittaukset, lista josta aikaväli lasketaan.
+     * @return palauttaa mittauslistan pituuden millisekunteina.
+     */
+    public long mittaustenAikavalinPituus(ArrayList<Mittaus> mittaukset) {
+        if (mittaukset.size() == 0) {
             return 0;
-        }if( mittaukset.size()==1){
+        }
+        if (mittaukset.size() == 1) {
             return 1;
-        }else{
-            return mittaukset.get(mittaukset.size()-1).getAikaleima().getTime()-mittaukset.get(0).getAikaleima().getTime();
+        } else {
+            return mittaukset.get(mittaukset.size() - 1).getAikaleima().getTime() - mittaukset.get(0).getAikaleima().getTime();
         }
     }
-    
-    private ArrayList<Hyppy> mittauksissaOlevatHypyt(ArrayList<Mittaus> hypyllinenLista){
-        
+
+    private ArrayList<Hyppy> mittauksissaOlevatHypyt(ArrayList<Mittaus> hypyllinenLista) {
+
         return analysoija.etsiListastaHypyt(hypyllinenLista, mittaustenMittausvali(hypyllinenLista));
     }
-    
-    private boolean taytetaankoHyppy(Hyppy hyppy){
-        if(hyppy.hypynPituus()<10000){
+
+    private boolean taytetaankoHyppy(Hyppy hyppy) {
+        if (hyppy.hypynPituus() < 10000) {
             return true;
         }
         return false;
     }
+
     
-    
-    
-    public ArrayList<Mittaus> taytaHypytListasta(ArrayList<Mittaus> hypyllinenLista){
-        ArrayList<Mittaus> hypytonLista=hypyllinenLista;
-        ArrayList<Hyppy> hypyt=mittauksissaOlevatHypyt(hypyllinenLista);
-        for(Hyppy hyppy : hypyt){
-            if(taytetaankoHyppy(hyppy)){
-                ArrayList<Mittaus> arvioidutMittauksetHypysta=hypynTayttaja.taytaHyppy(hyppy, mittaustenMittausvali(hypyllinenLista));
+    /**
+     * Metodi, joka automaattisesti täyttää alle 10s hypyt listasta jota tarkastellaan.
+     * e.m 10s hypyt väliä voi muuttaa tämän luokan metodissa taytetaankoHyppy.
+     * 
+     * @param hypyllinenLista, lista jota tarkastellaan, ja josta hypyt halutaan "täyttää"
+     * @return palauttaa listan jossa hypyt on korjattu.
+     */
+    public ArrayList<Mittaus> taytaHypytListasta(ArrayList<Mittaus> hypyllinenLista) {
+        ArrayList<Mittaus> hypytonLista = hypyllinenLista;
+        ArrayList<Hyppy> hypyt = mittauksissaOlevatHypyt(hypyllinenLista);
+        for (Hyppy hyppy : hypyt) {
+            if (taytetaankoHyppy(hyppy)) {
+                ArrayList<Mittaus> arvioidutMittauksetHypysta = hypynTayttaja.taytaHyppy(hyppy, mittaustenMittausvali(hypyllinenLista));
                 hypytonLista.addAll(arvioidutMittauksetHypysta);
             }
         }

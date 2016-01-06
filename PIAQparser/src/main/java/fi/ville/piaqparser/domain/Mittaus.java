@@ -31,22 +31,38 @@ public class Mittaus implements Comparable<Mittaus>{
 
     }
 
+    /**
+     * 
+     * @return palauttaa Mittaus olion kaikki eri mittaukset, lukuunottamatta aikaleimaa.
+     */
     public HashMap<String, Double> getMittaukset() {
         return mittaukset;
     }
 
+    /**
+     * Lisaa Mittausoliolle mittauksen.
+     * @param nimi mittauksen nimi
+     * @param arvo mittauksen arvo
+     */
     public void lisaaMittaus(String nimi, double arvo) {
         if (mittaukset != null) {
             mittaukset.put(nimi, arvo);
         }
     }
-
+/**
+ * Poistaa Mittausoliolta mittauksen
+ * @param nimi mittaus joka poistetaan
+ */
     public void karsiMittaus(String nimi) {
         if (mittaukset != null) {
             mittaukset.remove(nimi);
         }
     }
-
+/**
+ * 
+ * @param avain mittauksen nimi
+ * @return palauttaa avainta vastaavan arvon.
+ */
     public Double getMittauksenArvo(String avain) {
         if (mittaukset.keySet().contains(avain)) {
             return mittaukset.get(avain);
@@ -113,6 +129,11 @@ public class Mittaus implements Comparable<Mittaus>{
         this.aikaleima = aikaleima;
     }
 
+    /**
+     * 
+     * @param verrattava
+     * @return Mittaukset katsotaan samoiksi jos niillä on sama aikaleima.
+     */
     public boolean equals(Mittaus verrattava) {
         if (this.aikaleima != null && verrattava.getAikaleima() != null) {
             if (!aikaleima.equals(verrattava.getAikaleima())) {
