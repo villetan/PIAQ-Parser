@@ -5,6 +5,8 @@
  */
 package fi.ville.piaqparser.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -68,6 +70,26 @@ public class HyppyTest {
         assertEquals(mittaus1, h.getHyppyAlkoiMittauksesta());
         assertEquals(mittaus2, h.getHyppyPaattyiMittaukseen());
         
+    }
+    
+    @Test
+    public void testJarjestaminen(){
+        Mittaus mittaus1=new Mittaus();
+        mittaus1.setAikaleima(new Date(123456000));
+        Mittaus mittaus2 = new Mittaus();
+        mittaus2.setAikaleima(new Date(123458000));
+        Mittaus mittaus3=new Mittaus();
+        mittaus3.setAikaleima(new Date(123453000));
+        Mittaus mittaus4 = new Mittaus();
+        mittaus4.setAikaleima(new Date(123458000));
+        Hyppy hyppy1= new Hyppy(mittaus1, mittaus2);
+        Hyppy hyppy2= new Hyppy(mittaus3, mittaus4);
+        ArrayList<Hyppy> hypyt = new ArrayList<>();
+        hypyt.add(hyppy1);
+        hypyt.add(hyppy2);
+        assertEquals(hyppy1, hypyt.get(0));
+        Collections.sort(hypyt);
+        assertEquals(hyppy2, hypyt.get(0));
     }
     
 }

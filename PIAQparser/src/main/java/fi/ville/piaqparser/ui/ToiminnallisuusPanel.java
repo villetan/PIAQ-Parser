@@ -64,6 +64,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         useDataFromToSeconds = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         ParametersWindow = new javax.swing.JPanel();
         Parameters = new javax.swing.JLabel();
         values = new javax.swing.JLabel();
@@ -116,12 +117,14 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         TimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TimeLabel.setText("Time");
 
-        thisSheetHasDataFrom.setText("This sheet has data from");
+        thisSheetHasDataFrom.setText("This sheet has data:");
 
+        DataFrom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DataFrom.setText("jLabel1");
 
         jLabel2.setText("To");
 
+        DataTo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DataTo.setText("jLabel1");
 
         UseDataFrom.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
@@ -147,6 +150,8 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
 
         jLabel4.setText("seconds");
 
+        jLabel5.setText("From");
+
         javax.swing.GroupLayout TimeWindowLayout = new javax.swing.GroupLayout(TimeWindow);
         TimeWindow.setLayout(TimeWindowLayout);
         TimeWindowLayout.setHorizontalGroup(
@@ -156,32 +161,34 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
             .addGroup(TimeWindowLayout.createSequentialGroup()
                 .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(thisSheetHasDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(DataTo, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(DataFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(TimeWindowLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(DataTo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(useDataFromFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(useDataFromToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TimeWindowLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(thisSheetHasDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(TimeWindowLayout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(useDataFromFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(useDataFromToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(TimeWindowLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(useDataFromFromSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(134, 134, 134)
-                        .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(useDataFromToSeconds, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(useDataFromToSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         TimeWindowLayout.setVerticalGroup(
@@ -194,25 +201,25 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
                 .addGap(18, 18, 18)
                 .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DataFrom)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(DataTo)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
+                .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DataTo)
+                    .addComponent(jLabel2))
+                .addGap(44, 44, 44)
                 .addComponent(UseDataFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(useDataFromFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(useDataFromToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(3, 3, 3)
+                .addGap(18, 18, 18)
                 .addGroup(TimeWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(useDataFromFromSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(useDataFromToSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(useDataFromToSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         useDataFromFromDate.getAccessibleContext().setAccessibleName("");
@@ -284,18 +291,15 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         ParametersWindowLayout.setVerticalGroup(
             ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ParametersWindowLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(31, 31, 31)
                 .addComponent(Parameters, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dataForEvery)
+                    .addComponent(values))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ParametersWindowLayout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(valuesButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ParametersWindowLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(ParametersWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dataForEvery)
-                            .addComponent(values))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(radioButton1second)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioButton15seconds)
@@ -308,8 +312,9 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(radioButton15minutes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioButton1hour)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                        .addComponent(radioButton1hour))
+                    .addComponent(valuesButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -336,26 +341,29 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     private MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu;
     private ArrayList<Mittaus> luetutMittaukset;
     private void makeNewXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeNewXMLActionPerformed
-        // TODO add your handling code here:
-        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
-        ArrayList<Mittaus> valitutMittaukset = mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
-        valitutMittaukset = mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(getNotSelectedValuesButtons(), valitutMittaukset);
-        String valittu=getSelectedRadioButton();
-        System.out.println("valittu: "+valittu);
-        ArrayList<Mittaus> lopulliset=mittausAnalysoijaPalvelu.laskeKeskiarvoLista(valittu, valitutMittaukset);
-        System.out.println("Valitut: " + valitutMittaukset.size());
-        System.out.println("Lopulliset: "+lopulliset.size());
-        String tiedostonNimi = (valitutMittaukset.get(0).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(0).palautaAikaleimaKellonaika() + "-" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaKellonaika() + ".xml").replace("/", ",");
-        String saveToFilePath = "src/main/resources/" + tiedostonNimi;
-        System.out.println("Tiedoston nimi: " + tiedostonNimi);
-        kirjoittaja.setSaveToFilePath(saveToFilePath);
-        
-        kirjoittaja.kirjoitaTiedosto(lopulliset);
+        TiedostonKirjoittajaXML kirjoittaja = kirjoitaTiedosto();
         UusiXmlLuotu xmlCreatedWindow = new UusiXmlLuotu();
         xmlCreatedWindow.setFilePathName(kirjoittaja.getSaveToFilePath());
         
         xmlCreatedWindow.setVisible(true);
     }//GEN-LAST:event_makeNewXMLActionPerformed
+
+    private TiedostonKirjoittajaXML kirjoitaTiedosto() {
+        // TODO add your handling code here:
+        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
+        ArrayList<Mittaus> valitutMittaukset = mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
+        ArrayList<Mittaus> hypytTaytetty = mittausAnalysoijaPalvelu.taytaHypytListasta(valitutMittaukset);
+        hypytTaytetty = mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(getNotSelectedValuesButtons(), hypytTaytetty);
+        String valittu=getSelectedRadioButton();
+        System.out.println("valittu: "+valittu);
+        ArrayList<Mittaus> lopulliset=mittausAnalysoijaPalvelu.laskeKeskiarvoLista(valittu, hypytTaytetty);
+        String tiedostonNimi = (valitutMittaukset.get(0).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(0).palautaAikaleimaKellonaika() + "-" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaKellonaika() + ".xml").replace("/", ",");
+        String saveToFilePath = "src/main/resources/" + tiedostonNimi;
+        kirjoittaja.setSaveToFilePath(saveToFilePath);
+        System.out.println("Lopulliset: "+lopulliset.size());
+        kirjoittaja.kirjoitaTiedosto(lopulliset);
+        return kirjoittaja;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -374,6 +382,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JButton makeNewXML;
     private javax.swing.JRadioButton radioButton15minutes;
     private javax.swing.JRadioButton radioButton15seconds;
@@ -498,7 +507,14 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
                 return valittu;
             }
         }
-        return "1 second";
+        long mittausvali=mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset());
+        if(mittausvali<60000){
+            return mittausvali/1000+" seconds";
+        }else if(mittausvali>=60000 && mittausvali<3600000){
+            return (mittausvali/1000)/60+" minutes";
+        }else{
+            return ((mittausvali/1000)/60)/24+" hours";
+        }
     }
 
     @Override

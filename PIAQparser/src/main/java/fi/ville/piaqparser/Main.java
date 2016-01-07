@@ -42,7 +42,7 @@ public class Main {
 //        System.out.println("Get tokan sootA " + mittaukset.get(1).getMittauksenArvo("sootA"));
 
         //  ArrayList<Mittaus> mittauksetXML=new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/PIAQ3.xml");
-        ArrayList<Mittaus> testiMittaukset = new ArrayList<>();
+        
         
 
         TiedostonValitsijaFrame ui = new TiedostonValitsijaFrame();

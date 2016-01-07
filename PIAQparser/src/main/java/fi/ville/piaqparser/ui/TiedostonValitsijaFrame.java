@@ -5,6 +5,7 @@
  */
 package fi.ville.piaqparser.ui;
 
+import fi.ville.piaqparser.domain.Hyppy;
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
 import fi.ville.piaqparser.services.TiedostonLukijaPalvelu;
@@ -213,13 +214,12 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
                 this.jSplitPane1.setBottomComponent(uusiUI);
                 this.jSplitPane1.getBottomComponent().setVisible(true);
                 mittausAnalysoijaPalvelu = new MittausAnalysoijaPalvelu(file.getPath());
-                
                 asetaAikaIkkunoidenArvot(uusiUI);
-                
-                
                 luoOtsikkoCheckBoxit(uusiUI);
                 uusiUI.setMittausAnalysoijaPalvelu(mittausAnalysoijaPalvelu);
                 naytaSopivatDataForEveryNapit(uusiUI);
+                naytaVaroitusIkkuna();
+                
                 
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
@@ -228,6 +228,18 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
             ErrorTextField.setText("Canceled");
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
+
+    private void naytaVaroitusIkkuna() {
+        ArrayList<Hyppy> mittauksessaOlevatHypyt = mittausAnalysoijaPalvelu.mittauksissaOlevatHypyt(mittausAnalysoijaPalvelu.getMittaukset());
+        if(mittauksessaOlevatHypyt.get(0)!=null && mittauksessaOlevatHypyt.get(0).hypynPituus()>60000 || (mittauksessaOlevatHypyt.get(0).hypynPituus()>mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset())) && mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset())>60000){
+            TiedostonSuurinHyppyIkkuna caution = new TiedostonSuurinHyppyIkkuna();
+            caution.setHypyt(mittauksessaOlevatHypyt);
+            caution.setBiggestGapEnds();
+            caution.setBiggestGapLenght();
+            caution.setBiggestGapStarts();
+            caution.setVisible(true);
+        }
+    }
 
     private void naytaSopivatDataForEveryNapit(ToiminnallisuusPanel uusiUI) {
         ButtonGroup dataForEveryButtonGroup =uusiUI.getdataForEveryButtonGroup();

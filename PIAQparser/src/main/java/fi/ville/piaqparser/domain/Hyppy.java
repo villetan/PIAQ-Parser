@@ -12,7 +12,7 @@ import java.util.Date;
  * @author ville
  * Luokka, joka kuvaa lyhyitä hyppyjä mittausdatassa. 
  */
-public class Hyppy {
+public class Hyppy implements Comparable<Hyppy> {
     
     private Mittaus hyppyAlkoiMittauksesta;
     private Mittaus hyppyPaattyiMittaukseen;
@@ -61,5 +61,17 @@ public class Hyppy {
     public long hypynPituus(){
         return hyppyPaattyiMittaukseen.getAikaleima().getTime()-hyppyAlkoiMittauksesta.getAikaleima().getTime();
     }
+
+    @Override
+    public int compareTo(Hyppy h) {
+        if(hypynPituus()==h.hypynPituus()){
+            return 0;
+        }if(hypynPituus()>h.hypynPituus()){
+            return -1;
+        }else{
+            return 1;
+        }
+    }
+    
     
 }

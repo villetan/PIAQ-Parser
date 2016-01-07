@@ -104,17 +104,17 @@ public class MittausAnalysoijaPalvelu {
     }
 
     /**
-     * 
-     * @return Mittausten otsikkorivi. Mitattujen arvojen otsikot. 
+     *
+     * @return Mittausten otsikkorivi. Mitattujen arvojen otsikot.
      */
     public List<String> MittaustenOtsikkoRivi() {
         return otsikkoRivi;
     }
 
-    
     /**
-     * Valitsee mittaukset konstruktorissa määritellystä listasta halutulta aikaväliltä date1-date2
-     * 
+     * Valitsee mittaukset konstruktorissa määritellystä listasta halutulta
+     * aikaväliltä date1-date2
+     *
      * @param date1 aloitushetki
      * @param date2 lopetushetki
      * @return Lista Mittaus-olioita, jotka on valittu halutulta aikaväliltä.
@@ -154,8 +154,9 @@ public class MittausAnalysoijaPalvelu {
     }
 
     /**
-     * Poistaa mittauslistasta ne toteutuneet mittaukset jotka määritellään alla.
-     * 
+     * Poistaa mittauslistasta ne toteutuneet mittaukset jotka määritellään
+     * alla.
+     *
      * @param poistettavatSarakkeidenNimet ,sarakkeiden nimet jotka karsitaan.
      * @param listaJostaPoistetaan lista josta poisto-operaatio halutaan tehdä
      * @return lista Mittaus-olioita, joista on poistettu halutut mittaukset
@@ -172,10 +173,13 @@ public class MittausAnalysoijaPalvelu {
 
     /**
      * check MittaustenAnalysoija Javadoc
-     * 
-     * @param radioButtonCheckedName UI:n napin nimi, joka on nimetty esim. "5 seconds"
-     * @param mittauksetJoistaKeskiarvoLasketaan , lista josta keskiarvot halutaan laskettavan
-     * @return palauttaa toivotunlaisen listan, jossa keskiarvot laskettu. Ja mittausväli on sama kuin mikä on UI:ssa valittu
+     *
+     * @param radioButtonCheckedName UI:n napin nimi, joka on nimetty esim. "5
+     * seconds"
+     * @param mittauksetJoistaKeskiarvoLasketaan , lista josta keskiarvot
+     * halutaan laskettavan
+     * @return palauttaa toivotunlaisen listan, jossa keskiarvot laskettu. Ja
+     * mittausväli on sama kuin mikä on UI:ssa valittu
      */
     public ArrayList<Mittaus> laskeKeskiarvoLista(String radioButtonCheckedName, ArrayList<Mittaus> mittauksetJoistaKeskiarvoLasketaan) {
         long aikaMS = aikaKaantaja.kaannaStringAjaksiMS(radioButtonCheckedName);
@@ -185,7 +189,9 @@ public class MittausAnalysoijaPalvelu {
 
     /**
      * Check MittaustenAnalysoija Javadoc
-     * @param mittausJostaMVlasketaan lista mittauksia, joista mittausväli halutaan laskea.
+     *
+     * @param mittausJostaMVlasketaan lista mittauksia, joista mittausväli
+     * halutaan laskea.
      * @return palauttaa mittausvälin pituuden millisekunteina.
      */
     public long mittaustenMittausvali(ArrayList<Mittaus> mittausJostaMVlasketaan) {
@@ -193,10 +199,13 @@ public class MittausAnalysoijaPalvelu {
     }
 
     /**
-     * Laskee aikavälin siten, että nappeja, jotka ei ole mittausten puitteissa mahdollista valita, ei näytetä.
+     * Laskee aikavälin siten, että nappeja, jotka ei ole mittausten puitteissa
+     * mahdollista valita, ei näytetä.
+     *
      * @param mittauksetJoitaTarkastellaan
      * @param nappi napin nimi muotoa "1 second", "24 hours" jne.
-     * @return  palauttaa totuusarvon, joka kertoo siitä pitäisikö napi näyttää vai ei.
+     * @return palauttaa totuusarvon, joka kertoo siitä pitäisikö napi näyttää
+     * vai ei.
      */
     public boolean naytaAikaValiNappi(ArrayList<Mittaus> mittauksetJoitaTarkastellaan, String nappi) {
         long mittausvali = mittaustenMittausvali(mittauksetJoitaTarkastellaan);
@@ -208,7 +217,9 @@ public class MittausAnalysoijaPalvelu {
     }
 
     /**
-     * Laskee aikavälin, jolta mittaukset ovat. Eli ensimmäisen ja viimeisen mittauksen aikaleiman välisen ajan pituuden.
+     * Laskee aikavälin, jolta mittaukset ovat. Eli ensimmäisen ja viimeisen
+     * mittauksen aikaleiman välisen ajan pituuden.
+     *
      * @param mittaukset, lista josta aikaväli lasketaan.
      * @return palauttaa mittauslistan pituuden millisekunteina.
      */
@@ -223,9 +234,17 @@ public class MittausAnalysoijaPalvelu {
         }
     }
 
-    private ArrayList<Hyppy> mittauksissaOlevatHypyt(ArrayList<Mittaus> hypyllinenLista) {
-
-        return analysoija.etsiListastaHypyt(hypyllinenLista, mittaustenMittausvali(hypyllinenLista));
+    /**
+     * Etsii parametrina olevasta listasta hypyt ja palauttaa ne Hyppyolioina.
+     *
+     * @param hypyllinenListalista josta ollaan kiinnostuneita
+     * @return järjestetty lista hypyistä joissa suurin hyppy on ensin toiseki
+     * suurin toisena jne.
+     */
+    public ArrayList<Hyppy> mittauksissaOlevatHypyt(ArrayList<Mittaus> hypyllinenLista) {
+        ArrayList<Hyppy> palautettava = analysoija.etsiListastaHypyt(hypyllinenLista, mittaustenMittausvali(hypyllinenLista));
+        Collections.sort(palautettava);
+        return palautettava;
     }
 
     private boolean taytetaankoHyppy(Hyppy hyppy) {
@@ -235,12 +254,13 @@ public class MittausAnalysoijaPalvelu {
         return false;
     }
 
-    
     /**
-     * Metodi, joka automaattisesti täyttää alle 10s hypyt listasta jota tarkastellaan.
-     * e.m 10s hypyt väliä voi muuttaa tämän luokan metodissa taytetaankoHyppy.
-     * 
-     * @param hypyllinenLista, lista jota tarkastellaan, ja josta hypyt halutaan "täyttää"
+     * Metodi, joka automaattisesti täyttää alle 10s hypyt listasta jota
+     * tarkastellaan. e.m 10s hypyt väliä voi muuttaa tämän luokan metodissa
+     * taytetaankoHyppy.
+     *
+     * @param hypyllinenLista, lista jota tarkastellaan, ja josta hypyt halutaan
+     * "täyttää"
      * @return palauttaa listan jossa hypyt on korjattu.
      */
     public ArrayList<Mittaus> taytaHypytListasta(ArrayList<Mittaus> hypyllinenLista) {
