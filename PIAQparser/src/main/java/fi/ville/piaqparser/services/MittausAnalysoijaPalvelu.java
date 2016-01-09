@@ -123,26 +123,21 @@ public class MittausAnalysoijaPalvelu {
 
         ArrayList<Mittaus> palautettava = new ArrayList<>();
         if (date1.before(date2)) {
-
             for (Mittaus mittaus : getMittaukset()) {
                 if (!mittaus.getAikaleima().before(date1) && !mittaus.getAikaleima().after(date2)) {
                     palautettava.add(mittaus);
                 }
             }
-
             return palautettava;
         }
         if (date1.after(date2)) {
-
             return null;
         }
-
         for (Mittaus m : getMittaukset()) {
             if (m.getAikaleima().equals(date1) && m.getAikaleima().equals(date2)) {
                 palautettava.add(m);
             }
         }
-
         return palautettava;
     }
 
@@ -183,7 +178,6 @@ public class MittausAnalysoijaPalvelu {
      */
     public ArrayList<Mittaus> laskeKeskiarvoLista(String radioButtonCheckedName, ArrayList<Mittaus> mittauksetJoistaKeskiarvoLasketaan) {
         long aikaMS = aikaKaantaja.kaannaStringAjaksiMS(radioButtonCheckedName);
-
         return analysoija.laskeMittaustenKeskiarvo(aikaMS, mittauksetJoistaKeskiarvoLasketaan);
     }
 
@@ -248,7 +242,7 @@ public class MittausAnalysoijaPalvelu {
     }
 
     private boolean taytetaankoHyppy(Hyppy hyppy) {
-        if (hyppy.hypynPituus() < 10000) {
+        if (hyppy.hypynPituus() < 60000) {
             return true;
         }
         return false;

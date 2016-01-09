@@ -79,13 +79,20 @@ public class Mittaus implements Comparable<Mittaus>{
         palautettava += "\n";
         return palautettava;
     }
-
+/**
+ * Muotoilee päivämäärän sopivaan muotoon.
+ * @return 
+ */
     public String palautaAikaleimaPVM() {
         String pvm = aikaleima.getDate() + "/" + (aikaleima.getMonth() + 1) + "/" + (aikaleima.getYear() + 1900);
         return pvm;
     }
 
-    public String palautaAikaleimaKellonaika() {
+    /**
+     * Muotoilee kellonajan sopivaan muotoon.
+     * @return 
+     */
+        public String palautaAikaleimaKellonaika() {
         String kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
         if (aikaleima.getSeconds() < 10) {
             kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + "0" + aikaleima.getSeconds();

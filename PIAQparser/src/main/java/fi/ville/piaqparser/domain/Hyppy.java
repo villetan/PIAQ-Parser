@@ -34,23 +34,17 @@ public class Hyppy implements Comparable<Hyppy> {
         return hyppyAlkoiMittauksesta;
     }
 
-    /**
-     * @param hyppyAlkoiMittauksesta the hyppyAlkoiMittauksesta to set
-     */
+   
     public void setHyppyAlkoiMittauksesta(Mittaus hyppyAlkoiMittauksesta) {
         this.hyppyAlkoiMittauksesta = hyppyAlkoiMittauksesta;
     }
 
-    /**
-     * @return the hyppyPaattyiMittaukseen
-     */
+    
     public Mittaus getHyppyPaattyiMittaukseen() {
         return hyppyPaattyiMittaukseen;
     }
 
-    /**
-     * @param hyppyPaattyiMittaukseen the hyppyPaattyiMittaukseen to set
-     */
+    
     public void setHyppyPaattyiMittaukseen(Mittaus hyppyPaattyiMittaukseen) {
         this.hyppyPaattyiMittaukseen = hyppyPaattyiMittaukseen;
     }

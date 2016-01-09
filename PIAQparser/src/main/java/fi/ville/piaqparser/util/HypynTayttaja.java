@@ -38,14 +38,18 @@ public class HypynTayttaja {
             Mittaus lisattava = new Mittaus();
             lisattava.setAikaleima(new Date(alkupiste.getAikaleima().getTime() + i));
             palautettava.add(lisattava);
-            for (String alkupisteKey : alkupiste.getMittaukset().keySet()) {
-                double kkYlakerta = loppupiste.getMittauksenArvo(alkupisteKey) - alkupiste.getMittauksenArvo(alkupisteKey);
-                double kulmakerroin = kkYlakerta / kkAlakerta;
-                double asetettavaArvo = kulmakerroin * (lisattava.getAikaleima().getTime() - alkupiste.getAikaleima().getTime()) + alkupiste.getMittauksenArvo(alkupisteKey);
-                lisattava.lisaaMittaus(alkupisteKey, asetettavaArvo);
-            }
+            arvioiSuoranAvulla(alkupiste, loppupiste, kkAlakerta, lisattava);
         }
         return palautettava;
+    }
+
+    private void arvioiSuoranAvulla(Mittaus alkupiste, Mittaus loppupiste, double kkAlakerta, Mittaus lisattava) {
+        for (String alkupisteKey : alkupiste.getMittaukset().keySet()) {
+            double kkYlakerta = loppupiste.getMittauksenArvo(alkupisteKey) - alkupiste.getMittauksenArvo(alkupisteKey);
+            double kulmakerroin = kkYlakerta / kkAlakerta;
+            double asetettavaArvo = kulmakerroin * (lisattava.getAikaleima().getTime() - alkupiste.getAikaleima().getTime()) + alkupiste.getMittauksenArvo(alkupisteKey);
+            lisattava.lisaaMittaus(alkupisteKey, asetettavaArvo);
+        }
     }
 
 }

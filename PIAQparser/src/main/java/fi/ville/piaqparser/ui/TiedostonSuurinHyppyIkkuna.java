@@ -9,7 +9,8 @@ import fi.ville.piaqparser.domain.Hyppy;
 import java.util.ArrayList;
 
 /**
- *
+ * Varoitus-ikkuna, joka näyttää varoituksen, mikäli datassa on liian suuri tai liian suuria hyppyjä. Näyttää myös suurimman Hypyn
+ * aikaleiman.
  * @author ville
  */
 public class TiedostonSuurinHyppyIkkuna extends javax.swing.JFrame {

@@ -41,10 +41,9 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author ville
- * Pääikkuna, joka avautuu ensimmäisenä, kun ohjelma käynnistetään.
- * Täällä valitaan käsiteltävä tiedosto, ja validoidaan se .xml tai .csv 
- * tiedostoksi.
+ * @author ville Pääikkuna, joka avautuu ensimmäisenä, kun ohjelma
+ * käynnistetään. Täällä valitaan käsiteltävä tiedosto, ja validoidaan se .xml
+ * tai .csv tiedostoksi.
  */
 public class TiedostonValitsijaFrame extends javax.swing.JFrame {
 
@@ -214,13 +213,8 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
                 this.jSplitPane1.setBottomComponent(uusiUI);
                 this.jSplitPane1.getBottomComponent().setVisible(true);
                 mittausAnalysoijaPalvelu = new MittausAnalysoijaPalvelu(file.getPath());
-                asetaAikaIkkunoidenArvot(uusiUI);
-                luoOtsikkoCheckBoxit(uusiUI);
-                uusiUI.setMittausAnalysoijaPalvelu(mittausAnalysoijaPalvelu);
-                naytaSopivatDataForEveryNapit(uusiUI);
-                naytaVaroitusIkkuna();
-                
-                
+                setToiminnallisuusIkkunanArvot(uusiUI);
+
             } else {
                 ErrorTextField.setText("Not a csv or xml file!");
             }
@@ -229,25 +223,36 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BrowseButtonActionPerformed
 
+    private void setToiminnallisuusIkkunanArvot(ToiminnallisuusPanel uusiUI) {
+        asetaAikaIkkunoidenArvot(uusiUI);
+        luoOtsikkoCheckBoxit(uusiUI);
+        uusiUI.setMittausAnalysoijaPalvelu(mittausAnalysoijaPalvelu);
+        uusiUI.setFile(file);
+        naytaSopivatDataForEveryNapit(uusiUI);
+        naytaVaroitusIkkuna();
+    }
+
     private void naytaVaroitusIkkuna() {
         ArrayList<Hyppy> mittauksessaOlevatHypyt = mittausAnalysoijaPalvelu.mittauksissaOlevatHypyt(mittausAnalysoijaPalvelu.getMittaukset());
-        if(mittauksessaOlevatHypyt.get(0)!=null && mittauksessaOlevatHypyt.get(0).hypynPituus()>60000 || (mittauksessaOlevatHypyt.get(0).hypynPituus()>mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset())) && mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset())>60000){
-            TiedostonSuurinHyppyIkkuna caution = new TiedostonSuurinHyppyIkkuna();
-            caution.setHypyt(mittauksessaOlevatHypyt);
-            caution.setBiggestGapEnds();
-            caution.setBiggestGapLenght();
-            caution.setBiggestGapStarts();
-            caution.setVisible(true);
+        if (mittauksessaOlevatHypyt.size() > 0) {
+            if (mittauksessaOlevatHypyt.get(0) != null && mittauksessaOlevatHypyt.get(0).hypynPituus() > 60000 && mittauksessaOlevatHypyt.get(0).hypynPituus() > mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset()))  {
+                TiedostonSuurinHyppyIkkuna caution = new TiedostonSuurinHyppyIkkuna();
+                caution.setHypyt(mittauksessaOlevatHypyt);
+                caution.setBiggestGapEnds();
+                caution.setBiggestGapLenght();
+                caution.setBiggestGapStarts();
+                caution.setVisible(true);
+            }
         }
     }
 
     private void naytaSopivatDataForEveryNapit(ToiminnallisuusPanel uusiUI) {
-        ButtonGroup dataForEveryButtonGroup =uusiUI.getdataForEveryButtonGroup();
-        for(AbstractButton button : Collections.list(dataForEveryButtonGroup.getElements())){
-            if(mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), button.getText())){
-                uusiUI.setRadioButtonVisible((JRadioButton)button);
-            }else{
-                uusiUI.setRadioButtonNotVisible((JRadioButton)button);
+        ButtonGroup dataForEveryButtonGroup = uusiUI.getdataForEveryButtonGroup();
+        for (AbstractButton button : Collections.list(dataForEveryButtonGroup.getElements())) {
+            if (mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), button.getText())) {
+                uusiUI.setRadioButtonVisible((JRadioButton) button);
+            } else {
+                uusiUI.setRadioButtonNotVisible((JRadioButton) button);
             }
         }
     }
@@ -255,7 +260,7 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
     private void asetaAikaIkkunoidenArvot(ToiminnallisuusPanel uusiUI) {
         uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
         uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
-        
+
         uusiUI.setUseDataFromFromDate(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima());
         uusiUI.setUseDataFromFromSeconds(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima().getSeconds());
         uusiUI.setUseDataFromToDate(mittausAnalysoijaPalvelu.mittaustenViimeinen().getAikaleima());

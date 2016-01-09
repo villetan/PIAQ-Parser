@@ -9,6 +9,7 @@ import fi.ville.piaqparser.domain.Hyppy;
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.services.TiedostonLukijaPalvelu;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.junit.After;
@@ -64,16 +65,17 @@ public class MittaustenAnalysoijaTest {
         assertEquals(mittaukset.get(0), ekaJaVika.get(0));
         assertEquals(mittaukset.get(mittaukset.size() - 1), ekaJaVika.get(1));
     }
+
     @Test
-    public void mittaustenmittausVali2MittaustaListalla(){
+    public void mittaustenmittausVali2MittaustaListalla() {
         Mittaus m1 = new Mittaus(new Date(123000));
         Mittaus m2 = new Mittaus(new Date(124000));
-        ArrayList<Mittaus> mittaukset=new ArrayList<>();
+        ArrayList<Mittaus> mittaukset = new ArrayList<>();
         mittaukset.add(m1);
         mittaukset.add(m2);
         assertEquals(1000, analysoija.mittaustenMittausvaliMS(mittaukset));
         assertEquals(2, mittaukset.size());
-        
+
     }
 
     @Test
@@ -107,7 +109,7 @@ public class MittaustenAnalysoijaTest {
         for (int i = 0; i < 9; i++) {
             mittaukset.remove(0);
         }
-        assertEquals(0, analysoija.mittaustenMittausvaliMS(mittaukset));
+        assertEquals(1, analysoija.mittaustenMittausvaliMS(mittaukset));
     }
 
     @Test
@@ -124,6 +126,26 @@ public class MittaustenAnalysoijaTest {
         MittaustenAnalysoija analysoija2 = new MittaustenAnalysoija(mittauksetSpecial);
         assertEquals(true, analysoija2.mittaustenMittausvaliMS(mittauksetSpecial) >= 0);
         assertEquals(2000, analysoija2.mittaustenMittausvaliMS(mittauksetSpecial));
+    }
+
+    @Test
+    public void testMittausvaliOikeinJoka15s() {
+        ArrayList mittauksetSpecial = new ArrayList<Mittaus>();
+        for (int i = 0; i < 15*10; i = i + 15) {
+            Mittaus mittaus = new Mittaus();
+            mittaus.setAikaleima(new Date(2015, 12, 12, 20, 20, i));
+            mittaus.lisaaMittaus("co2", i);
+            mittaus.lisaaMittaus("no2", 10 * i);
+            mittaus.lisaaMittaus("temperature", 100 * i);
+            mittauksetSpecial.add(mittaus);
+        }
+        mittauksetSpecial.add((new Mittaus(new Date(2015, 12, 12, 20, 20, 10))));
+        mittauksetSpecial.add((new Mittaus(new Date(2015, 12, 12, 20, 20, 11))));
+        mittauksetSpecial.add((new Mittaus(new Date(2015, 12, 12, 20, 20, 3))));
+        Collections.sort(mittauksetSpecial);
+        MittaustenAnalysoija analysoija2 = new MittaustenAnalysoija(mittauksetSpecial);
+        assertEquals(true, analysoija2.mittaustenMittausvaliMS(mittauksetSpecial) >= 0);
+        assertEquals(15000, analysoija2.mittaustenMittausvaliMS(mittauksetSpecial));
     }
 
     @Test
@@ -239,17 +261,17 @@ public class MittaustenAnalysoijaTest {
     public void testEtsiHypyt() {
         ArrayList<Mittaus> mittauksetXML = new TiedostonLukijaPalvelu().lueMittauksetListaksi("src/main/resources/PIAQ3.xml");
         MittaustenAnalysoija a = new MittaustenAnalysoija(mittauksetXML);
-        
+
         ArrayList<Hyppy> hypyt = a.etsiListastaHypyt(mittauksetXML, a.mittaustenMittausvaliMS(mittauksetXML));
         assertEquals(17, hypyt.size());
-        
+
         AikaKaantaja kaantaja = new AikaKaantaja();
-        Hyppy ekaHyppy=hypyt.get(0);
+        Hyppy ekaHyppy = hypyt.get(0);
         assertEquals(2000, ekaHyppy.hypynPituus());
         assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494158869), ekaHyppy.getHyppyAlkoiMittauksesta().getAikaleima().getTime());
         assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494158871), ekaHyppy.getHyppyPaattyiMittaukseen().getAikaleima().getTime());
-        
-        Hyppy vikaHyppy = hypyt.get(hypyt.size()-1);
+
+        Hyppy vikaHyppy = hypyt.get(hypyt.size() - 1);
         assertEquals(4000, vikaHyppy.hypynPituus());
         assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494159839), vikaHyppy.getHyppyAlkoiMittauksesta().getAikaleima().getTime());
         assertEquals(kaantaja.kaannaPegasorinAjastaJavaan(494159843), vikaHyppy.getHyppyPaattyiMittaukseen().getAikaleima().getTime());

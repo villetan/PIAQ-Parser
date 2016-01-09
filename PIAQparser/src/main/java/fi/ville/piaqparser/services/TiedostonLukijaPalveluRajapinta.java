@@ -15,6 +15,17 @@ import java.util.List;
  * Rajapinta, joka määrittää Tiedoston lukijalle halutut metodit.
  */
 public interface TiedostonLukijaPalveluRajapinta {
+    /**
+     * Lukee Mittaukset listaksi Mittausolioita. 
+     * @param tiedostoPolku, tiedostopolku, josta .xml tai .csv tiedosto luetaan.
+     * @return ArrayList mittausolioita.
+     */
     public List<Mittaus> lueMittauksetListaksi(String tiedostoPolku);
+    
+    /**
+     * Lukee Otsikkorivin arvot, lukuunottamatta Time saraketta, joka on oleellinen osa jokaista mittausta.
+     * @param tiedostoPolku, tiedostopolku, josta .xml tai .csv tiedosto luetaan.
+     * @return palauttaa Arraylist, jossa Stringeinä otsikkojen nimet. Näytetään UIssa.
+     */
     public List<String> lueOtsikonArvot(String tiedostoPolku);
 }

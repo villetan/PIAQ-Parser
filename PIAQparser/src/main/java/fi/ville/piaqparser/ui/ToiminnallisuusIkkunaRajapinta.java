@@ -16,7 +16,7 @@ import javax.swing.JRadioButton;
  * @author ville
  * 
  * Rajapinta, esittää vaatimukset ohjelman toiminnallisuusikkunalle.
- * 
+ * Suurimmaksi osaksi erilaiset komponenttien gettereitä ja settereitä.
  */
 public interface ToiminnallisuusIkkunaRajapinta {
     
@@ -25,7 +25,10 @@ public interface ToiminnallisuusIkkunaRajapinta {
     
     public String getDateTo();
     public void setDateTo(String teksti);
-    
+    /**
+     * Lisää ChecckBoxin ButtonGroupiin.
+     * @param box 
+     */
     public void addCheckBoxToValuesButtonGroup(JCheckBox box);
     public Date getUseDataFromFromDate();
     

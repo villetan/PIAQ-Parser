@@ -59,25 +59,37 @@ public class MittaustenAnalysoija {
         return false;
     }
 
-    
+    /**
+     * Palauttaa mittauslistan mittausvälien pituuden. Olettaa, että jos kaksi peräkkäistä mittausväliä on samat,
+     * niin se pätee koko listalle ja lopettaa mittausten läpikäymisen
+     * @param listaJostaMittausvaliLasketaan
+     * @return palauttaa long arvon, joka kuvastaa millisekunteja.
+     */
     public long mittaustenMittausvaliMS(ArrayList<Mittaus> listaJostaMittausvaliLasketaan) {
         long mittausvaliMS = -50;
         //if (!mittauksissaHyppyja()) {
         if (listaJostaMittausvaliLasketaan.size() == 1) {
-            return 0;
+            return 1;
         }
         if (listaJostaMittausvaliLasketaan.size() == 2) {
             Mittaus mittaus1 = listaJostaMittausvaliLasketaan.get(0);
             Mittaus mittaus2 = listaJostaMittausvaliLasketaan.get(1);
             mittausvaliMS = mittaus2.getAikaleima().getTime() - mittaus1.getAikaleima().getTime();
-        }else{
-           Mittaus mittaus1 = listaJostaMittausvaliLasketaan.get(1);
-            Mittaus mittaus2 = listaJostaMittausvaliLasketaan.get(2);
-            mittausvaliMS = mittaus2.getAikaleima().getTime() - mittaus1.getAikaleima().getTime(); 
-            
         }
-        
-        return mittausvaliMS;
+            int samoja=0;
+            for(int i=2;i<listaJostaMittausvaliLasketaan.size();i++){
+                Mittaus mittaus2=listaJostaMittausvaliLasketaan.get(i-1);
+                Mittaus mittaus1= listaJostaMittausvaliLasketaan.get(i-2);
+                Mittaus mittaus3=listaJostaMittausvaliLasketaan.get(i);
+                long mittausvali1= mittaus2.getAikaleima().getTime()-mittaus1.getAikaleima().getTime();
+                long mittausvali2=mittaus3.getAikaleima().getTime()-mittaus2.getAikaleima().getTime();
+                if(mittausvali1==mittausvali2){
+                    mittausvaliMS=mittausvali2;
+                    return mittausvaliMS;
+                }
+                
+            }
+            return mittausvaliMS;
     }
     /**
      * Etsii Mittaus-olioiden listasta mahdollisia hyppyjä, jos hyppyjä ei ole, niin listan koko on 0.

@@ -34,7 +34,6 @@ import org.w3c.dom.Element;
  */
 public class TiedostonKirjoittajaXML {
 
-    //ehkä FilePath/name konstruktoriin
     private AikaKaantaja aikaKaantaja;
     private String saveToFilePath;
 
@@ -54,35 +53,58 @@ public class TiedostonKirjoittajaXML {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder tiedostonRakentaja = factory.newDocumentBuilder();
-
             Document dokumentti = tiedostonRakentaja.newDocument();
             dokumentti.setXmlVersion("1.1");
             Element workbook = createWorkbookNode(dokumentti);
-
-            createDocumentPropertiesNode(dokumentti, workbook);
-
-            createOfficeDocumentSettingsNode(dokumentti, workbook);
-
-            createExcelWorkbookNode(dokumentti, workbook);
-
-            createStylesNode(dokumentti, workbook);
-
-            createWorksheetNode(dokumentti, workbook, mittaukset);
-
+            createExcelSettings(dokumentti, workbook, mittaukset);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(dokumentti);
             StreamResult result = new StreamResult(new File("src/main/resources/"));
-            if (saveToFilePath != null) {
-                 result = new StreamResult(new File(getSaveToFilePath()));
-            } 
-            transformer.transform(source, result);
-            System.out.println("File saved!");
+
+            if (kirjoitaTiedostoksi(result, transformer, source)) return;
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(TiedostonKirjoittajaXML.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException tfe) {
             tfe.printStackTrace();
         }
+    }
+
+    private boolean kirjoitaTiedostoksi(StreamResult result, Transformer transformer, DOMSource source) throws TransformerException {
+        if (saveToFilePath != null) {
+            File file = new File(getSaveToFilePath());
+            if (!file.exists()) {
+                result = new StreamResult(new File(getSaveToFilePath()));
+            } else {
+                for (int i = 1; i < 100; i++) {
+                    File uusiFile = new File(file.getPath().replace(".xml", "(" + i + ").xml"));
+                    result = new StreamResult(uusiFile);
+                    if (kirjoitaUusiFileJosEdellinenOnJoOlemassa(uusiFile, transformer, source)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        transformer.transform(source, result);
+        return false;
+    }
+
+    private void createExcelSettings(Document dokumentti, Element workbook, ArrayList<Mittaus> mittaukset) throws DOMException {
+        createDocumentPropertiesNode(dokumentti, workbook);
+        createOfficeDocumentSettingsNode(dokumentti, workbook);
+        createExcelWorkbookNode(dokumentti, workbook);
+        createStylesNode(dokumentti, workbook);
+        createWorksheetNode(dokumentti, workbook, mittaukset);
+    }
+
+    private boolean kirjoitaUusiFileJosEdellinenOnJoOlemassa(File uusiFile, Transformer transformer, DOMSource source) throws TransformerException {
+        StreamResult result;
+        if (!uusiFile.exists()) {
+            result = new StreamResult(uusiFile);
+            transformer.transform(source, result);
+            return true;
+        }
+        return false;
     }
 
     private void createWorksheetNode(Document dokumentti, Element workbook, ArrayList<Mittaus> mittaukset) throws DOMException {
