@@ -7,10 +7,9 @@ package fi.ville.piaqparser.ui;
 
 /**
  *
- * @author ville
- * Frame, joka näytetään kun uusi tiedosto on kirjoitettu.
- * Näyttää tiedostonpolun käyttäjälle, jotta käyttäjä tietää missä
- * tallennettu tiedosto on ja mihin se on tallennettu.
+ * @author ville Frame, joka näytetään kun uusi tiedosto on kirjoitettu. Näyttää
+ * tiedostonpolun käyttäjälle, jotta käyttäjä tietää missä tallennettu tiedosto
+ * on ja mihin se on tallennettu.
  */
 public class UusiXmlLuotu extends javax.swing.JFrame {
 
@@ -85,7 +84,7 @@ public class UusiXmlLuotu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         super.dispose();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -122,8 +121,8 @@ public class UusiXmlLuotu extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void setFilePathName(String filePathName){
+
+    public void setFilePathName(String filePathName) {
         newFileFilePath.setText(filePathName);
     }
 

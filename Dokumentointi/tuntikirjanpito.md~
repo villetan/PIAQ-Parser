@@ -22,5 +22,8 @@
 | 5.1.2016   | 4      | sekalaista   |
 | 6.1.2016   | 5      | sekalaista   |
 | 7.1.2016   | 3      | UI+testiä    |
+| 8.1.2016   | 2      | käsitestaus  |
+| 9.1.2016   | 2      | bug fix      |
+
 
 

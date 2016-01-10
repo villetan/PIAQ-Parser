@@ -17,7 +17,8 @@ public class AikaKaantaja {
     private long dif;
 
     /**
-     * Laskee valmiiksi vakiona olevan aikavälin kahden eri ajanmittauksen standardin välillä.
+     * Laskee valmiiksi vakiona olevan aikavälin kahden eri ajanmittauksen
+     * standardin välillä.
      */
     public AikaKaantaja() {
         //tämä siksi ettei joka kierroksella tarvitse laskea
@@ -28,8 +29,11 @@ public class AikaKaantaja {
     }
 
     /**
-     * Kaantaa ajan Pegasorin ajasta (sekunteja ajanhetkestä 1.1.2000 00:00:00) Javan aikaan(millisekunteja ajanhetkestä 1.1.1970 00:00:00.000)
-     * @param timeInSecondsSince2000Jan1
+     * Kaantaa ajan Pegasorin ajasta (sekunteja ajanhetkestä 1.1.2000 00:00:00)
+     * Javan aikaan(millisekunteja ajanhetkestä 1.1.1970 00:00:00.000)
+     *
+     * @param timeInSecondsSince2000Jan1, aika sekunteina ajanhetkestä 1.1.2000
+     * 00:00:00.
      * @return palauttaa käänntetyn ajan.
      */
     public long kaannaPegasorinAjastaJavaan(long timeInSecondsSince2000Jan1) {
@@ -39,7 +43,9 @@ public class AikaKaantaja {
 
     /**
      * Kaantaa ajan Javan ajasta Pegasorin aikaan.
-     * @param timeInMSSince1970Jan1
+     *
+     * @param timeInMSSince1970Jan1, aika millisekunteina ajanhetekstä 1.1.1970
+     * 00:00:00.000.
      * @return palauttaa käännetyn ajan.
      */
     public long kaannaJavanAjastaPegasorin(long timeInMSSince1970Jan1) {
@@ -48,8 +54,10 @@ public class AikaKaantaja {
     }
 
     /**
-     * Kaantaa muotoa "1 second", "3 minutes", "4 hours" jne. muotoa olevat string-muotoiset ajanmääreet millisekunneiksi.
-     * @param aika
+     * Kaantaa muotoa "1 second", "3 minutes", "4 hours" jne. muotoa olevat
+     * string-muotoiset ajanmääreet millisekunneiksi.
+     *
+     * @param aika, String -muotoinen aika, joka käännetään.
      * @return palauttaa parametri aika:n käännettynä millisekunneiksi.
      */
     public Long kaannaStringAjaksiMS(String aika) {
@@ -60,8 +68,9 @@ public class AikaKaantaja {
         }
         if (aika.contains("inute")) {
             return palautettava * 60l * 1000l;
-        }if(aika.contains("our")){
-            return palautettava*60l*60l*1000l;
+        }
+        if (aika.contains("our")) {
+            return palautettava * 60l * 60l * 1000l;
         }
         return null;
     }

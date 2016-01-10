@@ -20,8 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ville
- * Palvelu, joka tarjoaa palveluita tiedoston lukemiseen.
+ * @author ville Palvelu, joka tarjoaa palveluita tiedoston lukemiseen.
  */
 public class TiedostonLukijaPalvelu implements TiedostonLukijaPalveluRajapinta {
 
@@ -33,7 +32,7 @@ public class TiedostonLukijaPalvelu implements TiedostonLukijaPalveluRajapinta {
             try {
                 return lueCsvListaksi(tiedostoPolku);
             } catch (Exception e) {
-                System.out.println("File no found: "+ e.getMessage());
+                System.out.println("File no found: " + e.getMessage());
             }
         }
         return null;
@@ -50,7 +49,7 @@ public class TiedostonLukijaPalvelu implements TiedostonLukijaPalveluRajapinta {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(TiedostonLukijaPalvelu.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
+
         }
         return null;
     }
@@ -58,14 +57,14 @@ public class TiedostonLukijaPalvelu implements TiedostonLukijaPalveluRajapinta {
     private List<String> lueCSVHeader(String tiedostoPolku) throws FileNotFoundException {
         TiedostonLukijaCSV lukija = new TiedostonLukijaCSV();
         List<String> headers;
-        
+
         headers = Arrays.asList(lukija.lueHeaderMapiksi(tiedostoPolku, new BufferedReader(new FileReader(new File(tiedostoPolku)))).keySet().toArray(new String[2]));
         return headers;
     }
 
     private List<String> lueXMLHeader(String tiedostoPolku) {
         TiedostonLukijaXML lukija = new TiedostonLukijaXML();
-        List<String> headers =  Arrays.asList(lukija.lueHeaderMapiksi(new File(tiedostoPolku), "Row").keySet().toArray(new String[2]));
+        List<String> headers = Arrays.asList(lukija.lueHeaderMapiksi(new File(tiedostoPolku), "Row").keySet().toArray(new String[2]));
         return headers;
     }
 

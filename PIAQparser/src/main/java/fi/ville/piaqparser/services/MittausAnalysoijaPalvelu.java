@@ -107,7 +107,7 @@ public class MittausAnalysoijaPalvelu {
      *
      * @return Mittausten otsikkorivi. Mitattujen arvojen otsikot.
      */
-    public List<String> MittaustenOtsikkoRivi() {
+    public List<String> mittaustenOtsikkoRivi() {
         return otsikkoRivi;
     }
 
@@ -196,7 +196,7 @@ public class MittausAnalysoijaPalvelu {
      * Laskee aikavälin siten, että nappeja, jotka ei ole mittausten puitteissa
      * mahdollista valita, ei näytetä.
      *
-     * @param mittauksetJoitaTarkastellaan
+     * @param mittauksetJoitaTarkastellaan, lista jota tarkastellaan.
      * @param nappi napin nimi muotoa "1 second", "24 hours" jne.
      * @return palauttaa totuusarvon, joka kertoo siitä pitäisikö napi näyttää
      * vai ei.
@@ -231,7 +231,7 @@ public class MittausAnalysoijaPalvelu {
     /**
      * Etsii parametrina olevasta listasta hypyt ja palauttaa ne Hyppyolioina.
      *
-     * @param hypyllinenListalista josta ollaan kiinnostuneita
+     * @param hypyllinenLista,lista josta ollaan kiinnostuneita
      * @return järjestetty lista hypyistä joissa suurin hyppy on ensin toiseki
      * suurin toisena jne.
      */

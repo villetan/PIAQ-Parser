@@ -9,8 +9,9 @@ import fi.ville.piaqparser.domain.Hyppy;
 import java.util.ArrayList;
 
 /**
- * Varoitus-ikkuna, joka näyttää varoituksen, mikäli datassa on liian suuri tai liian suuria hyppyjä. Näyttää myös suurimman Hypyn
- * aikaleiman.
+ * Varoitus-ikkuna, joka näyttää varoituksen, mikäli datassa on liian suuri tai
+ * liian suuria hyppyjä. Näyttää myös suurimman Hypyn aikaleiman.
+ *
  * @author ville
  */
 public class TiedostonSuurinHyppyIkkuna extends javax.swing.JFrame {
@@ -21,7 +22,7 @@ public class TiedostonSuurinHyppyIkkuna extends javax.swing.JFrame {
     public TiedostonSuurinHyppyIkkuna() {
         initComponents();
     }
-    
+
     private ArrayList<Hyppy> hypyt;
 
     /**
@@ -204,22 +205,22 @@ public class TiedostonSuurinHyppyIkkuna extends javax.swing.JFrame {
     public void setHypyt(ArrayList<Hyppy> hypyt) {
         this.hypyt = hypyt;
     }
-    
+
     public void setBiggestGapStarts() {
         if (hypyt.size() > 0) {
             Hyppy isoin = hypyt.get(0);
-            
+
             gapStarts.setText(isoin.getHyppyAlkoiMittauksesta().palautaAikaleimaPVM() + " " + isoin.getHyppyAlkoiMittauksesta().palautaAikaleimaKellonaika());
         }
     }
-    
+
     public void setBiggestGapEnds() {
         if (hypyt.size() > 0) {
             Hyppy isoin = hypyt.get(0);
             gapEnds.setText(isoin.getHyppyPaattyiMittaukseen().palautaAikaleimaPVM() + " " + isoin.getHyppyPaattyiMittaukseen().palautaAikaleimaKellonaika());
         }
     }
-    
+
     public void setBiggestGapLenght() {
         if (hypyt.size() > 0) {
             Hyppy isoin = hypyt.get(0);

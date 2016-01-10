@@ -26,8 +26,7 @@ import javax.swing.SpinnerDateModel;
 
 /**
  *
- * @author ville
- * Panel, jossa sijaitsee toiminnallisuuden napit, kentät ja muut
+ * @author ville Panel, jossa sijaitsee toiminnallisuuden napit, kentät ja muut
  * valitsimet. Valitsimien luominen on osittain myös TiedostonvalitsijaFramen
  * vastuulla.
  */
@@ -369,7 +368,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
 
     private TiedostonKirjoittajaXML kirjoitaTiedosto() {
         TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
-        MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu=new MittausAnalysoijaPalvelu(file.getPath());
+        MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu = new MittausAnalysoijaPalvelu(file.getPath());
         ArrayList<Mittaus> valitutMittaukset = mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
         if (!getUseDataFromFromDate().before(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima())
                 && !getUseDataFromToDate().after(mittausAnalysoijaPalvelu.mittaustenViimeinen().getAikaleima())

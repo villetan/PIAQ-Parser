@@ -54,19 +54,19 @@ public class TiedostonLukijaXML {
                 Node nNode = nList.item(i);
 
                 Element eElement = (Element) nNode;
-                
+
                 Mittaus mittaus = new Mittaus();
-                if(eElement.getElementsByTagName("Data").item(0).getTextContent().contains("Pegasor") || eElement.getElementsByTagName("Data").item(0).getTextContent().contains("serial") || eElement.getElementsByTagName("Data").item(0).getTextContent().contains("Time")){
+                if (eElement.getElementsByTagName("Data").item(0).getTextContent().contains("Pegasor") || eElement.getElementsByTagName("Data").item(0).getTextContent().contains("serial") || eElement.getElementsByTagName("Data").item(0).getTextContent().contains("Time")) {
                     continue;
                 }
                 if (eElement.getElementsByTagName("Data").item(0).getAttributes().getNamedItem("ss:Type").getNodeValue().contains("DateTime")) {
 
                     String luettuAika = eElement.getElementsByTagName("Data").item(0).getTextContent();
-                    
+
                     String[] splitattu = luettuAika.split("T");
                     String dateOsio = splitattu[0];
                     String timeOsio = splitattu[1];
-                    
+
                     String[] dateSplitattu = dateOsio.split("-");
                     int vuosi = Integer.parseInt(dateSplitattu[0]);
                     int kk = Integer.parseInt(dateSplitattu[1]);
@@ -122,13 +122,12 @@ public class TiedostonLukijaXML {
 
             NodeList nList = doc.getElementsByTagName(nodeName);
             Node nNode = nList.item(0);
-            for (int j=0;j<nList.getLength(); j++) {
-                Element riviElement=(Element) nList.item(j);
-                if(riviElement.getElementsByTagName("Data").item(0).getTextContent().contains("Time")){
-                   nNode=riviElement; 
+            for (int j = 0; j < nList.getLength(); j++) {
+                Element riviElement = (Element) nList.item(j);
+                if (riviElement.getElementsByTagName("Data").item(0).getTextContent().contains("Time")) {
+                    nNode = riviElement;
                 }
             }
-            
 
             Element eElement = (Element) nNode;
             for (int i = 1; i < eElement.getElementsByTagName("Data").getLength(); i++) {

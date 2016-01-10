@@ -235,7 +235,7 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
     private void naytaVaroitusIkkuna() {
         ArrayList<Hyppy> mittauksessaOlevatHypyt = mittausAnalysoijaPalvelu.mittauksissaOlevatHypyt(mittausAnalysoijaPalvelu.getMittaukset());
         if (mittauksessaOlevatHypyt.size() > 0) {
-            if (mittauksessaOlevatHypyt.get(0) != null && mittauksessaOlevatHypyt.get(0).hypynPituus() > 60000 && mittauksessaOlevatHypyt.get(0).hypynPituus() > mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset()))  {
+            if (mittauksessaOlevatHypyt.get(0) != null && mittauksessaOlevatHypyt.get(0).hypynPituus() > 60000 && mittauksessaOlevatHypyt.get(0).hypynPituus() > mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset())) {
                 TiedostonSuurinHyppyIkkuna caution = new TiedostonSuurinHyppyIkkuna();
                 caution.setHypyt(mittauksessaOlevatHypyt);
                 caution.setBiggestGapEnds();
@@ -268,10 +268,10 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
     }
 
     private void luoOtsikkoCheckBoxit(ToiminnallisuusPanel uusiUI) {
-        if (mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi().size() > 10) {
+        if (mittausAnalysoijaPalvelu.mittaustenOtsikkoRivi().size() > 10) {
             ErrorTextField.setText("Too many rows in the data");
         } else {
-            for (String sarakkeenOtsikko : mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi()) {
+            for (String sarakkeenOtsikko : mittausAnalysoijaPalvelu.mittaustenOtsikkoRivi()) {
                 JCheckBox button = new JCheckBox(sarakkeenOtsikko);
                 button.setName(sarakkeenOtsikko);
                 uusiUI.addCheckBoxToValuesButtonGroup(button);

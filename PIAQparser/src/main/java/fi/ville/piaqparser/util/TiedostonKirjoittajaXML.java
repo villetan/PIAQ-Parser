@@ -62,7 +62,9 @@ public class TiedostonKirjoittajaXML {
             DOMSource source = new DOMSource(dokumentti);
             StreamResult result = new StreamResult(new File("src/main/resources/"));
 
-            if (kirjoitaTiedostoksi(result, transformer, source)) return;
+            if (kirjoitaTiedostoksi(result, transformer, source)) {
+                return;
+            }
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(TiedostonKirjoittajaXML.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException tfe) {

@@ -55,7 +55,7 @@ public class MittausAnalysoijaPalveluTest {
     
     @Test
     public void testOtsikkoRiviOikein(){
-        List<String> otsikkorivi=mittausAnalysoijaPalvelu.MittaustenOtsikkoRivi();
+        List<String> otsikkorivi=mittausAnalysoijaPalvelu.mittaustenOtsikkoRivi();
         assertEquals(true, otsikkorivi.contains("Co2"));
         assertEquals(true, otsikkorivi.contains("Temperature"));
         assertEquals(true, otsikkorivi.contains("SootA"));

@@ -9,11 +9,10 @@ import java.util.Date;
 
 /**
  *
- * @author ville
- * Luokka, joka kuvaa lyhyitä hyppyjä mittausdatassa. 
+ * @author ville Luokka, joka kuvaa lyhyitä hyppyjä mittausdatassa.
  */
 public class Hyppy implements Comparable<Hyppy> {
-    
+
     private Mittaus hyppyAlkoiMittauksesta;
     private Mittaus hyppyPaattyiMittaukseen;
 
@@ -21,51 +20,49 @@ public class Hyppy implements Comparable<Hyppy> {
         this.hyppyAlkoiMittauksesta = hyppyAlkoiMittauksesta;
         this.hyppyPaattyiMittaukseen = hyppyPaattyiMittaukseen;
     }
-    public Hyppy(){
-        
+
+    public Hyppy() {
+
     }
 
     /**
      * @return the hyppyAlkoiMittauksesta
      */
-    
-    
     public Mittaus getHyppyAlkoiMittauksesta() {
         return hyppyAlkoiMittauksesta;
     }
 
-   
     public void setHyppyAlkoiMittauksesta(Mittaus hyppyAlkoiMittauksesta) {
         this.hyppyAlkoiMittauksesta = hyppyAlkoiMittauksesta;
     }
 
-    
     public Mittaus getHyppyPaattyiMittaukseen() {
         return hyppyPaattyiMittaukseen;
     }
 
-    
     public void setHyppyPaattyiMittaukseen(Mittaus hyppyPaattyiMittaukseen) {
         this.hyppyPaattyiMittaukseen = hyppyPaattyiMittaukseen;
     }
+
     /**
      * Palauttaa hypyn pituuden.
-     * @return 
+     *
+     * @return hypynpituus millisekunteina.
      */
-    public long hypynPituus(){
-        return hyppyPaattyiMittaukseen.getAikaleima().getTime()-hyppyAlkoiMittauksesta.getAikaleima().getTime();
+    public long hypynPituus() {
+        return hyppyPaattyiMittaukseen.getAikaleima().getTime() - hyppyAlkoiMittauksesta.getAikaleima().getTime();
     }
 
     @Override
     public int compareTo(Hyppy h) {
-        if(hypynPituus()==h.hypynPituus()){
+        if (hypynPituus() == h.hypynPituus()) {
             return 0;
-        }if(hypynPituus()>h.hypynPituus()){
+        }
+        if (hypynPituus() > h.hypynPituus()) {
             return -1;
-        }else{
+        } else {
             return 1;
         }
     }
-    
-    
+
 }
