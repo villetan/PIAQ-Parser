@@ -6,6 +6,7 @@ Avaa ohjelma seuraavasti:
 - Mene projektin juuressa olevaan PIAQparser -kansioon.
 - Aja tiedosto antamalla komentoriviltä käsky java -jar PIAQparser-1.0-SNAPSHOT.jar
 - Ohjelman tulisi aueta.
+- HUOM! käytä nimenomaan projektin kansiossa PIAQparser olevaa jar tiedostoa, äläkä target -kansiossa olevaa. Näin vältyt tiedostopolun virheellisyydeltä!
 
 Avaa haluttu data seuraavasti:
 - Paina browse -nappia, ja valitse haluttu tiedosto (muotoa .xml tai .csv).
