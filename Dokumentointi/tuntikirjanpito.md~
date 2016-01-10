@@ -23,7 +23,7 @@
 | 6.1.2016   | 5      | sekalaista   |
 | 7.1.2016   | 3      | UI+testiä    |
 | 8.1.2016   | 2      | käsitestaus  |
-| 9.1.2016   | 2      | bug fix      |
-
+| 9.1.2016   | 5      | bug fix      |
+| 10.1.2016  | 3      | viimeistelyä |
 
 
