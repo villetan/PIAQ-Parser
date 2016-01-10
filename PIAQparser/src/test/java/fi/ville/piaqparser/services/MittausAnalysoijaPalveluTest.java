@@ -200,6 +200,7 @@ public class MittausAnalysoijaPalveluTest {
         assertEquals(false, mittausAnalysoijaPalvelu.naytaAikaValiNappi(mittausAnalysoijaPalvelu.getMittaukset(), nappi));
     }
     
+    
 
     @Test
     public void testTaytaHypytListasta() {
@@ -211,6 +212,7 @@ public class MittausAnalysoijaPalveluTest {
     @Test
     public void testTaytaHypytListastaJarjestys() {
         ArrayList<Mittaus> taytettyLista = mittausAnalysoijaPalvelu.taytaHypytListasta(mittausAnalysoijaPalvelu.getMittaukset());
+        
         for(int i=1;i<taytettyLista.size();i++){
             assertEquals(true, taytettyLista.get(i).getAikaleima().after(taytettyLista.get(i-1).getAikaleima()));
         }
@@ -243,11 +245,14 @@ public class MittausAnalysoijaPalveluTest {
         assertEquals(1, mittausAnalysoijaPalvelu.mittaustenAikavalinPituus(mittaus));
     }
 
+    
     public void testTaytetaankoHyppy() {
         Hyppy hyppy = new Hyppy();
         hyppy.setHyppyAlkoiMittauksesta(new Mittaus(new Date(1111111000)));
         hyppy.setHyppyPaattyiMittaukseen(new Mittaus(new Date(1111211000)));
-
+        Hyppy hyppy2 = new Hyppy();
+        hyppy.setHyppyAlkoiMittauksesta(new Mittaus(new Date(1111111000)));
+        hyppy.setHyppyPaattyiMittaukseen(new Mittaus(new Date(1111211000)));
     }
 
 }
