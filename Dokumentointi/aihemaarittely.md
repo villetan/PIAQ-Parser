@@ -18,3 +18,10 @@ Ohjelman käyttäjä
 * Aikavälin valitseminen
 * Mittaustulosten valitseminen
 * Uuden tiedoston kirjoittaminen (XML)
+
+
+##Rakenne
+Ohjelman rakenteessa keskisimmissä osissa ovat Tiedosto, jota luetaan ja MittaustenAnalysoijaPalvelu. Erilaiset Tiedoston lukemiseen liittyvät toiminnallisuudet muodostavat hyvin tiiviin kokonaisuuden, joka sisältää rajapinnan, palvelun ja itse lukijoita.
+	 Toisen pääkokonaisuuden muodostaa mittaukset, jotka toimivat eräänlaisina datavarasto-olioina. Mittausolio itsessään sisältää aikaleiman, joka kertoo milloin mittaus on otettu, ja siihen liittyvän hashmapin mittauksia. Mittausten kokonaisuuteen liittyy tiiviisti myös hyppyoliot, jotka tallentavat mittauksissa tapahtuneita hyppyjä. Yksi hyppyolio tietää hypyn alku- ja loppumittauksen, sekä hypyn pituuden.
+	 Ajan kääntäminen tapahtuu erillisessä luokassa, joka toimii ajan kääntämisen palveluluokkana.
+
