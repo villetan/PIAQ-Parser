@@ -235,7 +235,7 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
     private void naytaVaroitusIkkuna() {
         ArrayList<Hyppy> mittauksessaOlevatHypyt = mittausAnalysoijaPalvelu.mittauksissaOlevatHypyt(mittausAnalysoijaPalvelu.getMittaukset());
         if (mittauksessaOlevatHypyt.size() > 0) {
-            if (mittauksessaOlevatHypyt.get(0) != null && mittauksessaOlevatHypyt.get(0).hypynPituus() > 60000 && mittauksessaOlevatHypyt.get(0).hypynPituus() > mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset())) {
+            if (mittauksessaOlevatHypyt.get(0) != null && mittauksessaOlevatHypyt.get(0).hypynPituus() > 60000 || (mittauksessaOlevatHypyt.get(0).hypynPituus() > 2*mittausAnalysoijaPalvelu.mittaustenMittausvali(mittausAnalysoijaPalvelu.getMittaukset()) && mittauksessaOlevatHypyt.get(0).hypynPituus() > 60000)) {
                 TiedostonSuurinHyppyIkkuna caution = new TiedostonSuurinHyppyIkkuna();
                 caution.setHypyt(mittauksessaOlevatHypyt);
                 caution.setBiggestGapEnds();

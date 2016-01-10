@@ -384,7 +384,8 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
             ErrorField.setText("");
             return kirjoittaja;
         } else {
-            ErrorField.setText("Choose dates correctly!");
+            ErrorField.setText("Choose the dates correctly!");
+            
             return null;
         }
     }
