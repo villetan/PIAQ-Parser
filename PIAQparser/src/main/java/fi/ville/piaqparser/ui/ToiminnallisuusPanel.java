@@ -377,7 +377,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
             hypytTaytetty = mittausAnalysoijaPalvelu.poistaMittauksistaSarakkeita(getNotSelectedValuesButtons(), hypytTaytetty);
             String valittu = getSelectedRadioButton();
             ArrayList<Mittaus> lopulliset = mittausAnalysoijaPalvelu.laskeKeskiarvoLista(valittu, hypytTaytetty);
-            String tiedostonNimi = (valitutMittaukset.get(0).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(0).palautaAikaleimaKellonaika() + "-" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaPVM() + "_" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaKellonaika() + ".xml").replace("/", ",");
+            String tiedostonNimi = (valitutMittaukset.get(0).palautaAikaleimaPVM() + "T" + valitutMittaukset.get(0).palautaAikaleimaKellonaika() + "_" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaPVM() + "T" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaKellonaika() + ".xml");
             String saveToFilePath = "src/main/resources/" + tiedostonNimi;
             kirjoittaja.setSaveToFilePath(saveToFilePath);
             kirjoittaja.kirjoitaTiedosto(lopulliset);

@@ -91,7 +91,7 @@ public class Mittaus implements Comparable<Mittaus> {
      * @return string-muotoisen päivämäärän, muodossa dd/mm/YYYY
      */
     public String palautaAikaleimaPVM() {
-        String pvm = aikaleima.getDate() + "/" + (aikaleima.getMonth() + 1) + "/" + (aikaleima.getYear() + 1900);
+        String pvm = aikaleima.getDate() + "-" + (aikaleima.getMonth() + 1) + "-" + (aikaleima.getYear() + 1900);
         return pvm;
     }
 
@@ -101,13 +101,13 @@ public class Mittaus implements Comparable<Mittaus> {
      * @return string muotoinen kellonaika, muodossa hh:mm:ss
      */
     public String palautaAikaleimaKellonaika() {
-        String kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+        String kellonaika = aikaleima.getHours() + "-" + aikaleima.getMinutes() + "-" + aikaleima.getSeconds();
         if (aikaleima.getSeconds() < 10) {
-            kellonaika = aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + "0" + aikaleima.getSeconds();
+            kellonaika = aikaleima.getHours() + "-" + aikaleima.getMinutes() + "-" + "0" + aikaleima.getSeconds();
             if (aikaleima.getMinutes() < 10) {
-                kellonaika = aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + "0" + aikaleima.getSeconds();
+                kellonaika = aikaleima.getHours() + "-" + "0" + aikaleima.getMinutes() + "-" + "0" + aikaleima.getSeconds();
                 if (aikaleima.getHours() < 10) {
-                    kellonaika = "0" + aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + "0" + aikaleima.getSeconds();
+                    kellonaika = "0" + aikaleima.getHours() + "-" + "0" + aikaleima.getMinutes() + "-" + "0" + aikaleima.getSeconds();
                     return kellonaika;
                 }
                 return kellonaika;
@@ -115,15 +115,15 @@ public class Mittaus implements Comparable<Mittaus> {
             return kellonaika;
         }
         if (aikaleima.getMinutes() < 10) {
-            kellonaika = aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+            kellonaika = aikaleima.getHours() + "-" + "0" + aikaleima.getMinutes() + "-" + aikaleima.getSeconds();
             if (aikaleima.getHours() < 10) {
-                kellonaika = "0" + aikaleima.getHours() + ":" + "0" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+                kellonaika = "0" + aikaleima.getHours() + "-" + "0" + aikaleima.getMinutes() + "-" + aikaleima.getSeconds();
                 return kellonaika;
             }
             return kellonaika;
         }
         if (aikaleima.getHours() < 10) {
-            kellonaika = "0" + aikaleima.getHours() + ":" + aikaleima.getMinutes() + ":" + aikaleima.getSeconds();
+            kellonaika = "0" + aikaleima.getHours() + "-" + aikaleima.getMinutes() + "-" + aikaleima.getSeconds();
             return kellonaika;
         }
 

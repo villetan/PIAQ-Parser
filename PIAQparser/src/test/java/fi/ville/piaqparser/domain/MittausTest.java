@@ -95,51 +95,51 @@ public class MittausTest {
     @Test
     public void testPalautaAikaLeima() {
         mittaus.setAikaleima(new Date(2016 - 1900, 0, 1, 00, 0, 0));
-        assertEquals("1/1/2016", mittaus.palautaAikaleimaPVM());
-        assertEquals("00:00:00", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("1-1-2016", mittaus.palautaAikaleimaPVM());
+        assertEquals("00-00-00", mittaus.palautaAikaleimaKellonaika());
     }
 
     @Test
     public void testPalautaAikaLeima2() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 05, 00, 02));
-        assertEquals("23/4/2016", mittaus.palautaAikaleimaPVM());
-        assertEquals("05:00:02", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("23-4-2016", mittaus.palautaAikaleimaPVM());
+        assertEquals("05-00-02", mittaus.palautaAikaleimaKellonaika());
     }
 
     @Test
     public void testPalautaAikaLeima3() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 23, 23, 00));
-        assertEquals("23:23:00", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("23-23-00", mittaus.palautaAikaleimaKellonaika());
     }
 
     @Test
     public void testPalautaAikaLeima4() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 23, 05, 02));
-        assertEquals("23:05:02", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("23-05-02", mittaus.palautaAikaleimaKellonaika());
     }
 
     @Test
     public void testPalautaAikaLeima5() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 07, 00, 9));
-        assertEquals("07:00:09", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("07-00-09", mittaus.palautaAikaleimaKellonaika());
     }
     
     @Test
     public void testPalautaAikaLeima6() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 07, 00, 22));
-        assertEquals("07:00:22", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("07-00-22", mittaus.palautaAikaleimaKellonaika());
     }
     
     @Test
     public void testPalautaAikaLeima7() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 9, 22, 22));
-        assertEquals("09:22:22", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("09-22-22", mittaus.palautaAikaleimaKellonaika());
     }
     
     @Test
     public void testPalautaAikaLeima8() {
         mittaus.setAikaleima(new Date(2016 - 1900, 3, 23, 17, 22, 22));
-        assertEquals("17:22:22", mittaus.palautaAikaleimaKellonaika());
+        assertEquals("17-22-22", mittaus.palautaAikaleimaKellonaika());
     }
     
     @Test

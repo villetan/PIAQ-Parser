@@ -258,8 +258,8 @@ public class TiedostonValitsijaFrame extends javax.swing.JFrame {
     }
 
     private void asetaAikaIkkunoidenArvot(ToiminnallisuusPanel uusiUI) {
-        uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString());
-        uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString() + " " + mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString());
+        uusiUI.setDateFrom(mittausAnalysoijaPalvelu.mittaustenEnsimmainenDateString().replace("-", "/") + " " + mittausAnalysoijaPalvelu.mittaustenEnsimmainenKelloString().replace("-", ":"));
+        uusiUI.setDateTo(mittausAnalysoijaPalvelu.mittaustenViimeinenDateString().replace("-", "/") + " " + mittausAnalysoijaPalvelu.mittaustenViimeinenKelloString().replace("-", ":"));
 
         uusiUI.setUseDataFromFromDate(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima());
         uusiUI.setUseDataFromFromSeconds(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima().getSeconds());
