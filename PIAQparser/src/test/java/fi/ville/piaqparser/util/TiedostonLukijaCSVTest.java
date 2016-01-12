@@ -54,46 +54,46 @@ public class TiedostonLukijaCSVTest {
      * Test of lueMittausListaksi method, of class TiedostonLukijaCSV.
      */
     //Ei lue ensimmäistä saraketta!
-    @Test
-    public void testOtsikkoSizeOikein() {
-        HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
-        assertEquals(6, map.size());
-    }
+//    @Test
+//    public void testOtsikkoSizeOikein() {
+//        HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
+//        assertEquals(6, map.size());
+//    }
 
     //indeksöinti 1 eteenpäin:
-    @Test
-    public void testOtsikonIndeksitOikein() {
-        HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
-        assertEquals(1, map.get("sootA"), 0.00001);
-        assertEquals(2, map.get("sootM"), 0.00001);
-        assertEquals(3, map.get("sootN"), 0.00001);
-        assertEquals(4, map.get("Temp"), 0.00001);
-        assertEquals(5, map.get("Hum"), 0.00001);
-        assertEquals(6, map.get("CO2"), 0.00001);
-    }
-
-    @Test
-    public void testMittauksetSizeOikein() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
-        assertEquals(5, mittaukset.size());
-    }
-
-    @Test
-    public void testVikanCo2() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
-        assertEquals(248, mittaukset.get(mittaukset.size() - 1).getMittauksenArvo("co2"), 0.00000000001);
-    }
-
-    @Test
-    public void testEkanSootA() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
-        assertEquals(13, mittaukset.get(0).getMittauksenArvo("sootA"), 0.000000000001);
-    }
-
-    @Test
-    public void test10sSootM() {
-        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
-        assertEquals(288, mittaukset.get(9).getMittauksenArvo("sootM"),0.00000000000001);  
-    }
+//    @Test
+//    public void testOtsikonIndeksitOikein() {
+//        HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
+//        assertEquals(1, map.get("sootA"), 0.00001);
+//        assertEquals(2, map.get("sootM"), 0.00001);
+//        assertEquals(3, map.get("sootN"), 0.00001);
+//        assertEquals(4, map.get("Temp"), 0.00001);
+//        assertEquals(5, map.get("Hum"), 0.00001);
+//        assertEquals(6, map.get("CO2"), 0.00001);
+//    }
+//
+//    @Test
+//    public void testMittauksetSizeOikein() {
+//        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
+//        assertEquals(5, mittaukset.size());
+//    }
+//
+//    @Test
+//    public void testVikanCo2() {
+//        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
+//        assertEquals(248, mittaukset.get(mittaukset.size() - 1).getMittauksenArvo("co2"), 0.00000000001);
+//    }
+//
+//    @Test
+//    public void testEkanSootA() {
+//        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
+//        assertEquals(13, mittaukset.get(0).getMittauksenArvo("sootA"), 0.000000000001);
+//    }
+//
+//    @Test
+//    public void test10sSootM() {
+//        ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
+//        assertEquals(288, mittaukset.get(9).getMittauksenArvo("sootM"),0.00000000000001);  
+//    }
     
 }
