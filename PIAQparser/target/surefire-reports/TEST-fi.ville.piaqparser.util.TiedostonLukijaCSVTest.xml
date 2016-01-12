@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" time="0.223" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" time="0.186" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/home/ville/jdk1.8.0_60/jre/lib/amd64"/>
@@ -60,10 +60,10 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testOtsikkoSizeOikein" time="0"/>
+  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testOtsikkoSizeOikein" time="0.006"/>
   <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testOtsikonIndeksitOikein" time="0"/>
-  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testMittauksetSizeOikein" time="0.054"/>
-  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testVikanCo2" time="0.03"/>
-  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testEkanSootA" time="0.098"/>
-  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="test10sSootM" time="0.038"/>
+  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testMittauksetSizeOikein" time="0.061"/>
+  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testVikanCo2" time="0.054"/>
+  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="testEkanSootA" time="0.043"/>
+  <testcase classname="fi.ville.piaqparser.util.TiedostonLukijaCSVTest" name="test10sSootM" time="0.022"/>
 </testsuite>

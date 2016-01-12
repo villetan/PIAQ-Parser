@@ -2,6 +2,7 @@
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/TiedostonSuurinHyppyIkkuna.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/ToiminnallisuusIkkunaRajapinta.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/services/TiedostonLukijaPalvelu.java
+/home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/util/TiedostonKirjoittajaCSV.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/services/MittausAnalysoijaPalvelu.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/Main.java
 /home/ville/PIAQ-Parser/PIAQparser/src/main/java/fi/ville/piaqparser/ui/TiedostonValitsijaFrame.java

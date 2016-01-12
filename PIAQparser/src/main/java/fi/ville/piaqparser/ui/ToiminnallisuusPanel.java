@@ -8,6 +8,7 @@ package fi.ville.piaqparser.ui;
 import fi.ville.piaqparser.domain.Mittaus;
 import fi.ville.piaqparser.services.MittausAnalysoijaPalvelu;
 import fi.ville.piaqparser.util.AikaKaantaja;
+import fi.ville.piaqparser.util.TiedostonKirjoittajaCSV;
 import fi.ville.piaqparser.util.TiedostonKirjoittajaXML;
 import java.awt.Component;
 import java.io.File;
@@ -53,7 +54,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         dataForEveryButtonGroup = new javax.swing.ButtonGroup();
         CommandsWindow = new javax.swing.JPanel();
         Commands = new javax.swing.JLabel();
-        makeNewXML = new javax.swing.JButton();
+        makeNewCSV = new javax.swing.JButton();
         TimeWindow = new javax.swing.JPanel();
         TimeLabel = new javax.swing.JLabel();
         thisSheetHasDataFrom = new javax.swing.JLabel();
@@ -89,10 +90,10 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         Commands.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Commands.setText("Commands");
 
-        makeNewXML.setText("Make a new Excel(XML)");
-        makeNewXML.addActionListener(new java.awt.event.ActionListener() {
+        makeNewCSV.setText("Make a new Excel(XML)");
+        makeNewCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                makeNewXMLActionPerformed(evt);
+                makeNewCSVActionPerformed(evt);
             }
         });
 
@@ -102,7 +103,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
             CommandsWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CommandsWindowLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(makeNewXML)
+                .addComponent(makeNewCSV)
                 .addContainerGap(411, Short.MAX_VALUE))
             .addComponent(Commands, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -112,7 +113,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
                 .addContainerGap()
                 .addComponent(Commands, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(makeNewXML)
+                .addComponent(makeNewCSV)
                 .addGap(23, 23, 23))
         );
 
@@ -357,17 +358,18 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     private MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu;
     private ArrayList<Mittaus> luetutMittaukset;
     private File file;
-    private void makeNewXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeNewXMLActionPerformed
-        TiedostonKirjoittajaXML kirjoittaja = kirjoitaTiedosto();
+    private void makeNewCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeNewCSVActionPerformed
+        TiedostonKirjoittajaCSV kirjoittaja = kirjoitaTiedosto();
         if (kirjoittaja != null) {
             UusiXmlLuotu xmlCreatedWindow = new UusiXmlLuotu();
             xmlCreatedWindow.setFilePathName(kirjoittaja.getSaveToFilePath());
             xmlCreatedWindow.setVisible(true);
         }
-    }//GEN-LAST:event_makeNewXMLActionPerformed
+    }//GEN-LAST:event_makeNewCSVActionPerformed
 
-    private TiedostonKirjoittajaXML kirjoitaTiedosto() {
-        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
+    private TiedostonKirjoittajaCSV kirjoitaTiedosto() {
+//        TiedostonKirjoittajaXML kirjoittaja = new TiedostonKirjoittajaXML();
+        TiedostonKirjoittajaCSV kirjoittajaCSV=new TiedostonKirjoittajaCSV();
         MittausAnalysoijaPalvelu mittausAnalysoijaPalvelu = new MittausAnalysoijaPalvelu(file.getPath());
         ArrayList<Mittaus> valitutMittaukset = mittausAnalysoijaPalvelu.valitseMittauksetAikavalilta(getUseDataFromFromDate(), getUseDataFromToDate());
         if (!getUseDataFromFromDate().before(mittausAnalysoijaPalvelu.mittaustenEnsimmainen().getAikaleima())
@@ -379,10 +381,11 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
             ArrayList<Mittaus> lopulliset = mittausAnalysoijaPalvelu.laskeKeskiarvoLista(valittu, hypytTaytetty);
             String tiedostonNimi = (valitutMittaukset.get(0).palautaAikaleimaPVM() + "T" + valitutMittaukset.get(0).palautaAikaleimaKellonaika() + "_" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaPVM() + "T" + valitutMittaukset.get(valitutMittaukset.size() - 1).palautaAikaleimaKellonaika() + ".xml");
             String saveToFilePath = "src/main/resources/" + tiedostonNimi;
-            kirjoittaja.setSaveToFilePath(saveToFilePath);
-            kirjoittaja.kirjoitaTiedosto(lopulliset);
+//            kirjoittaja.setSaveToFilePath(saveToFilePath);
+//            kirjoittaja.kirjoitaTiedosto(lopulliset);
+            kirjoittajaCSV.kirjoitaTiedosto(lopulliset);
             ErrorField.setText("");
-            return kirjoittaja;
+            return kirjoittajaCSV;
         } else {
             ErrorField.setText("Choose the dates correctly!");
             
@@ -407,7 +410,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JButton makeNewXML;
+    private javax.swing.JButton makeNewCSV;
     private javax.swing.JRadioButton radioButton15minutes;
     private javax.swing.JRadioButton radioButton15seconds;
     private javax.swing.JRadioButton radioButton1hour;

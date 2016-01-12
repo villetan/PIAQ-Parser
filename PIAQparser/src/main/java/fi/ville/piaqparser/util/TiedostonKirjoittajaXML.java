@@ -54,7 +54,7 @@ public class TiedostonKirjoittajaXML {
         try {
             DocumentBuilder tiedostonRakentaja = factory.newDocumentBuilder();
             Document dokumentti = tiedostonRakentaja.newDocument();
-            dokumentti.setXmlVersion("1.1");
+            dokumentti.setXmlVersion("1.0");
             Element workbook = createWorkbookNode(dokumentti);
             createExcelSettings(dokumentti, workbook, mittaukset);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -178,8 +178,8 @@ public class TiedostonKirjoittajaXML {
         for (Mittaus mittaus : mittaukset) {
 
             kirjoitaYksiRivi(dokumentti, table, mittaus);
-
         }
+        
     }
 
     private void kirjoitaYksiRivi(Document dokumentti, Element table, Mittaus mittaus) throws DOMException {

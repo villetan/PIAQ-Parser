@@ -17,6 +17,7 @@ fi/ville/piaqparser/ui/TiedostonSuurinHyppyIkkuna$2.class
 fi/ville/piaqparser/ui/TiedostonValitsijaFrame$2.class
 fi/ville/piaqparser/ui/UusiXmlLuotu$1.class
 fi/ville/piaqparser/ui/UusiXmlLuotu.class
+fi/ville/piaqparser/util/TiedostonKirjoittajaCSV.class
 fi/ville/piaqparser/services/MittausAnalysoijaPalvelu.class
 fi/ville/piaqparser/util/TiedostonLukijaCSV.class
 fi/ville/piaqparser/ui/TiedostonValitsijaFrame$1.class

@@ -56,7 +56,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  <Component id="makeNewXML" min="-2" max="-2" attributes="0"/>
+                  <Component id="makeNewCSV" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="411" max="32767" attributes="0"/>
               </Group>
               <Component id="Commands" alignment="1" max="32767" attributes="0"/>
@@ -68,7 +68,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="Commands" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
-                  <Component id="makeNewXML" min="-2" max="-2" attributes="0"/>
+                  <Component id="makeNewCSV" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -84,12 +84,12 @@
             <Property name="text" type="java.lang.String" value="Commands"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="makeNewXML">
+        <Component class="javax.swing.JButton" name="makeNewCSV">
           <Properties>
             <Property name="text" type="java.lang.String" value="Make a new Excel(XML)"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="makeNewXMLActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="makeNewCSVActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
