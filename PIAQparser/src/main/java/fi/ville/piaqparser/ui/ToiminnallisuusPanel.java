@@ -90,7 +90,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
         Commands.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Commands.setText("Commands");
 
-        makeNewCSV.setText("Make a new Excel(XML)");
+        makeNewCSV.setText("Make a new Excel(CSV)");
         makeNewCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 makeNewCSVActionPerformed(evt);
@@ -104,7 +104,7 @@ public class ToiminnallisuusPanel extends javax.swing.JPanel implements Toiminna
             .addGroup(CommandsWindowLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(makeNewCSV)
-                .addContainerGap(411, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
             .addComponent(Commands, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         CommandsWindowLayout.setVerticalGroup(
