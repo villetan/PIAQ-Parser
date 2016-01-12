@@ -27,6 +27,9 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
+        TiedostonLukijaPalvelu lukija = new TiedostonLukijaPalvelu();
+        ArrayList<Mittaus> mittaukset = lukija.lueMittauksetListaksi("/home/ville/Asiakirjat/PegasorHarjoitus/data 4.1.2016/Piaq_export0.csv");
+        System.out.println("aaa "+mittaukset.size());
         
         
         TiedostonValitsijaFrame ui = new TiedostonValitsijaFrame();

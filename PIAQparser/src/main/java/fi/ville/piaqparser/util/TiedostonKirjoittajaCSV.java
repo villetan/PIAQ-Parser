@@ -49,6 +49,7 @@ private String saveToFilePath;
                    writer.append(m.getMittauksenArvo(key)+"");
                    writer.append(",");
                 }
+                
                 writer.append("\n");
             }
             writer.flush();

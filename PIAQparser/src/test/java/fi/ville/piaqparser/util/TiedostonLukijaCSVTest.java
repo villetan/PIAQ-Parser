@@ -41,7 +41,7 @@ public class TiedostonLukijaCSVTest {
     
     @Before
     public void setUp() throws FileNotFoundException {
-        tiedostopolku = "src/main/resources/CSVtesti.csv";
+        tiedostopolku = "src/main/resources/CSVlukijatesti.csv";
         br = new BufferedReader(new FileReader(tiedostopolku));
         tiedostonLukija = new TiedostonLukijaCSV();
     }
@@ -57,22 +57,25 @@ public class TiedostonLukijaCSVTest {
     @Test
     public void testOtsikkoSizeOikein() {
         HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
-        assertEquals(4, map.size());
+        assertEquals(6, map.size());
     }
 
     //indeksöinti 1 eteenpäin:
     @Test
     public void testOtsikonIndeksitOikein() {
         HashMap<String, Integer> map = tiedostonLukija.lueHeaderMapiksi(tiedostopolku, br);
-        assertEquals(1, map.get("co2"), 0.00001);
-        assertEquals(2, map.get("no2"), 0.00001);
-        assertEquals(4, map.get("sootM"), 0.00001);
+        assertEquals(1, map.get("sootA"), 0.00001);
+        assertEquals(2, map.get("sootM"), 0.00001);
+        assertEquals(3, map.get("sootN"), 0.00001);
+        assertEquals(4, map.get("Temp"), 0.00001);
+        assertEquals(5, map.get("Hum"), 0.00001);
+        assertEquals(6, map.get("CO2"), 0.00001);
     }
 
     @Test
     public void testMittauksetSizeOikein() {
         ArrayList<Mittaus> mittaukset = tiedostonLukija.lueMittauksetListaksi(tiedostopolku, br);
-        assertEquals(15053, mittaukset.size());
+        assertEquals(5, mittaukset.size());
     }
 
     @Test

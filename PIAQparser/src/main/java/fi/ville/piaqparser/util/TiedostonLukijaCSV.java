@@ -55,9 +55,10 @@ public class TiedostonLukijaCSV {
                 //DateFormat format = new SimpleDateFormat("DD/MM/YYYY, hh:mm:ss", Locale.ENGLISH);
 
                 Mittaus mittaus = new Mittaus();
-                if (rivi[0].contains("-")) {
+                if (!rivi[0].contains(",")) {
                     String luettuAika = rivi[0];
-                    System.out.println("Luettu aika: " + luettuAika);
+                    luettuAika=luettuAika.replace(":", "-");
+                    
                     String[] splitattu = luettuAika.split("T");
                     String dateOsio = splitattu[0];
                     String timeOsio = splitattu[1];
@@ -65,7 +66,7 @@ public class TiedostonLukijaCSV {
                     int vuosi = Integer.parseInt(dateSplitattu[0]);
                     int kk = Integer.parseInt(dateSplitattu[1]);
                     int paiva = Integer.parseInt(dateSplitattu[2]);
-                    String[] timeSplitattu = timeOsio.split(":");
+                    String[] timeSplitattu = timeOsio.split("-");
                     int tunti = Integer.parseInt(timeSplitattu[0]);
                     int minuutti = Integer.parseInt(timeSplitattu[1]);
                     String sek = timeSplitattu[2].replace(".000", "");
@@ -75,9 +76,22 @@ public class TiedostonLukijaCSV {
                     mittaus.setAikaleima(date);
                 } else {
                     rivi = line.split(",");
-                    Long aikaMittaus = Long.valueOf(rivi[0]).longValue();
-                    long kaannetty = aikaKaantaja.kaannaPegasorinAjastaJavaan(aikaMittaus);
-                    mittaus.setAikaleima(new Date(kaannetty));
+                    String luettuAika = rivi[0];
+                    luettuAika=luettuAika.replace(":", "-");
+                    String[] splitattu = luettuAika.split("T");
+                    String dateOsio = splitattu[0];
+                    String timeOsio = splitattu[1];
+                    String[] dateSplitattu = dateOsio.split("-");
+                    int vuosi = Integer.parseInt(dateSplitattu[2]);
+                    int kk = Integer.parseInt(dateSplitattu[1]);
+                    int paiva = Integer.parseInt(dateSplitattu[0]);
+                    String[] timeSplitattu = timeOsio.split("-");
+                    int tunti = Integer.parseInt(timeSplitattu[0]);
+                    int minuutti = Integer.parseInt(timeSplitattu[1]);
+                    String sek = timeSplitattu[2].replace(".000", "");
+                    int sekunti = Integer.parseInt(sek);
+                    Date date = new Date(vuosi - 1900, kk - 1, paiva, tunti, minuutti, sekunti);
+                    mittaus.setAikaleima(date);
                 }
                 for (String mittauksenAvain : indexesMap.keySet()) {
                     //TODO sarake tyhjä=> index out of bound, keksi siis tapa korvata tyhjät kentät 0:lla
@@ -111,7 +125,10 @@ public class TiedostonLukijaCSV {
             String riwi = "";
 
             while ((riwi = br.readLine()) != null) {
-                if (riwi.contains("time")) {
+                if(riwi.contains("#")){
+                    continue;
+                }
+                if (riwi.contains("\t")) {
                     String[] mittaus = riwi.split(splitBy);
                     for (int i = 1; i < mittaus.length; i++) {
                         mittaustenIndeksit.put(mittaus[i], i);
@@ -119,7 +136,7 @@ public class TiedostonLukijaCSV {
                     }
                     return mittaustenIndeksit;
                 }
-                if (riwi.contains("Date")) {
+                if (riwi.contains(",")) {
                     String[] mittaus = riwi.split(",");
                     for (int i = 1; i < mittaus.length; i++) {
                         mittaustenIndeksit.put(mittaus[i], i);
