@@ -25,5 +25,6 @@
 | 8.1.2016   | 2      | käsitestaus  |
 | 9.1.2016   | 5      | bug fix      |
 | 10.1.2016  | 5      | viimeistelyä |
+| tästä edes | sat.   | tunteja      |
 
 
